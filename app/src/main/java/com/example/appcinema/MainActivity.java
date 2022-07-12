@@ -17,6 +17,7 @@ import com.example.appcinema.activities.FirstActivity;
 import com.example.appcinema.activities.RegisterActivity;
 
 import com.example.appcinema.utilities.Constants;
+import com.example.appcinema.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     MaterialButton btnSignIn;
     ProgressBar progressBar;
     TextView tvNew;
+    private PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
         btnSignIn = findViewById(R.id.buttonSignIn);
         progressBar = findViewById(R.id.progressBar);
         tvNew = findViewById(R.id.textCreateNewAccount);
+        preferenceManager = new PreferenceManager(getApplicationContext());
+        if (preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)){
+            Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         setListeners();
     }
@@ -77,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
                     if (task.isSuccessful() && task.getResult() != null
                             && task.getResult().getDocuments().size() > 0){
                         DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+                        preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN,true);
+                        preferenceManager.putString(Constants.KEY_USER_ID, documentSnapshot.getId());
+                        preferenceManager.putString(Constants.KEY_NAME,documentSnapshot.getString(Constants.KEY_NAME));
+                        preferenceManager.putString(Constants.KEY_IMAGE,documentSnapshot.getString(Constants.KEY_IMAGE));
                         Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

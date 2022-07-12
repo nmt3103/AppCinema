@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.appcinema.R;
 import com.example.appcinema.utilities.Constants;
+import com.example.appcinema.utilities.PreferenceManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -39,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
     ProgressBar progressBar;
 
     private String encodedImage;
+    private PreferenceManager preferenceManager;
 
 
 
@@ -57,6 +59,8 @@ public class RegisterActivity extends AppCompatActivity {
         btnSignUp = findViewById(R.id.buttonSignUp);
         progressBar = findViewById(R.id.progressBar);
 
+
+        preferenceManager = new PreferenceManager(getApplicationContext());
         setListeners();
 
     }
@@ -90,6 +94,10 @@ public class RegisterActivity extends AppCompatActivity {
                 .add(user)
                 .addOnSuccessListener(documentReference -> {
                    loading(false);
+                   preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN,true);
+                   preferenceManager.putString(Constants.KEY_USER_ID,documentReference.getId());
+                   preferenceManager.putString(Constants.KEY_NAME,edName.getText().toString());
+                   preferenceManager.putString(Constants.KEY_IMAGE,encodedImage);
                    Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                    startActivity(intent);
