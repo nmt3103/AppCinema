@@ -13,9 +13,19 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.appcinema.activities.FirstActivity;
 import com.example.appcinema.activities.RegisterActivity;
 
+import com.example.appcinema.utilities.Constants;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -33,10 +43,6 @@ public class MainActivity extends AppCompatActivity {
         btnSignIn = findViewById(R.id.buttonSignIn);
         progressBar = findViewById(R.id.progressBar);
         tvNew = findViewById(R.id.textCreateNewAccount);
-
-
-
-
 
         setListeners();
     }
@@ -61,6 +67,26 @@ public class MainActivity extends AppCompatActivity {
 
     private void signIn() {
         loading(true);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection(Constants.KEY_COLLECTION_USERS)
+                .whereEqualTo(Constants.KEY_EMAIL,edEmail.getText().toString())
+                .whereEqualTo(Constants.KEY_PASSWORD,edPassword.getText().toString())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null
+                            && task.getResult().getDocuments().size() > 0){
+                        DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+                        Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    } else{
+                        loading(false);
+                        showToast("Unable to sign in");
+                    }
+                });
+
+
 
     }
 
