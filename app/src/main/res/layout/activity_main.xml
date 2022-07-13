@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="SignInVM"
+            type="com.example.appcinema.viewmodel.SignInVM" />
+    </data>
+
+    <ScrollView
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#0B0F2F"
@@ -44,6 +54,7 @@
                 android:layout_height="45dp"
                 android:layout_marginTop="40dp"
                 android:hint="Email"
+                android:text="@={SignInVM.email}"
                 android:textColorHint="@color/white"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
@@ -60,6 +71,7 @@
                 android:layout_height="45dp"
                 android:layout_marginTop="16dp"
                 android:hint="Password"
+                android:text="@={SignInVM.password}"
                 android:textColorHint="@color/white"
                 android:imeOptions="actionDone"
                 android:importantForAutofill="no"
@@ -81,7 +93,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:text="Sign in"
+                    android:onClick="@{() -> SignInVM.onClickButtonLogin()}"
                     android:textColor="@color/white"
+                    android:visibility="@{SignInVM.loading ? View.VISIBLE : View.INVISIBLE}"
                     android:textSize="13dp"
                     android:textStyle="bold"
 
@@ -92,7 +106,8 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
-                    android:visibility="invisible"/>
+                    android:visibility="@{SignInVM.loading ? View.INVISIBLE : View.VISIBLE}"
+                    />
 
 
             </FrameLayout>
@@ -104,6 +119,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:onClick="@{() -> SignInVM.onClickTextRegister()}"
                 android:text="Create new account"
                 android:textColor="@color/white"
                 android:textSize="13dp"
@@ -112,5 +128,10 @@
         </LinearLayout>
 
     </ScrollView>
+
+</layout>
+
+
+
 
 
