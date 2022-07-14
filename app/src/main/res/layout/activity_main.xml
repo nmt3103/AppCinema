@@ -4,13 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="SignInVM"
-            type="com.example.appcinema.viewmodel.SignInVM" />
-    </data>
-
     <ScrollView
 
         android:layout_width="match_parent"
@@ -54,7 +47,6 @@
                 android:layout_height="45dp"
                 android:layout_marginTop="40dp"
                 android:hint="Email"
-                android:text="@={SignInVM.email}"
                 android:textColorHint="@color/white"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
@@ -71,7 +63,6 @@
                 android:layout_height="45dp"
                 android:layout_marginTop="16dp"
                 android:hint="Password"
-                android:text="@={SignInVM.password}"
                 android:textColorHint="@color/white"
                 android:imeOptions="actionDone"
                 android:importantForAutofill="no"
@@ -114,7 +105,6 @@
             </FrameLayout>
 
 
-<!--            android:onClick="@{(v) -> SignInVM.onClickTextRegister(v)}"-->
             <TextView
                 android:id="@+id/textCreateNewAccount"
                 android:layout_width="wrap_content"
