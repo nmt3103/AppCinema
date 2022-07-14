@@ -27,9 +27,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     dataBinding {
-
-        enabled = true
-
+        enabled true
     }
 }
 
@@ -47,4 +45,7 @@ dependencies {
 
 
     implementation "com.makeramen:roundedimageview:2.3.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:2.5.0"
+    implementation "androidx.lifecycle:lifecycle-livedata:2.5.0"
+
 }

@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
+
         <variable
             name="SignInVM"
             type="com.example.appcinema.viewmodel.SignInVM" />
@@ -88,14 +88,15 @@
                 android:layout_marginTop="20dp"
                 android:animateLayoutChanges="true">
 
+
+                <!--                    android:onClick="@{(v) -> SignInVM.onClickButtonLogin(v)}"-->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonSignIn"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:text="Sign in"
-                    android:onClick="@{() -> SignInVM.onClickButtonLogin()}"
+
                     android:textColor="@color/white"
-                    android:visibility="@{SignInVM.loading ? View.VISIBLE : View.INVISIBLE}"
                     android:textSize="13dp"
                     android:textStyle="bold"
 
@@ -106,20 +107,20 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
-                    android:visibility="@{SignInVM.loading ? View.INVISIBLE : View.VISIBLE}"
+                    android:visibility="invisible"
                     />
 
 
             </FrameLayout>
 
 
-
+<!--            android:onClick="@{(v) -> SignInVM.onClickTextRegister(v)}"-->
             <TextView
                 android:id="@+id/textCreateNewAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:onClick="@{() -> SignInVM.onClickTextRegister()}"
+
                 android:text="Create new account"
                 android:textColor="@color/white"
                 android:textSize="13dp"

@@ -3,6 +3,7 @@ package com.example.appcinema.activities;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.appcinema.R;
+import com.example.appcinema.databinding.ActivityRegisterBinding;
 import com.example.appcinema.utilities.Constants;
 import com.example.appcinema.utilities.PreferenceManager;
 import com.google.android.material.button.MaterialButton;
@@ -32,47 +34,31 @@ import java.io.InputStream;
 import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
-    FrameLayout frameLayout;
-    RoundedImageView imgProfile;
-    TextView tvAddImage,tvSignIn;
-    EditText edName,edEmail,edPassword,edConfirm;
-    MaterialButton btnSignUp;
-    ProgressBar progressBar;
 
     private String encodedImage;
     private PreferenceManager preferenceManager;
+    private ActivityRegisterBinding binding;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        frameLayout = findViewById(R.id.layoutImage);
-        imgProfile = findViewById(R.id.imageProfile);
-        tvAddImage = findViewById(R.id.textAddImage);
-        tvSignIn = findViewById(R.id.textSignIn);
-        edName = findViewById(R.id.inputName);
-        edEmail = findViewById(R.id.inputEmail);
-        edPassword = findViewById(R.id.inputPassword);
-        edConfirm = findViewById(R.id.inputConfirmPassword);
-        btnSignUp = findViewById(R.id.buttonSignUp);
-        progressBar = findViewById(R.id.progressBar);
 
-
+        binding = DataBindingUtil.setContentView(RegisterActivity.this,R.layout.activity_register);
         preferenceManager = new PreferenceManager(getApplicationContext());
         setListeners();
 
     }
 
     private void setListeners() {
-        tvSignIn.setOnClickListener(v -> onBackPressed());
-        btnSignUp.setOnClickListener(v -> {
+        binding.textSignIn.setOnClickListener(v -> onBackPressed());
+        binding.buttonSignUp.setOnClickListener(v -> {
             if (isValidSignUpDetails()){
                 signUp();
             }
         });
-        frameLayout.setOnClickListener(v -> {
+        binding.layoutImage.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             pickImage.launch(intent);
@@ -86,9 +72,9 @@ public class RegisterActivity extends AppCompatActivity {
         loading(true);
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         HashMap<String, Object> user = new HashMap<>();
-        user.put(Constants.KEY_NAME, edName.getText().toString());
-        user.put(Constants.KEY_EMAIL, edEmail.getText().toString());
-        user.put(Constants.KEY_PASSWORD, edPassword.getText().toString());
+        user.put(Constants.KEY_NAME, binding.inputName.getText().toString());
+        user.put(Constants.KEY_EMAIL, binding.inputEmail.getText().toString());
+        user.put(Constants.KEY_PASSWORD, binding.inputPassword.getText().toString());
         user.put(Constants.KEY_IMAGE,encodedImage);
         database.collection(Constants.KEY_COLLECTION_USERS)
                 .add(user)
@@ -96,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
                    loading(false);
                    preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN,true);
                    preferenceManager.putString(Constants.KEY_USER_ID,documentReference.getId());
-                   preferenceManager.putString(Constants.KEY_NAME,edName.getText().toString());
+                   preferenceManager.putString(Constants.KEY_NAME,binding.inputName.getText().toString());
                    preferenceManager.putString(Constants.KEY_IMAGE,encodedImage);
                    Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -127,8 +113,8 @@ public class RegisterActivity extends AppCompatActivity {
                         try {
                             InputStream inputStream = getContentResolver().openInputStream(imageUri);
                             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                            imgProfile.setImageBitmap(bitmap);
-                            tvAddImage.setVisibility(View.GONE);
+                            binding.imageProfile.setImageBitmap(bitmap);
+                            binding.textAddImage.setVisibility(View.GONE);
                             encodedImage = encodeImage(bitmap);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
@@ -142,22 +128,22 @@ public class RegisterActivity extends AppCompatActivity {
         if (encodedImage == null){
             showToast("Select profile image");
             return false;
-        } else if (edName.getText().toString().trim().isEmpty()){
+        } else if (binding.inputName.getText().toString().trim().isEmpty()){
             showToast("Enter Name");
             return false;
-        } else if (edEmail.getText().toString().trim().isEmpty()){
+        } else if (binding.inputEmail.getText().toString().trim().isEmpty()){
             showToast("Enter Email");
             return false;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(edEmail.getText().toString()).matches()){
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.getText().toString()).matches()){
             showToast("Enter valid Email");
             return false;
-        } else if (edPassword.getText().toString().trim().isEmpty()){
+        } else if (binding.inputPassword.getText().toString().trim().isEmpty()){
             showToast("Enter Password");
             return false;
-        } else if (edConfirm.getText().toString().trim().isEmpty()){
+        } else if (binding.inputConfirmPassword.getText().toString().trim().isEmpty()){
             showToast("Confirm your password");
             return false;
-        } else if (!edPassword.getText().toString().equals(edConfirm.getText().toString())){
+        } else if (!binding.inputPassword.getText().toString().equals(binding.inputConfirmPassword.getText().toString())){
             showToast("Password & confirm password must be the same ");
             return false;
         } else {
@@ -167,11 +153,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void loading(Boolean isLoading){
         if (isLoading){
-            btnSignUp.setVisibility(View.INVISIBLE);
-            progressBar.setVisibility(View.VISIBLE);
+            binding.buttonSignUp.setVisibility(View.INVISIBLE);
+            binding.progressBar.setVisibility(View.VISIBLE);
         } else {
-            btnSignUp.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.INVISIBLE);
+            binding.buttonSignUp.setVisibility(View.VISIBLE);
+            binding.progressBar.setVisibility(View.INVISIBLE);
         }
     }
 }

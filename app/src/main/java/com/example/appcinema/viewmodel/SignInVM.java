@@ -1,55 +1,39 @@
 package com.example.appcinema.viewmodel;
 
+
 import android.content.Intent;
-import android.util.Patterns;
-import android.widget.Toast;
+import android.view.View;
 
-import androidx.databinding.BaseObservable;
-import androidx.databinding.Bindable;
-import androidx.databinding.Observable;
-import androidx.databinding.ObservableField;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
-import com.example.appcinema.BR;
 import com.example.appcinema.activities.FirstActivity;
+import com.example.appcinema.model.User;
 import com.example.appcinema.utilities.Constants;
-import com.example.appcinema.utilities.PreferenceManager;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class SignInVM extends BaseObservable {
-    private String email;
-    private String password;
-    private PreferenceManager preferenceManager;
+public class SignInVM extends ViewModel {
+    public MutableLiveData<String> email = new MutableLiveData<>();
+    public MutableLiveData<String> password = new MutableLiveData<>();
 
-    public ObservableField<Boolean> loading = new ObservableField<>();
+    private MutableLiveData<User> userLogin;
 
-    @Bindable
-    public String getEmail() {
-        return email;
+    public MutableLiveData<User> getUserLogin() {
+        if (userLogin == null){
+            userLogin = new MutableLiveData<>();
+        }
+
+
+        return userLogin;
     }
-
-    public void setEmail(String email) {
-        this.email = email;
-        notifyPropertyChanged(BR.email);
-    }
-
-    @Bindable
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-        notifyPropertyChanged(BR.password);
-    }
-
-    public void onClickButtonLogin(){
-//        loading.set(true);
+    public void onClickButtonLogin(View view){
+        User user = new User();
 //        FirebaseFirestore db = FirebaseFirestore.getInstance();
 //
 //        db.collection(Constants.KEY_COLLECTION_USERS)
-//                .whereEqualTo(Constants.KEY_EMAIL,email)
-//                .whereEqualTo(Constants.KEY_PASSWORD,password)
+//                .whereEqualTo(Constants.KEY_EMAIL,edEmail.getText().toString())
+//                .whereEqualTo(Constants.KEY_PASSWORD,edPassword.getText().toString())
 //                .get()
 //                .addOnCompleteListener(task -> {
 //                    if (task.isSuccessful() && task.getResult() != null
@@ -63,32 +47,15 @@ public class SignInVM extends BaseObservable {
 //                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                        startActivity(intent);
 //                    } else{
-//                        loading.set(false);
+//                        loading(false);
 //                        showToast("Unable to sign in");
 //                    }
 //                });
 
+        userLogin.setValue(user);
     }
 
-//    private boolean isValidSignInDetails() {
-//        if (email.trim().isEmpty()){
-//            showToast("Enter email");
-//            return false;
-//        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-//            showToast("Enter valid email");
-//            return false;
-//        } else if (email.trim().isEmpty()){
-//            showToast("Enter password");
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
-//    private void showToast(String message){
-//        Toast.makeText(get, message, Toast.LENGTH_SHORT).show();
-//    }
-
-    public void onClickTextRegister(){
+    public void onClickTextRegister(View view){
 
     }
 }
