@@ -6,41 +6,28 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Patterns;
+
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.example.appcinema.activities.FirstActivity;
 import com.example.appcinema.activities.RegisterActivity;
 
 import com.example.appcinema.databinding.ActivityMainBinding;
-import com.example.appcinema.model.User;
 import com.example.appcinema.utilities.Constants;
 import com.example.appcinema.utilities.PreferenceManager;
 import com.example.appcinema.viewmodel.SignInVM;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.button.MaterialButton;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.Map;
+
 
 
 public class MainActivity extends AppCompatActivity {
     private SignInVM signInVM;
-    private PreferenceManager preferenceManager;
     private ActivityMainBinding binding;
 
     @Override
@@ -57,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         observerViewModel();
     }
     private void checkSharePreferrence(){
-        preferenceManager = new PreferenceManager(getApplicationContext());
+        PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
         if (preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)){
             Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
             startActivity(intent);

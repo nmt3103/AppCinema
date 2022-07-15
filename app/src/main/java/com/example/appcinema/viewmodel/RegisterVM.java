@@ -1,13 +1,13 @@
 package com.example.appcinema.viewmodel;
 
 import android.content.Context;
-import android.content.Intent;
+
 import android.util.Patterns;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.appcinema.activities.FirstActivity;
+
 import com.example.appcinema.model.User;
 import com.example.appcinema.utilities.Constants;
 import com.example.appcinema.utilities.PreferenceManager;
@@ -57,7 +57,7 @@ public class RegisterVM extends ViewModel {
                     isValid.postValue(false);
                     showErrorMessage.postValue(exception.getMessage());
                 });
-    };
+    }
 
     public void checkIsValid(String imgIn, String nameIn, String emailIn, String passIn, String passConfirm, Context context){
         if (imgIn == null){

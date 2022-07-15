@@ -2,9 +2,8 @@ package com.example.appcinema.viewmodel;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Patterns;
-import android.view.View;
+
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
