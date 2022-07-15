@@ -18,8 +18,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class SignInVM extends ViewModel {
     public MutableLiveData<String> email;
     public MutableLiveData<String> password;
-//    public MutableLiveData<Void> showLoading;
-//    public MutableLiveData<Void> hideLoading;
     public MutableLiveData<Boolean> isLoading;
     public MutableLiveData<String> showErrorMessage;
     public MutableLiveData<Boolean> isValid;
@@ -28,8 +26,6 @@ public class SignInVM extends ViewModel {
         email = new MutableLiveData<>();
         password = new MutableLiveData<>() ;
         isLoading = new MutableLiveData<>();
-//        showLoading = new MutableLiveData<>();
-//        hideLoading = new MutableLiveData<>();
         showErrorMessage = new MutableLiveData<>();
         isValid = new MutableLiveData<>();
     }
@@ -53,16 +49,13 @@ public class SignInVM extends ViewModel {
                         preferenceManager.putString(Constants.KEY_USER_ID, documentSnapshot.getId());
                         preferenceManager.putString(Constants.KEY_NAME,documentSnapshot.getString(Constants.KEY_NAME));
                         preferenceManager.putString(Constants.KEY_IMAGE,documentSnapshot.getString(Constants.KEY_IMAGE));
-//                        userSuccess.setImage(documentSnapshot.getString(Constants.KEY_IMAGE));
-//                        userSuccess.setEmail(emailFire);
-//                        userSuccess.setPassword(passFire);
-//                        userSuccess.setName(documentSnapshot.getString(Constants.KEY_NAME));
                         isValid.postValue(true);
                     } else {
+
                         isValid.postValue(false);
+                        isLoading.postValue(false);
                         showErrorMessage.setValue("Wrong email or password");
                     }
-                    isLoading.postValue(false);
                 });
     }
 
@@ -81,28 +74,12 @@ public class SignInVM extends ViewModel {
         } else{
             checkFireBase(emailIn,passIn,context);
         }
-    }
 
-//    private void setIsLoading(boolean loading){
-//        if (loading){
-//            showLoading.postValue(null);
-//        } else {
-//            hideLoading.postValue(null);
-//        }
-//    }
+    }
 
     public MutableLiveData<String> getShowErrorMessage() {
         return showErrorMessage;
     }
-
-//    public MutableLiveData<Void> getShowLoading() {
-//        return showLoading;
-//    }
-//
-//    public MutableLiveData<Void> getHideLoading() {
-//        return hideLoading;
-//    }
-
 
     public MutableLiveData<Boolean> getIsLoading() {
         return isLoading;

@@ -47,8 +47,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        signInVM = new ViewModelProvider(this).get(SignInVM.class);
         binding = DataBindingUtil.setContentView(MainActivity.this,R.layout.activity_main);
+        binding.setLifecycleOwner(this);
+        signInVM = new ViewModelProvider(this).get(SignInVM.class);
+
+
+        checkSharePreferrence();
+        setListeners();
+        observerViewModel();
+    }
+    private void checkSharePreferrence(){
         preferenceManager = new PreferenceManager(getApplicationContext());
         if (preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)){
             Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
@@ -56,10 +64,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
-        binding.setLifecycleOwner(this);
-        setListeners();
 
-        observerViewModel();
     }
 
     private void observerViewModel() {
@@ -69,22 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 showToast(s);
             }
         });
-//        signInVM.getShowLoading().observe(this, new Observer<Void>() {
-//            @Override
-//            public void onChanged(Void unused) {
-//                binding.progressBar.setVisibility(View.VISIBLE);
-//                binding.buttonSignIn.setVisibility(View.INVISIBLE);
-//            }
-//        });
-//
-//        signInVM.getHideLoading().observe(this, new Observer<Void>() {
-//            @Override
-//            public void onChanged(Void unused) {
-//                binding.progressBar.setVisibility(View.INVISIBLE);
-//                binding.buttonSignIn.setVisibility(View.VISIBLE);
-//            }
-//        });
-
         signInVM.getIsLoading().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
@@ -116,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 signInVM.getIsValid().observe(MainActivity.this, new Observer<Boolean>() {
                     @Override
                     public void onChanged(Boolean isValid) {
-                        if (isValid == true){
+                        if (isValid){
                             Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
@@ -130,60 +119,4 @@ public class MainActivity extends AppCompatActivity {
     private void showToast(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
-
-//    private void signIn() {
-//        loading(true);
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//
-//        db.collection(Constants.KEY_COLLECTION_USERS)
-//                .whereEqualTo(Constants.KEY_EMAIL,binding.inputEmail.getText().toString())
-//                .whereEqualTo(Constants.KEY_PASSWORD,binding.inputPassword.getText().toString())
-//                .get()
-//                .addOnCompleteListener(task -> {
-//                    if (task.isSuccessful() && task.getResult() != null
-//                            && task.getResult().getDocuments().size() > 0){
-//                        DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
-//                        preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN,true);
-//                        preferenceManager.putString(Constants.KEY_USER_ID, documentSnapshot.getId());
-//                        preferenceManager.putString(Constants.KEY_NAME,documentSnapshot.getString(Constants.KEY_NAME));
-//                        preferenceManager.putString(Constants.KEY_IMAGE,documentSnapshot.getString(Constants.KEY_IMAGE));
-//                        Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                        startActivity(intent);
-//                    } else{
-//                        loading(false);
-//                        showToast("Unable to sign in");
-//                    }
-//                });
-//
-//
-//
-//    }
-//
-//    private boolean isValidSignInDetails() {
-//        if (binding.inputEmail.getText().toString().trim().isEmpty()){
-//            showToast("Enter email");
-//            return false;
-//        } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.getText().toString()).matches()){
-//            showToast("Enter valid email");
-//            return false;
-//        } else if (binding.inputPassword.getText().toString().trim().isEmpty()){
-//            showToast("Enter password");
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
-//
-//    private void loading(Boolean isLoading){
-//        if (isLoading){
-//            binding.buttonSignIn.setVisibility(View.INVISIBLE);
-//            binding.progressBar.setVisibility(View.VISIBLE);
-//        } else {
-//            binding.buttonSignIn.setVisibility(View.VISIBLE);
-//            binding.progressBar.setVisibility(View.INVISIBLE);
-//        }
-//    }
-
-
 }

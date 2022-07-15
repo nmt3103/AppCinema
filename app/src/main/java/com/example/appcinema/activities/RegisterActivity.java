@@ -4,6 +4,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,6 +26,7 @@ import com.example.appcinema.R;
 import com.example.appcinema.databinding.ActivityRegisterBinding;
 import com.example.appcinema.utilities.Constants;
 import com.example.appcinema.utilities.PreferenceManager;
+import com.example.appcinema.viewmodel.RegisterVM;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -35,8 +38,8 @@ import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private RegisterVM registerVM;
     private String encodedImage;
-    private PreferenceManager preferenceManager;
     private ActivityRegisterBinding binding;
 
 
@@ -46,17 +49,52 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(RegisterActivity.this,R.layout.activity_register);
-        preferenceManager = new PreferenceManager(getApplicationContext());
-        setListeners();
+        binding.setLifecycleOwner(this);
+        registerVM = new ViewModelProvider(this).get(RegisterVM.class);
 
+
+        setListeners();
+        observerViewModel();
+
+    }
+
+    private void observerViewModel() {
+        registerVM.getShowErrorMessage().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                showToast(s);
+            }
+        });
+        registerVM.getIsLoading().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean){
+                    binding.progressBar.setVisibility(View.VISIBLE);
+                    binding.buttonSignUp.setVisibility(View.INVISIBLE);
+                } else {
+                    binding.progressBar.setVisibility(View.INVISIBLE);
+                    binding.buttonSignUp.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private void setListeners() {
         binding.textSignIn.setOnClickListener(v -> onBackPressed());
         binding.buttonSignUp.setOnClickListener(v -> {
-            if (isValidSignUpDetails()){
-                signUp();
-            }
+            registerVM.checkIsValid(encodedImage,binding.inputName.getText().toString(),binding.inputEmail.getText().toString(),
+                    binding.inputPassword.getText().toString(),binding.inputConfirmPassword.getText().toString(),getApplicationContext());
+
+            registerVM.getIsValid().observe(this, new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean isValid) {
+                    if (isValid){
+                        Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                }
+            });
         });
         binding.layoutImage.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -64,35 +102,36 @@ public class RegisterActivity extends AppCompatActivity {
             pickImage.launch(intent);
         });
     }
+
     private void showToast(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    private void signUp() {
-        loading(true);
-        FirebaseFirestore database = FirebaseFirestore.getInstance();
-        HashMap<String, Object> user = new HashMap<>();
-        user.put(Constants.KEY_NAME, binding.inputName.getText().toString());
-        user.put(Constants.KEY_EMAIL, binding.inputEmail.getText().toString());
-        user.put(Constants.KEY_PASSWORD, binding.inputPassword.getText().toString());
-        user.put(Constants.KEY_IMAGE,encodedImage);
-        database.collection(Constants.KEY_COLLECTION_USERS)
-                .add(user)
-                .addOnSuccessListener(documentReference -> {
-                   loading(false);
-                   preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN,true);
-                   preferenceManager.putString(Constants.KEY_USER_ID,documentReference.getId());
-                   preferenceManager.putString(Constants.KEY_NAME,binding.inputName.getText().toString());
-                   preferenceManager.putString(Constants.KEY_IMAGE,encodedImage);
-                   Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
-                   intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                   startActivity(intent);
-                })
-                .addOnFailureListener(exception -> {
-                   loading(false);
-                   showToast(exception.getMessage());
-                });
-    }
+//    private void signUp() {
+//        loading(true);
+//        FirebaseFirestore database = FirebaseFirestore.getInstance();
+//        HashMap<String, Object> user = new HashMap<>();
+//        user.put(Constants.KEY_NAME, binding.inputName.getText().toString());
+//        user.put(Constants.KEY_EMAIL, binding.inputEmail.getText().toString());
+//        user.put(Constants.KEY_PASSWORD, binding.inputPassword.getText().toString());
+//        user.put(Constants.KEY_IMAGE,encodedImage);
+//        database.collection(Constants.KEY_COLLECTION_USERS)
+//                .add(user)
+//                .addOnSuccessListener(documentReference -> {
+//                   loading(false);
+//                   preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN,true);
+//                   preferenceManager.putString(Constants.KEY_USER_ID,documentReference.getId());
+//                   preferenceManager.putString(Constants.KEY_NAME,binding.inputName.getText().toString());
+//                   preferenceManager.putString(Constants.KEY_IMAGE,encodedImage);
+//                   Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
+//                   intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                   startActivity(intent);
+//                })
+//                .addOnFailureListener(exception -> {
+//                   loading(false);
+//                   showToast(exception.getMessage());
+//                });
+//    }
 
     private String encodeImage(Bitmap bitmap){
         int previewWidth = 150;
@@ -124,40 +163,40 @@ public class RegisterActivity extends AppCompatActivity {
             }
     );
 
-    private boolean isValidSignUpDetails() {
-        if (encodedImage == null){
-            showToast("Select profile image");
-            return false;
-        } else if (binding.inputName.getText().toString().trim().isEmpty()){
-            showToast("Enter Name");
-            return false;
-        } else if (binding.inputEmail.getText().toString().trim().isEmpty()){
-            showToast("Enter Email");
-            return false;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.getText().toString()).matches()){
-            showToast("Enter valid Email");
-            return false;
-        } else if (binding.inputPassword.getText().toString().trim().isEmpty()){
-            showToast("Enter Password");
-            return false;
-        } else if (binding.inputConfirmPassword.getText().toString().trim().isEmpty()){
-            showToast("Confirm your password");
-            return false;
-        } else if (!binding.inputPassword.getText().toString().equals(binding.inputConfirmPassword.getText().toString())){
-            showToast("Password & confirm password must be the same ");
-            return false;
-        } else {
-            return true;
-        }
-    }
+//    private boolean isValidSignUpDetails() {
+//        if (encodedImage == null){
+//            showToast("Select profile image");
+//            return false;
+//        } else if (binding.inputName.getText().toString().trim().isEmpty()){
+//            showToast("Enter Name");
+//            return false;
+//        } else if (binding.inputEmail.getText().toString().trim().isEmpty()){
+//            showToast("Enter Email");
+//            return false;
+//        } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.getText().toString()).matches()){
+//            showToast("Enter valid Email");
+//            return false;
+//        } else if (binding.inputPassword.getText().toString().trim().isEmpty()){
+//            showToast("Enter Password");
+//            return false;
+//        } else if (binding.inputConfirmPassword.getText().toString().trim().isEmpty()){
+//            showToast("Confirm your password");
+//            return false;
+//        } else if (!binding.inputPassword.getText().toString().equals(binding.inputConfirmPassword.getText().toString())){
+//            showToast("Password & confirm password must be the same ");
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
 
-    private void loading(Boolean isLoading){
-        if (isLoading){
-            binding.buttonSignUp.setVisibility(View.INVISIBLE);
-            binding.progressBar.setVisibility(View.VISIBLE);
-        } else {
-            binding.buttonSignUp.setVisibility(View.VISIBLE);
-            binding.progressBar.setVisibility(View.INVISIBLE);
-        }
-    }
+//    private void loading(Boolean isLoading){
+//        if (isLoading){
+//            binding.buttonSignUp.setVisibility(View.INVISIBLE);
+//            binding.progressBar.setVisibility(View.VISIBLE);
+//        } else {
+//            binding.buttonSignUp.setVisibility(View.VISIBLE);
+//            binding.progressBar.setVisibility(View.INVISIBLE);
+//        }
+//    }
 }
