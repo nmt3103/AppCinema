@@ -5,10 +5,29 @@
       <map>
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable-v24/background_image.xml" value="0.2555" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable-v24/background_input.xml" value="0.2555" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable-v24/ic_baseline_dashboard_24.xml" value="0.2285" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable-v24/ic_baseline_face_24.xml" value="0.2285" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable-v24/ic_baseline_heart_broken_24.xml" value="0.2285" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable-v24/ic_baseline_home_24.xml" value="0.2285" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable-v24/ic_baseline_settings_24.xml" value="0.2285" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable-v24/ic_fire_solid.xml" value="0.2285" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2285" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2285" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_first.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_movie_detail.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_register.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_resgister.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_ticket_detail.xml" value="0.25" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/fragment_myticket.xml" value="0.25" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_category.xml" value="0.25" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_movie_coming.xml" value="0.25" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_movie_trend.xml" value="0.25" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_ticket.xml" value="0.25" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/movie_pager_item.xml" value="0.264" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/promo_item.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
       </map>
     </option>

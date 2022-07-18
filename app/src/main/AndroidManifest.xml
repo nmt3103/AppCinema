@@ -16,6 +16,12 @@
             android:name=".activities.RegisterActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.MovieDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.TicketDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

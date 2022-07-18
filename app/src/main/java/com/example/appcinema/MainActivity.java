@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        getSupportActionBar().hide();
 
         binding = DataBindingUtil.setContentView(MainActivity.this,R.layout.activity_main);
         binding.setLifecycleOwner(this);

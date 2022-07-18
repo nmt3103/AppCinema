@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:foregroundGravity="center"
+
+
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imgPager"
+        android:layout_width="290dp"
+        android:layout_height="180dp"
+
+
+        android:src="@drawable/movie_dragon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="20dp" />
+
+    <TextView
+        android:id="@+id/tvName_pager"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+
+
+        android:text="How to train your dragon"
+        android:textColor="@color/white"
+        android:textSize="13dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/rateBarPager"
+        app:layout_constraintHorizontal_bias="0.146"
+        app:layout_constraintLeft_toLeftOf="@id/imgPager"
+        app:layout_constraintRight_toRightOf="@id/imgPager"
+        app:layout_constraintTop_toTopOf="@id/imgPager"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/rateBarPager"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+
+        android:layout_marginTop="10dp"
+        android:progressTint="#FFAF34"
+        android:rating="2.0"
+        android:stepSize="0.1"
+        app:layout_constraintBottom_toBottomOf="@id/imgPager"
+        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintLeft_toLeftOf="@id/imgPager"
+        app:layout_constraintRight_toRightOf="@id/imgPager"
+        app:layout_constraintTop_toTopOf="@+id/imgPager"
+        app:layout_constraintVertical_bias="0.953" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
