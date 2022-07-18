@@ -32,7 +32,6 @@ import kotlin.jvm.functions.Function1;
 
 public class FirstActivity extends AppCompatActivity {
 //    TextView tvLogout;
-    private PreferenceManager preferenceManager;
     private MeowBottomNavigation bnv_Main;
 //    RoundedImageView imgProfile;
 
@@ -49,9 +48,6 @@ public class FirstActivity extends AppCompatActivity {
         bnv_Main.add(new MeowBottomNavigation.Model(1,R.drawable.ic_baseline_home_24));
         bnv_Main.add(new MeowBottomNavigation.Model(2,R.drawable.ic_baseline_dashboard_24));
         bnv_Main.add(new MeowBottomNavigation.Model(3,R.drawable.ic_baseline_face_24));
-
-        preferenceManager = new PreferenceManager(getApplicationContext());
-
 
         bnv_Main.show(1,true);
         replace(new HomeFragment());

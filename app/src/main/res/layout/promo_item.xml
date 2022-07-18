@@ -13,10 +13,10 @@
 
 
     <LinearLayout
-        android:layout_gravity="center"
-        android:background="@color/teal_700"
         android:layout_width="match_parent"
-        android:layout_height="84dp"
+        android:layout_height="101dp"
+        android:layout_gravity="center"
+        android:background="@drawable/gradient_background_promo"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -26,32 +26,41 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_margin="10dp"
-                android:layout_gravity="center"
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Summer holiday" />
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="Summer holiday"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
             <TextView
-                android:layout_margin="10dp"
-                android:layout_gravity="center"
                 android:id="@+id/tvMota"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Only for two people" />
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="Only for two people"
+
+                android:textColor="@color/white"
+                android:textSize="15dp" />
 
 
         </LinearLayout>
 
         <TextView
-            android:gravity="center"
-            android:layout_gravity="center"
             android:id="@+id/tvDiscount"
-            android:layout_width="wrap_content"
+            android:layout_width="57dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="OFF 50%" />
+            android:gravity="center"
+            android:text="OFF 50%"
+            android:textColor="@color/white"
+            android:layout_marginRight="10dp"
+            android:textSize="23dp" />
 
 
     </LinearLayout>

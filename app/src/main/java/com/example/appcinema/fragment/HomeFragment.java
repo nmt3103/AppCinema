@@ -28,6 +28,8 @@ import com.example.appcinema.adapter.PromoAdapter;
 import com.example.appcinema.model.Category;
 import com.example.appcinema.model.Movie;
 import com.example.appcinema.model.Promo;
+import com.example.appcinema.utilities.PreferenceManager;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     RecyclerView rcCategory,rcMovie,rcPromote;
-    ImageView imgUser;
+    RoundedImageView imgUser;
     SearchView searchView;
     ImageButton imageButton;
     CategoryAdapter categoryAdapter;
@@ -46,7 +48,7 @@ public class HomeFragment extends Fragment {
     TextView tvViewAll1,tvViewAll2,tvViewAll3;
     ViewPager2 viewPager2;
     Handler pagerHandler = new Handler();
-
+    private PreferenceManager preferenceManager;
 
 
     @Override
@@ -63,6 +65,8 @@ public class HomeFragment extends Fragment {
         tvViewAll1 = view.findViewById(R.id.tvSeeAll1);
         tvViewAll2 = view.findViewById(R.id.tvSeeAll2);
         tvViewAll3 = view.findViewById(R.id.tvSeeAll3);
+
+//        loadUserDetails();
 
 
         List<Category> cate = new ArrayList<>();
@@ -187,4 +191,10 @@ public class HomeFragment extends Fragment {
         super.onResume();
         pagerHandler.postDelayed(pagerRunable,3000);
     }
+//    private void loadUserDetails() {
+//        preferenceManager = new PreferenceManager(getApplicationContext());
+//        byte[] bytes = Base64.decode(preferenceManager.getString(Constants.KEY_IMAGE),Base64.DEFAULT);
+//        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+//        imgProfile.setImageBitmap(bitmap);
+//    }
 }

@@ -43,14 +43,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         Category item = list.get(position);
         if (item == null)
             return;
-        holder.tv.setBackgroundColor(Color.GRAY);
+        holder.tv.setBackgroundColor(Color.parseColor("#151D3B"));
         if (selectedCate == position){
-            holder.tv.setBackgroundColor(Color.BLUE);
+             holder.tv.setBackgroundColor(Color.parseColor("#3E60F9"));
         }
         holder.tv.setText(item.getName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 int previousCate = selectedCate;
                 selectedCate = holder.getPosition();
                 notifyItemChanged(previousCate);

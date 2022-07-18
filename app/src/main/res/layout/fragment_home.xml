@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:paddingTop="20dp"
-        android:background="#253368"
+        android:background="#0B0F2F"
         android:gravity="center"
 
         android:orientation="vertical"
@@ -20,24 +20,33 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
                 android:layout_margin="10dp"
                 android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Find your best movie"/>
+                android:text="Find your best movie"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
-            <ImageView
+            <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imgUser"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
 
-                android:layout_weight="3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_baseline_face_24"/>
+
+                android:background="@drawable/background_image"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_background"
+                app:riv_oval="true" />
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -47,21 +56,22 @@
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/search_view"
-                android:outlineSpotShadowColor="@color/white"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
+                android:layout_width="284dp"
                 android:layout_height="wrap_content"
-                android:text="Find your best movie"/>
+                android:layout_margin="10dp"
+                android:layout_weight="2"
+                android:background="#151D3B"
+                app:searchHintIcon="@drawable/ic_baseline_search_24"
+                app:searchIcon="@drawable/ic_baseline_search_24" />
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:layout_margin="10dp"
                 android:id="@+id/btnSearch"
-                android:layout_weight="3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_face_24"/>
+                android:layout_width="46dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:background="#3D54F8"
+                android:src="@drawable/ic_baseline_manage_search_24" />
         </LinearLayout>
 
 
@@ -83,7 +93,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:textSize="16dp"
+                android:textStyle="bold"
                 android:text="Now Playing"
                 android:textColor="@color/white" />
 
@@ -120,10 +131,12 @@
             <TextView
                 android:textColor="@color/white"
                 android:layout_margin="10dp"
-                android:gravity="center"
+
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textStyle="bold"
                 android:text="Coming soon"/>
 
             <TextView
@@ -152,7 +165,8 @@
             <TextView
                 android:textColor="@color/white"
                 android:layout_margin="10dp"
-                android:gravity="center"
+                android:textSize="16dp"
+                android:textStyle="bold"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
