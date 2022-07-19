@@ -14,6 +14,7 @@
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2285" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable/gradient_background_button.xml" value="0.223" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable/gradient_background_promo.xml" value="0.223" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable/gradient_background_teaster.xml" value="0.223" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.223" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2285" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_first.xml" value="0.25" />
@@ -22,9 +23,11 @@
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_register.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_resgister.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_ticket_detail.xml" value="0.25" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/fragment_blank.xml" value="0.25" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/fragment_home.xml" value="0.25" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/fragment_myticket.xml" value="0.25" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/fragment_myticket.xml" value="0.1" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_actor.xml" value="0.6" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_category.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_movie_coming.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_movie_trend.xml" value="0.25" />

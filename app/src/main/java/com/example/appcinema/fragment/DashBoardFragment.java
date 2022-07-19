@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appcinema.R;
 import com.example.appcinema.adapter.MovieTrendAdapter;
+import com.example.appcinema.databinding.FragmentDashboardBinding;
 import com.example.appcinema.model.Movie;
 
 import java.util.ArrayList;
@@ -24,23 +25,25 @@ import java.util.List;
 
 public class DashBoardFragment extends Fragment {
 
-    TextView tvTop1;
-    ImageView imgTop1;
-    RecyclerView recyclerView;
+//    TextView tvTop1;
+//    ImageView imgTop1;
+//    RecyclerView recyclerView;
 
     MovieTrendAdapter movieTrendAdapter;
+    FragmentDashboardBinding binding;
 
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        binding = FragmentDashboardBinding.inflate(inflater,container,false);
+        View view = binding.getRoot();
         // Inflate the layout for this fragment
-
-        tvTop1 = view.findViewById(R.id.tvTop1);
-        imgTop1 = view.findViewById(R.id.imgTop1);
-        recyclerView = view.findViewById(R.id.rcTrendMovie);
+//
+//        tvTop1 = view.findViewById(R.id.tvTop1);
+//        imgTop1 = view.findViewById(R.id.imgTop1);
+//        recyclerView = view.findViewById(R.id.rcTrendMovie);
 
 
         List<Movie> trendList = new ArrayList<>();
@@ -61,16 +64,16 @@ public class DashBoardFragment extends Fragment {
 
         Movie top1 = trendList.get(0);
         trendList.remove(0);
-        tvTop1.setText(top1.getName());
-        imgTop1.setImageResource(top1.getImgBig());
+        binding.tvTop1.setText(top1.getName());
+        binding.imgTop1.setImageResource(top1.getImgBig());
 
-        recyclerView.setHasFixedSize(true);
+        binding.rcTrendMovie.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
-        recyclerView.setLayoutManager( linearLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        binding.rcTrendMovie.setLayoutManager( linearLayoutManager);
+        binding.rcTrendMovie.setItemAnimator(new DefaultItemAnimator());
 
         movieTrendAdapter = new MovieTrendAdapter(getContext(),trendList);
-        recyclerView.setAdapter(movieTrendAdapter);
+        binding.rcTrendMovie.setAdapter(movieTrendAdapter);
 
 
 

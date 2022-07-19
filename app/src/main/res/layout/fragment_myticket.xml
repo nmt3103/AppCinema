@@ -1,66 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:background="#0B0F2F"
-    android:gravity="center"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-
-    <TextView
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:text="My Ticket"
-        android:textSize="25dp"
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <LinearLayout
-
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:id="@+id/btnAll"
-            android:text="All"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <Button
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:id="@+id/btnNew"
-            android:text="New"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <Button
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:id="@+id/btnExpire"
-            android:text="Expire"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-    </LinearLayout>
-    <View
-        android:background="@color/white"
-        android:layout_marginHorizontal="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMyTicket"
+    <LinearLayout android:background="#0B0F2F"
+        android:gravity="center"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="60dp"/>
+       >
 
-</LinearLayout>
+
+
+        <TextView
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="My Ticket"
+            android:textSize="25dp"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:id="@+id/btnAll"
+                android:text="All"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:id="@+id/btnNew"
+                android:text="New"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:id="@+id/btnExpire"
+                android:text="Expire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+        <View
+            android:background="@color/white"
+            android:layout_marginHorizontal="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMyTicket"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="60dp"/>
+
+    </LinearLayout>
+</layout>

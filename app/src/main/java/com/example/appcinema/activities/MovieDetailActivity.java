@@ -2,6 +2,7 @@ package com.example.appcinema.activities;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,16 +12,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.appcinema.R;
+import com.example.appcinema.databinding.ActivityMovieDetailBinding;
 import com.google.android.material.tabs.TabLayout;
 
 public class MovieDetailActivity extends AppCompatActivity {
+
     ImageView imgTrailer,imgPoster;
     TextView tvName,tvCate,tvTime;
     AppCompatRatingBar ratingBar;
     TabLayout tabLayout;
     RecyclerView rvCast;
     Button btnBook;
-    ViewPager2 viewPager2;
+    ViewPager2 viewPager2,vpmovie;
+    ActivityMovieDetailBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,5 +41,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         rvCast = findViewById(R.id.rvCast);
         btnBook = findViewById(R.id.btnBook);
         viewPager2 = findViewById(R.id.view_pager_detail);
+        vpmovie = findViewById(R.id.vpagerMovie);
+
+
     }
 }

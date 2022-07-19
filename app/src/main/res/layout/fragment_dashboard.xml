@@ -1,96 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:background="#0B0F2F"
+
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DashBoard"
-        android:textSize="24sp"
-        android:textColor="#ffffff"/>
 
-    <View
-        android:background="@color/white"
-        android:layout_marginHorizontal="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="#0B0F2F"
-        android:layout_marginTop="5dp"
-        android:layout_gravity="center"
-        android:id="@+id/conlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tvTop1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:lines="2"
-            android:text="Avenger : Endgame"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toTopOf="@id/imgTop1"
-            app:layout_constraintHorizontal_bias="0.252"
-            app:layout_constraintLeft_toLeftOf="@id/conlayout"
-            app:layout_constraintRight_toRightOf="@id/conlayout"
-            app:layout_constraintTop_toTopOf="@id/conlayout"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/podium"
-            app:layout_constraintBottom_toTopOf="@id/imgTop1"
-
-            app:layout_constraintHorizontal_bias="0.323"
-            app:layout_constraintLeft_toRightOf="@id/tvTop1"
-            app:layout_constraintRight_toRightOf="@id/conlayout"
-            app:layout_constraintTop_toTopOf="@id/conlayout"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <ImageView
-
-            android:id="@+id/imgTop1"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_marginTop="40dp"
-            android:padding="10dp"
-            android:src="@drawable/movie_endgame"
-            app:layout_constraintBottom_toBottomOf="@id/conlayout"
-            app:layout_constraintLeft_toLeftOf="@id/conlayout"
-            app:layout_constraintRight_toRightOf="@id/conlayout"
-            app:layout_constraintTop_toTopOf="@id/conlayout"
-             />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-    <View
-        android:background="@color/white"
-        android:layout_marginHorizontal="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_margin="10dp"
-        android:id="@+id/rcTrendMovie"
+    <LinearLayout android:background="#0B0F2F"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="60dp"/>
+        android:layout_height="match_parent"
+        >
 
-</LinearLayout>
+        <!-- TODO: Update blank fragment layout -->
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DashBoard"
+            android:textSize="24sp"
+            android:textColor="#ffffff"/>
+
+        <View
+            android:background="@color/white"
+            android:layout_marginHorizontal="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="#0B0F2F"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:id="@+id/conlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvTop1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:lines="2"
+                android:text="Avenger : Endgame"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toTopOf="@id/imgTop1"
+                app:layout_constraintHorizontal_bias="0.252"
+                app:layout_constraintLeft_toLeftOf="@id/conlayout"
+                app:layout_constraintRight_toRightOf="@id/conlayout"
+                app:layout_constraintTop_toTopOf="@id/conlayout"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/podium"
+                app:layout_constraintBottom_toTopOf="@id/imgTop1"
+
+                app:layout_constraintHorizontal_bias="0.323"
+                app:layout_constraintLeft_toRightOf="@id/tvTop1"
+                app:layout_constraintRight_toRightOf="@id/conlayout"
+                app:layout_constraintTop_toTopOf="@id/conlayout"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <ImageView
+
+                android:id="@+id/imgTop1"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_marginTop="40dp"
+                android:padding="10dp"
+                android:src="@drawable/movie_endgame"
+                app:layout_constraintBottom_toBottomOf="@id/conlayout"
+                app:layout_constraintLeft_toLeftOf="@id/conlayout"
+                app:layout_constraintRight_toRightOf="@id/conlayout"
+                app:layout_constraintTop_toTopOf="@id/conlayout"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+        <View
+            android:background="@color/white"
+            android:layout_marginHorizontal="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_margin="10dp"
+            android:id="@+id/rcTrendMovie"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="60dp"/>
+
+    </LinearLayout>
+
+
+
+</layout>

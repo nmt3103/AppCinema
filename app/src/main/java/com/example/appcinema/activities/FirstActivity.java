@@ -50,13 +50,13 @@ public class FirstActivity extends AppCompatActivity {
         bnv_Main.add(new MeowBottomNavigation.Model(3,R.drawable.ic_baseline_face_24));
 
         bnv_Main.show(1,true);
-        replace(new HomeFragment());
+        replace(new HomeFragment(getApplicationContext()));
         bnv_Main.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
             @Override
             public Unit invoke(MeowBottomNavigation.Model model) {
                 switch (model.getId()){
                     case 1:
-                        replace(new HomeFragment());
+                        replace(new HomeFragment(getApplicationContext()));
                         break;
 
                     case 2:

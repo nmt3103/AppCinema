@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appcinema.R;
 import com.example.appcinema.adapter.TicketAdapter;
+import com.example.appcinema.databinding.FragmentMyticketBinding;
 import com.example.appcinema.model.Movie;
 import com.example.appcinema.model.Order;
 
@@ -25,20 +26,18 @@ import java.util.List;
 public class MyTicketFragment extends Fragment {
 
 
-    Button btnAll,btnNew,btnExpire;
-    RecyclerView recyclerView;
     TicketAdapter ticketAdapter;
+    FragmentMyticketBinding binding;
 
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_myticket, container, false);
-        btnAll = view.findViewById(R.id.btnAll);
-        btnExpire = view.findViewById(R.id.btnExpire);
-        btnNew = view.findViewById(R.id.btnNew);
-        recyclerView = view.findViewById(R.id.rvMyTicket);
+        binding = FragmentMyticketBinding.inflate(inflater,container,false);
+
+        View view = binding.getRoot();
+
 
 
         List<Movie> trendList = new ArrayList<>();
@@ -57,10 +56,10 @@ public class MyTicketFragment extends Fragment {
         orderList.add(new Order(5, trendList.get(4),new Date(),"Ha noi Cinema 2",50000,"A5"));
         orderList.add(new Order(6, trendList.get(5),new Date(),"Ha noi Cinema 2",50000,"A6"));
 
-        recyclerView.setHasFixedSize(true);
+        binding.rvMyTicket.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
-        recyclerView.setLayoutManager( linearLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        binding.rvMyTicket.setLayoutManager( linearLayoutManager);
+        binding.rvMyTicket.setItemAnimator(new DefaultItemAnimator());
 
         ticketAdapter = new TicketAdapter(orderList, new TicketAdapter.TicketListener() {
             @Override
@@ -68,9 +67,9 @@ public class MyTicketFragment extends Fragment {
 
             }
         });
-        recyclerView.setAdapter(ticketAdapter);
+        binding.rvMyTicket.setAdapter(ticketAdapter);
 
-        btnAll.setOnClickListener(new View.OnClickListener() {
+        binding.btnAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 orderList.clear();
@@ -84,7 +83,7 @@ public class MyTicketFragment extends Fragment {
                 ticketAdapter.notifyDataSetChanged();
             }
         });
-        btnNew.setOnClickListener(new View.OnClickListener() {
+        binding.btnNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 orderList.clear();
@@ -95,7 +94,7 @@ public class MyTicketFragment extends Fragment {
                 ticketAdapter.notifyDataSetChanged();
             }
         });
-        btnExpire.setOnClickListener(new View.OnClickListener() {
+        binding.btnExpire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 orderList.clear();

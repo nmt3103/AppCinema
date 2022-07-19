@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="20dp"
+    android:orientation="horizontal"
+    android:layout_margin="5dp"
+    app:layout_constraintCircleRadius="20dp"
+    android:layout_gravity="center"
+    app:circularflow_defaultRadius="30dp">
+
+    <LinearLayout
+        android:background="#0B0F2F"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+
+            android:layout_gravity="center"
+            android:id="@+id/imgActor"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/cast1"/>
+
+        <TextView
+            android:textColor="@color/white"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:textSize="8dp"
+            android:text="Alexander Queen"
+            android:id="@+id/tvNameActor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
