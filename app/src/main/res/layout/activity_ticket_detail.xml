@@ -1,9 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#0B0F2F"
     tools:context=".activities.TicketDetailActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/btnback"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_weight="10"
+            android:text="Ticket Details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:background="#051138"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+
+            android:background="#051138"
+            android:layout_width="350dp"
+            android:layout_height="175dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgTicket"
+                android:layout_width="110dp"
+                android:layout_height="160dp"
+                android:layout_gravity="center"
+
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/poster_dragon" />
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/tvName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="How to train your dragon"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatRatingBar
+                    android:id="@+id/rateBarMovie"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="150dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="5dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+
+
+                    android:progressTint="#FFAF34"
+                    android:rating="2.0"
+                    android:stepSize="0.1" />
+
+                <TextView
+                    android:id="@+id/tvCate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:text="Action , adventure, Comedy"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:text="1h 41min"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@color/white"
+                android:text="Cinema"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvCinema"
+                android:gravity="end"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/white"
+                android:text="FX Sudirman XXI"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@color/white"
+                android:text="Date and Time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvDateTime"
+                android:gravity="end"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/white"
+                android:text="Sun May 22,  16:40"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@color/white"
+                android:text="Seat Number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvSeat"
+                android:gravity="end"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/white"
+                android:text="D7,D8,D9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@color/white"
+                android:text="Paid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvPaid"
+                android:gravity="end"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/white"
+                android:text="IDR 150.000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/dotted" />
+        
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/imgQr"
+            android:src="@drawable/qr"
+            android:layout_width="200dp"
+            android:layout_height="200dp"/>
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/white"
+            android:text="ID Order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/white"
+            android:id="@+id/tvIdOrder"
+            android:text="22081996"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

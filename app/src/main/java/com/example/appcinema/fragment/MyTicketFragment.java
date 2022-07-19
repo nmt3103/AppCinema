@@ -61,12 +61,8 @@ public class MyTicketFragment extends Fragment {
         binding.rvMyTicket.setLayoutManager( linearLayoutManager);
         binding.rvMyTicket.setItemAnimator(new DefaultItemAnimator());
 
-        ticketAdapter = new TicketAdapter(orderList, new TicketAdapter.TicketListener() {
-            @Override
-            public void onTicketClick(View view, int position) {
+        ticketAdapter = new TicketAdapter(getContext(),orderList);
 
-            }
-        });
         binding.rvMyTicket.setAdapter(ticketAdapter);
 
         binding.btnAll.setOnClickListener(new View.OnClickListener() {
