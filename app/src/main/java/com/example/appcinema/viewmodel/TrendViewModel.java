@@ -7,6 +7,8 @@ import com.example.appcinema.R;
 import com.example.appcinema.model.Movie;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class TrendViewModel extends ViewModel {
@@ -27,6 +29,14 @@ public class TrendViewModel extends ViewModel {
         movieList.add(new Movie(4,"ralph",R.drawable.movie_dragon,R.drawable.poster_ralph,"Hoat hinh,hanh dong", (float) 2.7,"Review 4"));
         movieList.add(new Movie(5,"scoob",R.drawable.movie_dragon,R.drawable.poster_scoob,"Hoat hinh,hanh dong", (float) 2.7,"Review 5"));
         movieList.add(new Movie(6,"Advenger: Endgame", R.drawable.movie_endgame,R.drawable.endgame_poster,"Hoat hinh,hanh dong", (float) 5.0,"Review 6"));
+
+        Collections.sort(movieList, new Comparator<Movie>() {
+            @Override
+            public int compare(Movie o1, Movie o2) {
+                return Float.compare(o2.getRate(),o1.getRate());
+            }
+        });
+
 
         listMovieLiveData.setValue(movieList);
     }
