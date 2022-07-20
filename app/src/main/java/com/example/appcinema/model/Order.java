@@ -9,14 +9,15 @@ public class Order {
     private String location;
     private int price;
     private String slot;
-
-    public Order(int id, Movie movie, Date date, String location, int price, String slot) {
+    private int imgQr;
+    public Order(int id, Movie movie, Date date, String location, int price, String slot,int imgQr) {
         this.id = id;
         this.movie = movie;
         this.date = date;
         this.location = location;
         this.price = price;
         this.slot = slot;
+        this.imgQr = imgQr;
     }
 
     public int getId() {
@@ -65,5 +66,13 @@ public class Order {
 
     public void setSlot(String slot) {
         this.slot = slot;
+    }
+
+    public int getImgQr() {
+        return imgQr;
+    }
+
+    public void setImgQr(int imgQr) {
+        this.imgQr = imgQr;
     }
 }

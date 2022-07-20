@@ -17,18 +17,13 @@ import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>{
     private List<Category> list;
-    private CateListener cateListener;
     private  int selectedCate;
 
-    public CategoryAdapter(List<Category> list,CateListener cateListener) {
+    public CategoryAdapter(List<Category> list) {
         this.list = list;
-        this.cateListener =cateListener;
         selectedCate = 0;
     }
 
-    public void setCateListener(CateListener cateListener) {
-        this.cateListener = cateListener;
-    }
 
     @NonNull
     @Override
@@ -83,7 +78,4 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         }
     }
 
-    public interface CateListener{
-        public void onCateClick(View view,int position);
-    }
 }

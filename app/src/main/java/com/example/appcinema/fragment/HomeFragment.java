@@ -17,6 +17,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +37,7 @@ import com.example.appcinema.model.Movie;
 import com.example.appcinema.model.Promo;
 import com.example.appcinema.utilities.Constants;
 import com.example.appcinema.utilities.PreferenceManager;
+import com.example.appcinema.viewmodel.HomeViewModel;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 
@@ -46,9 +49,12 @@ public class HomeFragment extends Fragment {
     CategoryAdapter categoryAdapter;
     MovieComingAdapter movieAdapter;
     PromoAdapter promoAdapter;
+    MoviePagerAdapter moviePagerAdapter;
     FragmentHomeBinding binding;
     Handler pagerHandler = new Handler();
     private PreferenceManager preferenceManager;
+    HomeViewModel homeViewModel;
+    View view;
 
     Context context;
 
@@ -60,47 +66,61 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater,container, false);
-        View view = binding.getRoot();
-
-
+        view = binding.getRoot();
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         loadUserDetails();
+        observerViewModel();
+        return view;
+    }
 
-
-        List<Category> cate = new ArrayList<>();
-        cate.add(new Category(1,"All","Mota1"));
-        cate.add(new Category(2,"Kinh Di","Mota2"));
-        cate.add(new Category(3,"Phuu Luu","Mota3"));
-        cate.add(new Category(4,"Hanh Dong","Mota4"));
-        cate.add(new Category(5,"Tinh Cam","Mota5"));
-        cate.add(new Category(6,"Trinh Tham","Mota6"));
+    private void observerViewModel() {
+        //category
         binding.rcCategory.setHasFixedSize(true);
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL, false);
         binding.rcCategory.setLayoutManager(linearLayoutManager);
         binding.rcCategory.setItemAnimator(new DefaultItemAnimator());
-        categoryAdapter = new CategoryAdapter(cate, new CategoryAdapter.CateListener() {
+
+
+        homeViewModel.getListCate().observe(getViewLifecycleOwner(), new Observer<List<Category>>() {
             @Override
-            public void onCateClick(View view, int position) {
-                Toast.makeText(view.getContext(), cate.get(position).getName(), Toast.LENGTH_SHORT).show();
+            public void onChanged(List<Category> categories) {
+                categoryAdapter = new CategoryAdapter(categories);
+                binding.rcCategory.setAdapter(categoryAdapter);
             }
         });
-        binding.rcCategory.setAdapter(categoryAdapter);
 
 
-        //ViewPager
 
-        List<Movie> movieList = new ArrayList<>();
-        movieList.add(new Movie(1,"How to train your dragon 2",R.drawable.movie_dragon,R.drawable.poster_dragon,"Hoat hinh,hanh dong", (float) 2.7,"Review 1"));
-        movieList.add(new Movie(2,"Ralph dap pha 2",R.drawable.movie_ralph,R.drawable.poster_ralph,"Hoat hinh,hanh dong",(float) 3,"Review 2"));
-        movieList.add(new Movie(3,"Onward",R.drawable.movie_onward,R.drawable.poster_onward,"Hoat hinh,hanh dong",(float) 2.5,"Review 3"));
+        //comingsoon
+        binding.rcMovie.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManagerMovie = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL, false);
+        binding.rcMovie.setLayoutManager(linearLayoutManagerMovie);
+        binding.rcMovie.setItemAnimator(new DefaultItemAnimator());
 
-        binding.vpMain.setAdapter(new MoviePagerAdapter(movieList, binding.vpMain));
+
+        homeViewModel.getListMovieComing().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(List<Movie> movies) {
+                movieAdapter = new MovieComingAdapter(movies);
+                binding.rcMovie.setAdapter(movieAdapter);
+            }
+        });
+
+        //now playing
+
+        homeViewModel.getListMovieNow().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(List<Movie> movies) {
+                moviePagerAdapter = new MoviePagerAdapter(movies,binding.vpMain);
+                binding.vpMain.setAdapter(moviePagerAdapter);
+            }
+        });
+
 
         binding.vpMain.setClipToPadding(false);
         binding.vpMain.setClipChildren(false);
         binding.vpMain.setOffscreenPageLimit(3);
         binding.vpMain.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
-
         CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
         compositePageTransformer.addTransformer(new MarginPageTransformer(40));
         compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
@@ -120,49 +140,23 @@ public class HomeFragment extends Fragment {
 
             }
         });
-
-        //MovieComing
-
-        List<Movie> comingList = new ArrayList<>();
-        comingList.add(new Movie(1,"How to train your dragon 2",R.drawable.movie_dragon,R.drawable.poster_dragon,"Hoat hinh,hanh dong", (float) 2.7,"Review 1"));
-        comingList.add(new Movie(2,"frozen",R.drawable.movie_dragon,R.drawable.poster_frozen,"Hoat hinh,hanh dong", (float) 2.7,"Review 2"));
-        comingList.add(new Movie(3,"onward",R.drawable.movie_dragon,R.drawable.poster_onward,"Hoat hinh,hanh dong", (float) 2.7,"Review 3"));
-        comingList.add(new Movie(4,"ralph",R.drawable.movie_dragon,R.drawable.poster_ralph,"Hoat hinh,hanh dong", (float) 2.7,"Review 4"));
-        comingList.add(new Movie(5,"scoob",R.drawable.movie_dragon,R.drawable.poster_scoob,"Hoat hinh,hanh dong", (float) 2.7,"Review 5"));
-        comingList.add(new Movie(6,"spongebob",R.drawable.movie_dragon,R.drawable.poster_spongebob,"Hoat hinh,hanh dong", (float) 2.7,"Review 6"));
-
-        binding.rcMovie.setHasFixedSize(true);
-
-        LinearLayoutManager linearLayoutManagerMovie = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL, false);
-        binding.rcMovie.setLayoutManager(linearLayoutManagerMovie);
-        binding.rcMovie.setItemAnimator(new DefaultItemAnimator());
-        movieAdapter = new MovieComingAdapter(comingList, new MovieComingAdapter.MovieComingListener() {
-            @Override
-            public void onMovieComingClick(View view, int position) {
-                Toast.makeText(view.getContext(), "ahihi do ngoc " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
-        binding.rcMovie.setAdapter(movieAdapter);
-
-
-        //Promo
-
-
-        List<Promo> promoList = new ArrayList<>();
-        promoList.add(new Promo(1,"Happy for THPTQG 2022","Discount for student born in 2004",50));
-        promoList.add(new Promo(2,"Happy for THPTQG 2022","Discount for student born in 2004",45));
-        promoList.add(new Promo(3,"Happy for THPTQG 2022","Discount for student born in 2004",55));
+        //promo
         binding.rcPromo.setHasFixedSize(true);
-
         LinearLayoutManager linearLayoutPromo = new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
         binding.rcPromo.setLayoutManager(linearLayoutPromo);
         binding.rcPromo.setItemAnimator(new DefaultItemAnimator());
-        promoAdapter = new PromoAdapter(promoList);
-        binding.rcPromo.setAdapter(promoAdapter);
 
-        // Inflate the layout for this fragment
-        return view;
+        homeViewModel.getListPromo().observe(getViewLifecycleOwner(), new Observer<List<Promo>>() {
+            @Override
+            public void onChanged(List<Promo> promos) {
+                promoAdapter = new PromoAdapter(promos);
+                binding.rcPromo.setAdapter(promoAdapter);
+
+            }
+        });
+
     }
+
     public Runnable pagerRunable = new Runnable() {
         @Override
         public void run() {

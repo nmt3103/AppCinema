@@ -16,16 +16,12 @@ import java.util.List;
 
 public class MovieComingAdapter extends RecyclerView.Adapter<MovieComingAdapter.MovieComingHolder> {
     private List<Movie> list;
-    private MovieComingListener movieComingListener;
 
-    public MovieComingAdapter(List<Movie> list, MovieComingListener movieComingListener) {
+
+    public MovieComingAdapter(List<Movie> list) {
         this.list = list;
-        this.movieComingListener = movieComingListener;
     }
 
-    public void setMovieComingListener(MovieComingListener movieComingListener) {
-        this.movieComingListener = movieComingListener;
-    }
 
     @NonNull
     @Override
@@ -50,20 +46,13 @@ public class MovieComingAdapter extends RecyclerView.Adapter<MovieComingAdapter.
         return 0;
     }
 
-    class MovieComingHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class MovieComingHolder extends RecyclerView.ViewHolder{
         ImageView img;
 
         public MovieComingHolder(@NonNull View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.imgPoster);
         }
-
-        @Override
-        public void onClick(View v) {
-
-        }
     }
-    public interface MovieComingListener{
-        public void onMovieComingClick(View view, int position);
-    }
+
 }

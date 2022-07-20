@@ -49,12 +49,12 @@ public class MyTicketFragment extends Fragment {
         trendList.add(new Movie(5,"scoob",R.drawable.movie_dragon,R.drawable.poster_scoob,"Hoat hinh,hanh dong", (float) 2.7,"Review 5"));
 
         List<Order> orderList = new ArrayList<>();
-        orderList.add(new Order(1, trendList.get(0),new Date(),"Ha noi Cinema 1",50000,"A1"));
-        orderList.add(new Order(2, trendList.get(1),new Date(),"Ha noi Cinema 1",50000,"A2"));
-        orderList.add(new Order(3, trendList.get(2),new Date(),"Ha noi Cinema 1",50000,"A3"));
-        orderList.add(new Order(4, trendList.get(3),new Date(),"Ha noi Cinema 2",50000,"A4"));
-        orderList.add(new Order(5, trendList.get(4),new Date(),"Ha noi Cinema 2",50000,"A5"));
-        orderList.add(new Order(6, trendList.get(5),new Date(),"Ha noi Cinema 2",50000,"A6"));
+        orderList.add(new Order(1, trendList.get(0),new Date(),"Ha noi Cinema 1",50000,"A1",R.drawable.qr));
+        orderList.add(new Order(2, trendList.get(1),new Date(),"Ha noi Cinema 1",50000,"A2",R.drawable.qr));
+        orderList.add(new Order(3, trendList.get(2),new Date(),"Ha noi Cinema 1",50000,"A3",R.drawable.qr));
+        orderList.add(new Order(4, trendList.get(3),new Date(),"Ha noi Cinema 2",50000,"A4",R.drawable.qr));
+        orderList.add(new Order(5, trendList.get(4),new Date(),"Ha noi Cinema 2",50000,"A5",R.drawable.qr));
+        orderList.add(new Order(6, trendList.get(5),new Date(),"Ha noi Cinema 2",50000,"A6",R.drawable.qr));
 
         binding.rvMyTicket.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
@@ -69,12 +69,12 @@ public class MyTicketFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 orderList.clear();
-                orderList.add(new Order(1, trendList.get(0),new Date(),"Ha noi Cinema 1",50000,"A1"));
-                orderList.add(new Order(2, trendList.get(1),new Date(),"Ha noi Cinema 1",50000,"A2"));
-                orderList.add(new Order(3, trendList.get(2),new Date(),"Ha noi Cinema 1",50000,"A3"));
-                orderList.add(new Order(4, trendList.get(3),new Date(),"Ha noi Cinema 2",50000,"A4"));
-                orderList.add(new Order(5, trendList.get(4),new Date(),"Ha noi Cinema 2",50000,"A5"));
-                orderList.add(new Order(6, trendList.get(5),new Date(),"Ha noi Cinema 2",50000,"A6"));
+                orderList.add(new Order(1, trendList.get(0),new Date(),"Ha noi Cinema 1",50000,"A1",R.drawable.qr));
+                orderList.add(new Order(2, trendList.get(1),new Date(),"Ha noi Cinema 1",50000,"A2",R.drawable.qr));
+                orderList.add(new Order(3, trendList.get(2),new Date(),"Ha noi Cinema 1",50000,"A3",R.drawable.qr));
+                orderList.add(new Order(4, trendList.get(3),new Date(),"Ha noi Cinema 2",50000,"A4",R.drawable.qr));
+                orderList.add(new Order(5, trendList.get(4),new Date(),"Ha noi Cinema 2",50000,"A5",R.drawable.qr));
+                orderList.add(new Order(6, trendList.get(5),new Date(),"Ha noi Cinema 2",50000,"A6",R.drawable.qr));
 
                 ticketAdapter.notifyDataSetChanged();
             }
@@ -84,8 +84,8 @@ public class MyTicketFragment extends Fragment {
             public void onClick(View v) {
                 orderList.clear();
 
-                orderList.add(new Order(1, trendList.get(0),new Date(),"Ha noi Cinema 1",50000,"A1"));
-                orderList.add(new Order(2, trendList.get(1),new Date(),"Ha noi Cinema 1",50000,"A2"));
+                orderList.add(new Order(1, trendList.get(0),new Date(),"Ha noi Cinema 1",50000,"A1",R.drawable.qr));
+                orderList.add(new Order(2, trendList.get(1),new Date(),"Ha noi Cinema 1",50000,"A2",R.drawable.qr));
 
                 ticketAdapter.notifyDataSetChanged();
             }
@@ -95,10 +95,10 @@ public class MyTicketFragment extends Fragment {
             public void onClick(View v) {
                 orderList.clear();
 
-                orderList.add(new Order(3, trendList.get(2),new Date(),"Ha noi Cinema 1",50000,"A3"));
-                orderList.add(new Order(4, trendList.get(3),new Date(),"Ha noi Cinema 2",50000,"A4"));
-                orderList.add(new Order(5, trendList.get(4),new Date(),"Ha noi Cinema 2",50000,"A5"));
-                orderList.add(new Order(6, trendList.get(5),new Date(),"Ha noi Cinema 2",50000,"A6"));
+                orderList.add(new Order(3, trendList.get(2),new Date(),"Ha noi Cinema 1",50000,"A3",R.drawable.qr));
+                orderList.add(new Order(4, trendList.get(3),new Date(),"Ha noi Cinema 2",50000,"A4",R.drawable.qr));
+                orderList.add(new Order(5, trendList.get(4),new Date(),"Ha noi Cinema 2",50000,"A5",R.drawable.qr));
+                orderList.add(new Order(6, trendList.get(5),new Date(),"Ha noi Cinema 2",50000,"A6",R.drawable.qr));
 
                 ticketAdapter.notifyDataSetChanged();
             }
