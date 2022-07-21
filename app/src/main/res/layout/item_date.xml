@@ -18,13 +18,13 @@
 
         <TextView
             android:id="@+id/tvDay"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:text="SUN"
-            android:textSize="20dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="SUN"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <TextView
             android:textStyle="bold"
@@ -34,7 +34,8 @@
             android:textSize="17dp"
             android:text="22"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"/>
     </LinearLayout>
 
 

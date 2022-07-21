@@ -24,19 +24,20 @@
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable/ic_baseline_date_range_24.xml" value="0.1" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable/ic_baseline_fmd_good_24.xml" value="0.1" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable/ic_baseline_keyboard_arrow_down_24.xml" value="0.1" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.24" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable/ic_baseline_manage_search_24.xml" value="0.1" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.223" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml" value="0.1" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2285" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable/ic_outline_arrow_circle_right_24.xml" value="0.24" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/drawable/round_button.xml" value="0.24" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_choose.xml" value="0.264" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_choose.xml" value="0.20454545454545456" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_first.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_movie_detail.xml" value="0.1" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_register.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_resgister.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_room.xml" value="0.1" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_room.xml" value="0.264" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_ticket_detail.xml" value="0.2" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/fragment_blank.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
@@ -48,7 +49,7 @@
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_movie_coming.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_movie_trend.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_pager_video.xml" value="0.1" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_slot.xml" value="0.1" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_slot.xml" value="0.6" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_ticket.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_time.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/movie_pager_item.xml" value="0.1" />

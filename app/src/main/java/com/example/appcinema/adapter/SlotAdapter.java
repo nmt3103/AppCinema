@@ -16,9 +16,11 @@ import java.util.List;
 
 public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.SlotHolder> {
     private List<Slot> list;
+    private int selectedSlot;
 
     public SlotAdapter(List<Slot> list) {
         this.list = list;
+        selectedSlot = 0;
     }
 
     @NonNull
@@ -38,13 +40,20 @@ public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.SlotHolder> {
             holder.img.setImageResource(R.drawable.ic_baseline_chair_24);
         } else {
             holder.img.setImageResource(R.drawable.ic_baseline_chair_24_white);
-        }
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
+            if (selectedSlot == position){
+                holder.img.setImageResource(R.drawable.ic_baseline_chair_24_blue);
             }
-        });
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int previousSLot = selectedSlot;
+                    selectedSlot = holder.getPosition();
+                    notifyItemChanged(previousSLot);
+                    notifyItemChanged(holder.getPosition());
+                }
+            });
+        }
+
 
     }
 

@@ -1,5 +1,6 @@
 package com.example.appcinema.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -100,7 +101,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         binding.btnBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(MovieDetailActivity.this,ChooseActivity.class));
             }
         });
     }
