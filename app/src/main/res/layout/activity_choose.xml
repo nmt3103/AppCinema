@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.ChooseActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="#0B0F2F"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_marginLeft="10dp"
+                android:id="@+id/btnback"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+
+            <TextView
+                android:id="@+id/tvName"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:lines="2"
+                android:textColor="@color/white"
+                android:layout_weight="10"
+                android:text="Ralph Breaks the Internet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+        <Spinner
+
+            android:background="@drawable/background_spinner"
+            android:layout_margin="20dp"
+            android:id="@+id/spPlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textSize="18dp"
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold"
+            android:text="Choose Date"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:orientation="horizontal"
+            android:id="@+id/rcDate"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"/>
+
+        <TextView
+            android:textSize="18dp"
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold"
+            android:text="Central Park CGV"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcCinema1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:orientation="horizontal" />
+
+        <TextView
+            android:textSize="18dp"
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold"
+            android:text="FX Sudirman XXI"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:orientation="horizontal"
+            android:id="@+id/rcCinema2"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+        <TextView
+            android:textSize="18dp"
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold"
+            android:text="Kelapa Gading IMAX"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:orientation="horizontal"
+            android:id="@+id/rcCinema3"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+        <ImageButton
+            android:src="@drawable/ic_baseline_arrow_forward_24"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="@drawable/round_button"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_margin="10dp"/>
+
+
+
+
+    </LinearLayout>
+
+
+</layout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+
+
+
+            <item>
+                <shape android:shape="rectangle"
+                    >
+                    <solid android:color="#0B0F2F"/>
+                    <padding android:bottom="6dp"
+                        android:top="6dp"
+                        android:right="12dp"
+                        android:left="12dp"/>
+                    <corners android:radius="10dp"/>
+                    <stroke
+                        android:width="3dp"
+                        android:color="@color/white" />
+                </shape>
+            </item>
+            <item
+                android:drawable="@drawable/ic_baseline_keyboard_arrow_down_24"
+                android:gravity="end"/>
+            <item
+                android:drawable="@drawable/ic_baseline_fmd_good_24"
+                android:gravity="start"/>
+
+
+        </layer-list>
+    </item>
+</selector>
