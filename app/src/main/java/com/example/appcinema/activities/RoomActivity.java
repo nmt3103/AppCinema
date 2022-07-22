@@ -11,12 +11,13 @@ import android.view.View;
 import com.example.appcinema.R;
 import com.example.appcinema.adapter.SlotAdapter;
 import com.example.appcinema.databinding.ActivityRoomBinding;
+import com.example.appcinema.inteface.SlotListener;
 import com.example.appcinema.model.Slot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomActivity extends AppCompatActivity {
+public class RoomActivity extends AppCompatActivity implements SlotListener {
     ActivityRoomBinding binding;
     SlotAdapter slotAdapter;
 
@@ -110,7 +111,7 @@ public class RoomActivity extends AppCompatActivity {
         list.add(new Slot(69,"G9",false));
         list.add(new Slot(70,"G10",false));
 
-        slotAdapter = new SlotAdapter(list);
+        slotAdapter = new SlotAdapter(list,this);
         binding.rcChair.setAdapter(slotAdapter);
 
 
@@ -126,5 +127,15 @@ public class RoomActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+    }
+
+    @Override
+    public void onSlotShowAction(Boolean isSelected) {
+        if (isSelected){
+            binding.lnBottom.setVisibility(View.VISIBLE);
+        } else{
+            binding.lnBottom.setVisibility(View.GONE);
+        }
+
     }
 }

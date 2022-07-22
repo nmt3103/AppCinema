@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCinema">
         <activity
+            android:name=".activities.CheckOutDoneActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.CheckOutActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.RoomActivity"
             android:exported="false" />
         <activity

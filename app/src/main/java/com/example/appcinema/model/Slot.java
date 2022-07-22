@@ -4,6 +4,7 @@ public class Slot {
     private int id;
     private String name;
     private Boolean status;
+    private Boolean isSelect = false;
 
     public Slot(int id, String name, Boolean status) {
         this.id = id;
@@ -33,5 +34,13 @@ public class Slot {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public Boolean getSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(Boolean select) {
+        isSelect = select;
     }
 }
