@@ -1,4 +1,6 @@
 package com.example.appcinema.viewmodel;
 
-public class ChooseViewModel {
+import androidx.lifecycle.ViewModel;
+
+public class ChooseViewModel extends ViewModel {
 }
