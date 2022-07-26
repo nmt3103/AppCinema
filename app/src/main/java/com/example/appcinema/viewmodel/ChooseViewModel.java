@@ -22,9 +22,6 @@ public class ChooseViewModel extends ViewModel {
     private MutableLiveData<String> testFire;
     private MutableLiveData<List<String>> listTest;
 
-
-
-
     public ChooseViewModel() {
         listRoomLiveDate = new MutableLiveData<>();
         listSlot = new MutableLiveData<>();
@@ -36,46 +33,32 @@ public class ChooseViewModel extends ViewModel {
 
     private void readListRoomFromFirebase() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        List<List<Slot>> list = new ArrayList<>();
 
-            DatabaseReference myRef = database.getReference("listRoom");
-            myRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    List<Room> listRead = new ArrayList<>();
-                    for (DataSnapshot dataSnapshotRoom : snapshot.getChildren()){
-                        String time = dataSnapshotRoom.child("time").getValue(String.class);
-                        String date = dataSnapshotRoom.child("date").getValue(String.class);
-                        List<Slot> listSlotRead = new ArrayList<>();
-                        for (DataSnapshot dataSnapshot : dataSnapshotRoom.child("listSlot").getChildren()){
-                           Slot slot = dataSnapshot.getValue(Slot.class);
-                           listSlotRead.add(slot);
-                        }
-                        Room room = new Room(date,listSlotRead,time);
-                        listRead.add(room);
+        DatabaseReference myRef = database.getReference("listRoom");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Room> listRead = new ArrayList<>();
+                for (DataSnapshot dataSnapshotRoom : snapshot.getChildren()){
+                    int id = dataSnapshotRoom.child("id").getValue(Integer.class);
+                    String time = dataSnapshotRoom.child("time").getValue(String.class);
+                    String date = dataSnapshotRoom.child("date").getValue(String.class);
+                    List<Slot> listSlotRead = new ArrayList<>();
+                    for (DataSnapshot dataSnapshot : dataSnapshotRoom.child("listSlot").getChildren()){
+                        Slot slot = dataSnapshot.getValue(Slot.class);
+                        listSlotRead.add(slot);
                     }
-                    listRoomLiveDate.postValue(listRead);
-
-
-
-//                    List<Slot> list1 = new ArrayList<>();//"listRoom/Room1/listSlot"
-//                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-//                        Slot test = dataSnapshot.getValue(Slot.class);
-//                        list1.add(test);
-//                    }
-//
-//                    listSlot.postValue(list1);
-
-
-//                        String test = snapshot.child("name").getValue(String.class); "listRoom/Room1/listSlot/Slot1"
-//                        testFire.postValue(test);
+                    Room room = new Room(id,date,listSlotRead,time);
+                    listRead.add(room);
                 }
+                listRoomLiveDate.postValue(listRead);
+            }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
-            });
+        });
 
     }
 

@@ -41,7 +41,11 @@ public class ChooseActivity extends AppCompatActivity {
         binding.setLifecycleOwner(this);
         viewModel = new ViewModelProvider(this).get(ChooseViewModel.class);
 
+        obeserverViewModel();
+        setListener();
+    }
 
+    private void obeserverViewModel() {
         List<String> listLocation = new ArrayList<>();
         listLocation.add("Location 1");
         listLocation.add("Location 2");
@@ -78,16 +82,6 @@ public class ChooseActivity extends AppCompatActivity {
         binding.rcCinema3.setItemAnimator(new DefaultItemAnimator());
         timeAdapter3 = new TimeAdapter();
         binding.rcCinema3.setAdapter(timeAdapter3);
-
-
-
-
-        setListener();
-        obeserverViewModel();
-    }
-
-    private void obeserverViewModel() {
-
     }
 
     private void setListener() {
