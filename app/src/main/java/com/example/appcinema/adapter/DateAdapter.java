@@ -38,6 +38,11 @@ public class DateAdapter extends RecyclerView.Adapter<DateAdapter.DateHolder>{
         }
     }
 
+    public String getSelectedDateString() {
+        Format dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        return dateFormat.format(list.get(selectedDate)).toString();
+    }
+
     @NonNull
     @Override
     public DateHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

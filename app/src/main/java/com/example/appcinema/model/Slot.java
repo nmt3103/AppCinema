@@ -1,10 +1,16 @@
 package com.example.appcinema.model;
 
-public class Slot {
+import java.io.Serializable;
+
+public class Slot implements Serializable {
     private int id;
     private String name;
-    private Boolean status;
     private Boolean isSelect = false;
+    private Boolean status;
+
+
+    public Slot() {
+    }
 
     public Slot(int id, String name, Boolean status) {
         this.id = id;

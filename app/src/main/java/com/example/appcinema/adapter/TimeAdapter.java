@@ -31,6 +31,10 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.TimeHolder>{
         selectedTime = 0;
     }
 
+    public String getSelectedTimeString() {
+        return list.get(selectedTime);
+    }
+
     @NonNull
     @Override
     public TimeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

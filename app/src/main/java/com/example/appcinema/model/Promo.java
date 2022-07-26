@@ -6,6 +6,9 @@ public class Promo {
     private String mota;
     private int discount;
 
+    public Promo() {
+    }
+
     public Promo(int id, String title, String mota, int discount) {
         this.id = id;
         this.title = title;

@@ -10,7 +10,11 @@ public class Order {
     private int price;
     private String slot;
     private int imgQr;
-    public Order(int id, Movie movie, Date date, String location, int price, String slot,int imgQr) {
+
+    public Order() {
+    }
+
+    public Order(int id, Movie movie, Date date, String location, int price, String slot, int imgQr) {
         this.id = id;
         this.movie = movie;
         this.date = date;
