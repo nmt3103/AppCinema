@@ -21,22 +21,21 @@ import java.util.HashMap;
 import java.util.List;
 
 public class RoomViewModel extends ViewModel {
-    private MutableLiveData<Room> roomSelect;
+
     private MutableLiveData<Boolean> isSuccess;
     private MutableLiveData<Double> totalPrice;
     private MutableLiveData<String> stringMutableLiveData;
-//    private MutableLiveData<Double> seatSelect;
+    private MutableLiveData<String> seatSelect;
+    private MutableLiveData<String> priceLiveData;
 
     public RoomViewModel() {
         isSuccess = new MutableLiveData<>();
         totalPrice = new MutableLiveData<>();
         stringMutableLiveData = new MutableLiveData<>();
-//        seatSelect = new MutableLiveData<>();
+        seatSelect = new MutableLiveData<>();
+        priceLiveData = new MutableLiveData<>();
     }
 
-    public void obeRoom(Room room){
-        roomSelect.postValue(room);
-    }
 
     public void changeStatus(List<Slot> list,Room room){
 
@@ -70,7 +69,12 @@ public class RoomViewModel extends ViewModel {
         return stringMutableLiveData;
     }
 
-    public MutableLiveData<Room> getRoomSelect() {
-        return roomSelect;
+
+    public MutableLiveData<String> getSeatSelect() {
+        return seatSelect;
+    }
+
+    public MutableLiveData<String> getPriceLiveData() {
+        return priceLiveData;
     }
 }

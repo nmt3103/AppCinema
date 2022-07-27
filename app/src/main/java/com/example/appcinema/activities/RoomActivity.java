@@ -1,5 +1,7 @@
 package com.example.appcinema.activities;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
@@ -28,6 +30,25 @@ public class RoomActivity extends AppCompatActivity implements SlotListener {
     SlotAdapter slotAdapter;
     RoomViewModel viewModel;
     Room choose;
+    List<Slot> selectList;
+
+
+    private final ActivityResultLauncher<Intent> confirm = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if(result.getResultCode() == RESULT_OK){
+                    Intent intent = result.getData();
+                    if (intent != null){
+                        if (intent.getBooleanExtra("IsSuccess", false)){
+                            Toast.makeText(this, "Update Slot", Toast.LENGTH_SHORT).show();
+                            List<Slot> select = slotAdapter.selectedList();
+                             viewModel.changeStatus(select,choose);
+                            startActivity(new Intent(RoomActivity.this,CheckOutDoneActivity.class));
+                        }
+                    }
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,21 +65,16 @@ public class RoomActivity extends AppCompatActivity implements SlotListener {
     }
 
     private void obeserverViewModel() {
-//        viewModel.obeRoom(choose);
+
+        binding.tvDate.setText(choose.getDate());
+        binding.tvTime.setText(choose.getTime());
+
         binding.rcChair.setHasFixedSize(true);
         GridLayoutManager manager = new GridLayoutManager(this,10,GridLayoutManager.VERTICAL,false);
         binding.rcChair.setLayoutManager(manager);
         binding.rcChair.setItemAnimator(new DefaultItemAnimator());
         slotAdapter = new SlotAdapter(choose.getListSlot(),RoomActivity.this);
         binding.rcChair.setAdapter(slotAdapter);
-//        viewModel.getRoomSelect().observe(this, new Observer<Room>() {
-//            @Override
-//            public void onChanged(Room room) {
-//
-//            }
-//        });
-
-
 
     }
 
@@ -66,10 +82,12 @@ public class RoomActivity extends AppCompatActivity implements SlotListener {
         binding.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<Slot> select = slotAdapter.selectedList();
-                viewModel.changeStatus(select,choose);
-                slotAdapter.notifyDataSetChanged();
 
+                Intent intent = new Intent(RoomActivity.this,CheckOutActivity.class);
+                intent.putExtra("roomConfirm",choose);
+                intent.putExtra("seatSelected",slotAdapter.getStringSeatLocation());
+                intent.putExtra("numberSeat",slotAdapter.selectedList().size());
+                confirm.launch(intent);
 
             }
         });
@@ -86,8 +104,16 @@ public class RoomActivity extends AppCompatActivity implements SlotListener {
         if (isSelected){
             binding.lnBottom.setVisibility(View.VISIBLE);
         } else{
-            binding.lnBottom.setVisibility(View.GONE);
+            binding.lnBottom.setVisibility(View.INVISIBLE);
         }
 
     }
+
+    @Override
+    public void onSLotClick() {
+        binding.tvSlot.setText("Seat " + slotAdapter.getStringSeatLocation());
+        binding.tvPrice.setText(slotAdapter.getTotalPrice());
+    }
+
+
 }

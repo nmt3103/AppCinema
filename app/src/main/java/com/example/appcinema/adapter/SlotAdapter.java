@@ -47,6 +47,7 @@ public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.SlotHolder> {
 
     }
 
+
     public List<Slot> selectedList(){
         List<Slot> seleclist = new ArrayList<>();
         for (Slot slot : list){
@@ -55,6 +56,20 @@ public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.SlotHolder> {
             }
         }
         return seleclist;
+    }
+
+    public String getStringSeatLocation(){
+        String s = "";
+        for (int i = 0;i<selectedList().size();i++){
+            s += selectedList().get(i).getName();
+            if (i < selectedList().size() - 1){
+                s+=",";
+            }
+        }
+        return s;
+    }
+    public String getTotalPrice(){
+        return String.valueOf(selectedList().size()*50000) + " VND";
     }
 
     @Override
@@ -93,6 +108,7 @@ public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.SlotHolder> {
                         slot.setSelect(true);
                         slotListener.onSlotShowAction(true);
                     }
+                    slotListener.onSLotClick();
                 }
             });
 

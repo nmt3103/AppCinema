@@ -31,7 +31,10 @@ public class CheckOutActivity extends AppCompatActivity {
         binding.btnCheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CheckOutActivity.this,CheckOutDoneActivity.class));
+                Intent intent = new Intent(CheckOutActivity.this, RoomActivity.class);
+                intent.putExtra("IsSuccess", true);
+                setResult(RESULT_OK,intent);
+                finish();
             }
         });
     }
