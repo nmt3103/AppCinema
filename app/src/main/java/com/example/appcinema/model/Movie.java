@@ -1,6 +1,9 @@
 package com.example.appcinema.model;
 
-public class Movie {
+import java.io.Serializable;
+import java.util.List;
+
+public class Movie implements Serializable {
     private int id;
     private String name;
     private int imgTeaster;
@@ -12,6 +15,7 @@ public class Movie {
     private String review;
     private String linkTrailer;
     private String linkMusic;
+    private List<Integer> listIdActor;
 
     public Movie() {
     }
@@ -27,6 +31,21 @@ public class Movie {
 
     }
 
+    public Movie(int id, String name, int imgTeaster, int imgBig, int imgPoster, String cate, float rate,String time, String review, String linkTrailer, String linkMusic,List<Integer> listIdActor) {
+        this.id = id;
+        this.name = name;
+        this.imgTeaster = imgTeaster;
+        this.imgBig = imgBig;
+        this.imgPoster = imgPoster;
+        this.cate = cate;
+        this.rate = rate;
+        this.time = time;
+        this.review = review;
+        this.linkTrailer = linkTrailer;
+        this.linkMusic = linkMusic;
+        this.listIdActor = listIdActor;
+    }
+
     public Movie(int id, String name, int imgTeaster, int imgBig, int imgPoster, String cate, float rate,String time, String review, String linkTrailer, String linkMusic) {
         this.id = id;
         this.name = name;
@@ -39,6 +58,7 @@ public class Movie {
         this.review = review;
         this.linkTrailer = linkTrailer;
         this.linkMusic = linkMusic;
+
     }
 
     public String getTime() {
@@ -127,5 +147,13 @@ public class Movie {
 
     public void setLinkMusic(String linkMusic) {
         this.linkMusic = linkMusic;
+    }
+
+    public List<Integer> getListIdActor() {
+        return listIdActor;
+    }
+
+    public void setListIdActor(List<Integer> listIdActor) {
+        this.listIdActor = listIdActor;
     }
 }

@@ -7,7 +7,9 @@ import com.example.appcinema.R;
 import com.example.appcinema.model.Movie;
 import com.example.appcinema.model.Order;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class TicketDetailViewModel extends ViewModel {
     private MutableLiveData<Order> orderLiveData;
@@ -19,6 +21,7 @@ public class TicketDetailViewModel extends ViewModel {
     }
 
     private void initData() {
+
         Movie movie = new Movie(1,"How to train your dragon 2", R.drawable.teaser_ralph,R.drawable.movie_ralph,R.drawable.poster_ralph,"Hoat hinh,hanh dong",
                 (float) 2.7,"1h 41min",
                 "Wreck-It Ralph wants to be loved by many people like his kind friend, Fix-It Felix. But no one likes evil characters like Ralph." +

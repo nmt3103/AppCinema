@@ -1,11 +1,17 @@
 package com.example.appcinema.viewmodel;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.appcinema.R;
 import com.example.appcinema.model.Actor;
 import com.example.appcinema.model.Movie;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +23,19 @@ public class MovieDetailViewModel extends ViewModel {
     private Movie movie;
     private List<Actor> actors;
     private List<String> links;
+    private List<Integer> listIdActor;
+
 
     public MovieDetailViewModel() {
         movieLiveData = new MutableLiveData<>();
         listActorLiveData = new MutableLiveData<>();
         listLinkVideoLiveData = new MutableLiveData<>();
+        listIdActor = new ArrayList<>();
+        listIdActor.add(1);
+        listIdActor.add(2);
+        listIdActor.add(3);
+        listIdActor.add(4);
+        listIdActor.add(5);
         initData();
     }
 
@@ -43,13 +57,29 @@ public class MovieDetailViewModel extends ViewModel {
 
     private void getActor() {
         actors = new ArrayList<>();
-        actors.add(new Actor(1,"Reilly",R.drawable.cast1));
-        actors.add(new Actor(2,"Silverman",R.drawable.cast2));
-        actors.add(new Actor(3,"McBayer",R.drawable.cast3));
-        actors.add(new Actor(4,"Henson",R.drawable.cast4));
-        actors.add(new Actor(5,"Moore",R.drawable.cast5));
-
-        listActorLiveData.setValue(actors);
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        database.collection("actors")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            QuerySnapshot snapshot = task.getResult();
+                            for (QueryDocumentSnapshot doc : snapshot){
+                                for (int i = 0 ; i < listIdActor.size();i++){
+                                    if (listIdActor.get(i) == Integer.parseInt(doc.get("id").toString())){
+                                        Actor actor = new Actor();
+                                        actor.setId(Integer.parseInt(doc.get("id").toString()));
+                                        actor.setName(doc.get("name").toString());
+                                        actor.setImg(doc.get("linkImg").toString());
+                                        actors.add(actor);
+                                    }
+                                }
+                            }
+                            listActorLiveData.setValue(actors);
+                        }
+                    }
+                });
     }
 
     private void getMovie() {
@@ -59,7 +89,7 @@ public class MovieDetailViewModel extends ViewModel {
                         "\n" +
                         "Ralph's goal was simple, wanting to win and get a medal to be considered a hero. " +
                         "But without realizing Ralph instead paved the way for criminals who can kill all the games in the game complex.",
-                "_BcYBFC6zfY","ctVBmyub02A");
+                "_BcYBFC6zfY","ctVBmyub02A",listIdActor);
 
         movieLiveData.setValue(movie);
     }

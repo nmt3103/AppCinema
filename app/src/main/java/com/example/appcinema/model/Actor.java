@@ -3,9 +3,9 @@ package com.example.appcinema.model;
 public class Actor {
     private int id;
     private String name;
-    private int img;
+    private String img;
 
-    public Actor(int id, String name, int img) {
+    public Actor(int id, String name, String img) {
         this.id = id;
         this.name = name;
         this.img = img;
@@ -30,11 +30,11 @@ public class Actor {
         this.name = name;
     }
 
-    public int getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(int img) {
+    public void setImg(String img) {
         this.img = img;
     }
 }

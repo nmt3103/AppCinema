@@ -12,6 +12,7 @@ import com.example.appcinema.R;
 import com.example.appcinema.model.Actor;
 import com.example.appcinema.model.Promo;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.ActorViewHol
         if (actor == null)
             return;
         holder.tv.setText(actor.getName());
-        holder.img.setImageResource(actor.getImg());
+        Picasso.get().load(actor.getImg()).into(holder.img);
     }
 
     @Override
