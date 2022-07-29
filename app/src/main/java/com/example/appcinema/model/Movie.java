@@ -16,7 +16,7 @@ public class Movie implements Serializable {
     private String linkTrailer;
     private String linkMusic;
     private List<Integer> listIdActor;
-
+        //
     public Movie() {
     }
 
