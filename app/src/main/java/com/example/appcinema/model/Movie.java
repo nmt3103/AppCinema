@@ -6,9 +6,9 @@ import java.util.List;
 public class Movie implements Serializable {
     private int id;
     private String name;
-    private int imgTeaster;
-    private int imgBig;
-    private int imgPoster;
+    private String imgTeaster;
+    private String imgBig;
+    private String imgPoster;
     private String cate;
     private float rate;
     private String time;
@@ -20,18 +20,7 @@ public class Movie implements Serializable {
     public Movie() {
     }
 
-    public Movie(int id, String name, int imgBig, int imgPoster, String cate, float rate, String review) {
-        this.id = id;
-        this.name = name;
-        this.imgBig = imgBig;
-        this.imgPoster = imgPoster;
-        this.cate = cate;
-        this.rate = rate;
-        this.review = review;
-
-    }
-
-    public Movie(int id, String name, int imgTeaster, int imgBig, int imgPoster, String cate, float rate,String time, String review, String linkTrailer, String linkMusic,List<Integer> listIdActor) {
+    public Movie(int id, String name, String imgTeaster, String imgBig, String imgPoster, String cate, float rate, String time, String review, String linkTrailer, String linkMusic, List<Integer> listIdActor) {
         this.id = id;
         this.name = name;
         this.imgTeaster = imgTeaster;
@@ -44,21 +33,6 @@ public class Movie implements Serializable {
         this.linkTrailer = linkTrailer;
         this.linkMusic = linkMusic;
         this.listIdActor = listIdActor;
-    }
-
-    public Movie(int id, String name, int imgTeaster, int imgBig, int imgPoster, String cate, float rate,String time, String review, String linkTrailer, String linkMusic) {
-        this.id = id;
-        this.name = name;
-        this.imgTeaster = imgTeaster;
-        this.imgBig = imgBig;
-        this.imgPoster = imgPoster;
-        this.cate = cate;
-        this.rate = rate;
-        this.time = time;
-        this.review = review;
-        this.linkTrailer = linkTrailer;
-        this.linkMusic = linkMusic;
-
     }
 
     public String getTime() {
@@ -85,21 +59,6 @@ public class Movie implements Serializable {
         this.name = name;
     }
 
-    public int getImgBig() {
-        return imgBig;
-    }
-
-    public void setImgBig(int imgBig) {
-        this.imgBig = imgBig;
-    }
-
-    public int getImgPoster() {
-        return imgPoster;
-    }
-
-    public void setImgPoster(int imgPoster) {
-        this.imgPoster = imgPoster;
-    }
 
     public String getCate() {
         return cate;
@@ -125,13 +84,6 @@ public class Movie implements Serializable {
         this.review = review;
     }
 
-    public int getImgTeaster() {
-        return imgTeaster;
-    }
-
-    public void setImgTeaster(int imgTeaster) {
-        this.imgTeaster = imgTeaster;
-    }
 
     public String getLinkTrailer() {
         return linkTrailer;
@@ -155,5 +107,29 @@ public class Movie implements Serializable {
 
     public void setListIdActor(List<Integer> listIdActor) {
         this.listIdActor = listIdActor;
+    }
+
+    public String getImgTeaster() {
+        return imgTeaster;
+    }
+
+    public void setImgTeaster(String imgTeaster) {
+        this.imgTeaster = imgTeaster;
+    }
+
+    public String getImgBig() {
+        return imgBig;
+    }
+
+    public void setImgBig(String imgBig) {
+        this.imgBig = imgBig;
+    }
+
+    public String getImgPoster() {
+        return imgPoster;
+    }
+
+    public void setImgPoster(String imgPoster) {
+        this.imgPoster = imgPoster;
     }
 }

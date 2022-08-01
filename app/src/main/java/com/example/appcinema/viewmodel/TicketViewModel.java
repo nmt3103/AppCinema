@@ -1,11 +1,17 @@
 package com.example.appcinema.viewmodel;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.appcinema.R;
 import com.example.appcinema.model.Movie;
 import com.example.appcinema.model.Order;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,7 +21,6 @@ public class TicketViewModel extends ViewModel {
     private MutableLiveData<List<Order>> listOrderLiveDate;
     private MutableLiveData<List<Order>> listNewOrder;
     private MutableLiveData<List<Order>> listExpireOrder;
-    private List<Order> listAll,listNew,listExprie;
 
     public TicketViewModel() {
         listOrderLiveDate = new MutableLiveData<>();
@@ -31,59 +36,114 @@ public class TicketViewModel extends ViewModel {
     }
 
     private void getExpireOrder() {
-        List<Movie> trendList = new ArrayList<>();
-        trendList.add(new Movie(6,"Advenger: Endgame", R.drawable.movie_endgame,R.drawable.endgame_poster,"Hoat hinh,hanh dong", (float) 5.0,"Review 6"));
-        trendList.add(new Movie(1,"How to train your dragon 2",R.drawable.movie_dragon,R.drawable.poster_dragon,"Hoat hinh,hanh dong", (float) 2.7,"Review 1"));
-        trendList.add(new Movie(2,"frozen",R.drawable.movie_dragon,R.drawable.poster_frozen,"Hoat hinh,hanh dong", (float) 2.7,"Review 2"));
-        trendList.add(new Movie(3,"onward",R.drawable.movie_dragon,R.drawable.poster_onward,"Hoat hinh,hanh dong", (float) 2.7,"Review 3"));
-        trendList.add(new Movie(4,"ralph",R.drawable.movie_dragon,R.drawable.poster_ralph,"Hoat hinh,hanh dong", (float) 2.7,"Review 4"));
-        trendList.add(new Movie(5,"scoob",R.drawable.movie_dragon,R.drawable.poster_scoob,"Hoat hinh,hanh dong", (float) 2.7,"Review 5"));
 
-        listExprie = new ArrayList<>();
-        listExprie.add(new Order(3, trendList.get(2),new Date(),"Ha noi Cinema 1",50000,"A3",R.drawable.qr));
-        listExprie.add(new Order(4, trendList.get(3),new Date(),"Ha noi Cinema 2",50000,"A4",R.drawable.qr));
-        listExprie.add(new Order(5, trendList.get(4),new Date(),"Ha noi Cinema 2",50000,"A5",R.drawable.qr));
-        listExprie.add(new Order(6, trendList.get(5),new Date(),"Ha noi Cinema 2",50000,"A6",R.drawable.qr));
 
-        listExpireOrder.setValue(listExprie);
-
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        database.collection("movies")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            QuerySnapshot snapshot = task.getResult();
+                            List<Order> listExprie = new ArrayList<>();
+                            for (QueryDocumentSnapshot doc : snapshot){
+                                List<Integer> listActor = new ArrayList<>();
+                                listActor.add(1);
+                                Movie movie = new Movie();
+                                movie.setId(Integer.parseInt(doc.get("id").toString()));
+                                movie.setImgBig(doc.get("imgPager").toString());
+                                movie.setImgPoster(doc.get("imgPoster").toString());
+                                movie.setImgTeaster(doc.get("imgTrailer").toString());
+                                movie.setCate(doc.get("Category").toString());
+                                movie.setLinkMusic(doc.get("LinkSong").toString());
+                                movie.setLinkTrailer(doc.get("LinkTrailer").toString());
+                                movie.setListIdActor(listActor);
+                                movie.setReview(doc.get("Review").toString());
+                                movie.setTime(doc.get("Time").toString());
+                                movie.setName(doc.get("name").toString());
+                                movie.setRate(Float.parseFloat(doc.get("rate").toString()));
+                                Order order = new Order(1, movie,new Date(),"Ha noi Cinema 3",50000,"A1",R.drawable.qr);
+                                listExprie.add(order);
+                            }
+                            listExpireOrder.setValue(listExprie);
+                        }
+                    }
+                });
     }
 
     private void getNewOrder() {
-        List<Movie> trendList = new ArrayList<>();
-        trendList.add(new Movie(6,"Advenger: Endgame", R.drawable.movie_endgame,R.drawable.endgame_poster,"Hoat hinh,hanh dong", (float) 5.0,"Review 6"));
-        trendList.add(new Movie(1,"How to train your dragon 2",R.drawable.movie_dragon,R.drawable.poster_dragon,"Hoat hinh,hanh dong", (float) 2.7,"Review 1"));
-        trendList.add(new Movie(2,"frozen",R.drawable.movie_dragon,R.drawable.poster_frozen,"Hoat hinh,hanh dong", (float) 2.7,"Review 2"));
-        trendList.add(new Movie(3,"onward",R.drawable.movie_dragon,R.drawable.poster_onward,"Hoat hinh,hanh dong", (float) 2.7,"Review 3"));
-        trendList.add(new Movie(4,"ralph",R.drawable.movie_dragon,R.drawable.poster_ralph,"Hoat hinh,hanh dong", (float) 2.7,"Review 4"));
-        trendList.add(new Movie(5,"scoob",R.drawable.movie_dragon,R.drawable.poster_scoob,"Hoat hinh,hanh dong", (float) 2.7,"Review 5"));
 
-        listNew = new ArrayList<>();
-        listNew.add(new Order(1, trendList.get(0),new Date(),"Ha noi Cinema 1",50000,"A1",R.drawable.qr));
-        listNew.add(new Order(2, trendList.get(1),new Date(),"Ha noi Cinema 1",50000,"A2",R.drawable.qr));
-
-        listNewOrder.setValue(listNew);
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        database.collection("movies")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            QuerySnapshot snapshot = task.getResult();
+                            List<Order> listNew = new ArrayList<>();
+                            for (QueryDocumentSnapshot doc : snapshot){
+                                List<Integer> listActor = new ArrayList<>();
+                                listActor.add(1);
+                                Movie movie = new Movie();
+                                movie.setId(Integer.parseInt(doc.get("id").toString()));
+                                movie.setImgBig(doc.get("imgPager").toString());
+                                movie.setImgPoster(doc.get("imgPoster").toString());
+                                movie.setImgTeaster(doc.get("imgTrailer").toString());
+                                movie.setCate(doc.get("Category").toString());
+                                movie.setLinkMusic(doc.get("LinkSong").toString());
+                                movie.setLinkTrailer(doc.get("LinkTrailer").toString());
+                                movie.setListIdActor(listActor);
+                                movie.setReview(doc.get("Review").toString());
+                                movie.setTime(doc.get("Time").toString());
+                                movie.setName(doc.get("name").toString());
+                                movie.setRate(Float.parseFloat(doc.get("rate").toString()));
+                                Order order = new Order(1, movie,new Date(),"Ha noi Cinema 2",50000,"A1",R.drawable.qr);
+                                listNew.add(order);
+                            }
+                            listNewOrder.setValue(listNew);
+                        }
+                    }
+                });
     }
 
     private void getAllOrder() {
 
-        List<Movie> trendList = new ArrayList<>();
-        trendList.add(new Movie(6,"Advenger: Endgame", R.drawable.movie_endgame,R.drawable.endgame_poster,"Hoat hinh,hanh dong", (float) 5.0,"Review 6"));
-        trendList.add(new Movie(1,"How to train your dragon 2",R.drawable.movie_dragon,R.drawable.poster_dragon,"Hoat hinh,hanh dong", (float) 2.7,"Review 1"));
-        trendList.add(new Movie(2,"frozen",R.drawable.movie_dragon,R.drawable.poster_frozen,"Hoat hinh,hanh dong", (float) 2.7,"Review 2"));
-        trendList.add(new Movie(3,"onward",R.drawable.movie_dragon,R.drawable.poster_onward,"Hoat hinh,hanh dong", (float) 2.7,"Review 3"));
-        trendList.add(new Movie(4,"ralph",R.drawable.movie_dragon,R.drawable.poster_ralph,"Hoat hinh,hanh dong", (float) 2.7,"Review 4"));
-        trendList.add(new Movie(5,"scoob",R.drawable.movie_dragon,R.drawable.poster_scoob,"Hoat hinh,hanh dong", (float) 2.7,"Review 5"));
+//        List<Movie> movies = new ArrayList<>();
 
-        listAll = new ArrayList<>();
-        listAll.add(new Order(1, trendList.get(0),new Date(),"Ha noi Cinema 1",50000,"A1",R.drawable.qr));
-        listAll.add(new Order(2, trendList.get(1),new Date(),"Ha noi Cinema 1",50000,"A2",R.drawable.qr));
-        listAll.add(new Order(3, trendList.get(2),new Date(),"Ha noi Cinema 1",50000,"A3",R.drawable.qr));
-        listAll.add(new Order(4, trendList.get(3),new Date(),"Ha noi Cinema 2",50000,"A4",R.drawable.qr));
-        listAll.add(new Order(5, trendList.get(4),new Date(),"Ha noi Cinema 2",50000,"A5",R.drawable.qr));
-        listAll.add(new Order(6, trendList.get(5),new Date(),"Ha noi Cinema 2",50000,"A6",R.drawable.qr));
-
-        listOrderLiveDate.setValue(listAll);
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        database.collection("movies")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            QuerySnapshot snapshot = task.getResult();
+                            List<Order> listAll = new ArrayList<>();
+                            for (QueryDocumentSnapshot doc : snapshot){
+                                List<Integer> listActor = new ArrayList<>();
+                                listActor.add(1);
+                                Movie movie = new Movie();
+                                movie.setId(Integer.parseInt(doc.get("id").toString()));
+                                movie.setImgBig(doc.get("imgPager").toString());
+                                movie.setImgPoster(doc.get("imgPoster").toString());
+                                movie.setImgTeaster(doc.get("imgTrailer").toString());
+                                movie.setCate(doc.get("Category").toString());
+                                movie.setLinkMusic(doc.get("LinkSong").toString());
+                                movie.setLinkTrailer(doc.get("LinkTrailer").toString());
+                                movie.setListIdActor(listActor);
+                                movie.setReview(doc.get("Review").toString());
+                                movie.setTime(doc.get("Time").toString());
+                                movie.setName(doc.get("name").toString());
+                                movie.setRate(Float.parseFloat(doc.get("rate").toString()));
+                                Order order = new Order(1, movie,new Date(),"Ha noi Cinema 1",50000,"A1",R.drawable.qr);
+                                listAll.add(order);
+                            }
+                            listOrderLiveDate.setValue(listAll);
+                        }
+                    }
+                });
 
     }
 

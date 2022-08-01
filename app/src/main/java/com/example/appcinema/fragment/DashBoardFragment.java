@@ -19,6 +19,7 @@ import com.example.appcinema.adapter.MovieTrendAdapter;
 import com.example.appcinema.databinding.FragmentDashboardBinding;
 import com.example.appcinema.model.Movie;
 import com.example.appcinema.viewmodel.TrendViewModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,7 +56,8 @@ public class DashBoardFragment extends Fragment {
                 Movie top1 = movies.get(0);
                 movies.remove(0);
                 binding.tvTop1.setText(top1.getName());
-                binding.imgTop1.setImageResource(top1.getImgBig());
+                Picasso.get().load(top1.getImgBig()).into(binding.imgTop1);
+//                binding.imgTop1.setImageResource(top1.getImgBig());
                 movieTrendAdapter = new MovieTrendAdapter(getContext(),movies);
                 binding.rcTrendMovie.setAdapter(movieTrendAdapter);
             }

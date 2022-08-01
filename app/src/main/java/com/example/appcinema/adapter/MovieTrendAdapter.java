@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appcinema.R;
 import com.example.appcinema.activities.MovieDetailActivity;
 import com.example.appcinema.model.Movie;
+import com.squareup.picasso.Picasso;
 
 
 import java.util.List;
@@ -52,7 +53,8 @@ public class MovieTrendAdapter extends RecyclerView.Adapter<MovieTrendAdapter.Mo
             return;
         holder.tvName.setText(movie.getName());
         holder.tvCate.setText(movie.getCate());
-        holder.imgMovie.setImageResource(movie.getImgPoster());
+        Picasso.get().load(movie.getImgPoster()).into(holder.imgMovie);
+//        holder.imgMovie.setImageResource(movie.getImgPoster());
         holder.ratingBar.setRating(movie.getRate());
         holder.cvTrend.setOnClickListener(new View.OnClickListener() {
             @Override

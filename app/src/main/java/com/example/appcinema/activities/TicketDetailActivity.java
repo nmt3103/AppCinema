@@ -14,6 +14,7 @@ import com.example.appcinema.R;
 import com.example.appcinema.databinding.ActivityTicketDetailBinding;
 import com.example.appcinema.model.Order;
 import com.example.appcinema.viewmodel.TicketDetailViewModel;
+import com.squareup.picasso.Picasso;
 
 
 public class TicketDetailActivity extends AppCompatActivity {
@@ -38,7 +39,8 @@ public class TicketDetailActivity extends AppCompatActivity {
         ticketDetailViewModel.getOrderLiveData().observe(this, new Observer<Order>() {
             @Override
             public void onChanged(Order order) {
-                binding.imgTicket.setImageResource(order.getMovie().getImgPoster());
+                Picasso.get().load(order.getMovie().getImgPoster()).into(binding.imgTicket);
+//                binding.imgTicket.setImageResource(order.getMovie().getImgPoster());
                 binding.tvName.setText(order.getMovie().getName());
                 binding.rateBarMovie.setRating(order.getMovie().getRate());
                 binding.tvCate.setText(order.getMovie().getCate());

@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.appcinema.R;
 import com.example.appcinema.model.Movie;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class MoviePagerAdapter extends RecyclerView.Adapter<MoviePagerAdapter.Mo
 
 
         public void setImg(Movie movie) {
-            img.setImageResource(movie.getImgBig());
+            Picasso.get().load(movie.getImgBig()).into(img);
         }
 
         public void setRatingBar(Movie movie) {

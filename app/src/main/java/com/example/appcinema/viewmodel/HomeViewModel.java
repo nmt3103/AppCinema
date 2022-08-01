@@ -1,12 +1,19 @@
 package com.example.appcinema.viewmodel;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.appcinema.R;
+import com.example.appcinema.model.Actor;
 import com.example.appcinema.model.Category;
 import com.example.appcinema.model.Movie;
 import com.example.appcinema.model.Promo;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,27 +49,51 @@ public class HomeViewModel extends ViewModel {
 
         listCate.setValue(listC);
         //
-        // ViewPager Home
-        listNow = new ArrayList<>();
-        listNow.add(new Movie(1,"How to train your dragon 2", R.drawable.movie_dragon,R.drawable.poster_dragon,"Hoat hinh,hanh dong", (float) 2.7,"Review 1"));
-        listNow.add(new Movie(2,"Ralph dap pha 2",R.drawable.movie_ralph,R.drawable.poster_ralph,"Hoat hinh,hanh dong",(float) 3,"Review 2"));
-        listNow.add(new Movie(3,"Onward",R.drawable.movie_onward,R.drawable.poster_onward,"Hoat hinh,hanh dong",(float) 2.5,"Review 3"));
 
-
-        listMovieNow.setValue(listNow);
-        //
 
         // ComingSoon
 
         listComing = new ArrayList<>();
-        listComing.add(new Movie(1,"How to train your dragon 2",R.drawable.movie_dragon,R.drawable.poster_dragon,"Hoat hinh,hanh dong", (float) 2.7,"Review 1"));
-        listComing.add(new Movie(2,"frozen",R.drawable.movie_dragon,R.drawable.poster_frozen,"Hoat hinh,hanh dong", (float) 2.7,"Review 2"));
-        listComing.add(new Movie(3,"onward",R.drawable.movie_dragon,R.drawable.poster_onward,"Hoat hinh,hanh dong", (float) 2.7,"Review 3"));
-        listComing.add(new Movie(4,"ralph",R.drawable.movie_dragon,R.drawable.poster_ralph,"Hoat hinh,hanh dong", (float) 2.7,"Review 4"));
-        listComing.add(new Movie(5,"scoob",R.drawable.movie_dragon,R.drawable.poster_scoob,"Hoat hinh,hanh dong", (float) 2.7,"Review 5"));
-        listComing.add(new Movie(6,"spongebob",R.drawable.movie_dragon,R.drawable.poster_spongebob,"Hoat hinh,hanh dong", (float) 2.7,"Review 6"));
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        database.collection("movies")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            QuerySnapshot snapshot = task.getResult();
+                            for (QueryDocumentSnapshot doc : snapshot){
+                                List<Integer> listActor = new ArrayList<>();
+                                listActor.add(1);
+                                Movie movie = new Movie();
+                                movie.setId(Integer.parseInt(doc.get("id").toString()));
+                                movie.setImgBig(doc.get("imgPager").toString());
+                                movie.setImgPoster(doc.get("imgPoster").toString());
+                                movie.setImgTeaster(doc.get("imgTrailer").toString());
+                                movie.setCate(doc.get("Category").toString());
+                                movie.setLinkMusic(doc.get("LinkSong").toString());
+                                movie.setLinkTrailer(doc.get("LinkTrailer").toString());
+                                movie.setListIdActor(listActor);
+                                movie.setReview(doc.get("Review").toString());
+                                movie.setTime(doc.get("Time").toString());
+                                movie.setName(doc.get("name").toString());
+                                movie.setRate(Float.parseFloat(doc.get("rate").toString()));
+                                listComing.add(movie);
+                            }
+                            listMovieComing.setValue(listComing);
+                            listMovieNow.setValue(listComing);
+                        }
+                    }
+                });
 
-        listMovieComing.setValue(listComing);
+        // ViewPager Home
+//        listNow = new ArrayList<>();
+//        listNow.add(listComing.get(0));
+//        listNow.add(listComing.get(1));
+//        listNow.add(listComing.get(2));
+//
+//        listMovieNow.setValue(listNow);
+        //
 
         //Promo
 

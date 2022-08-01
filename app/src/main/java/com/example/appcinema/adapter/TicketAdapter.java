@@ -16,6 +16,7 @@ import com.example.appcinema.R;
 import com.example.appcinema.activities.MovieDetailActivity;
 import com.example.appcinema.activities.TicketDetailActivity;
 import com.example.appcinema.model.Order;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -50,7 +51,8 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketHold
         holder.tvName.setText(order.getMovie().getName());
         holder.tvDate.setText(order.getDate().toString());
         holder.tvLocation.setText(order.getLocation());
-        holder.imgTicket.setImageResource(order.getMovie().getImgPoster());
+        Picasso.get().load(order.getMovie().getImgPoster()).into(holder.imgTicket);
+//        holder.imgTicket.setImageResource(order.getMovie().getImgPoster());
         holder.cvTicket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

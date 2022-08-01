@@ -29,6 +29,7 @@ import com.example.appcinema.model.Movie;
 import com.example.appcinema.viewmodel.MovieDetailViewModel;
 import com.example.appcinema.viewmodel.TicketDetailViewModel;
 import com.google.android.material.tabs.TabLayout;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,8 +57,10 @@ public class MovieDetailActivity extends AppCompatActivity {
         movieDetailViewModel.getMovieLiveData().observe(this, new Observer<Movie>() {
             @Override
             public void onChanged(Movie movie) {
-                binding.imgTrailer.setImageResource(movie.getImgTeaster());
-                binding.imgPoster.setImageResource(movie.getImgPoster());
+                Picasso.get().load(movie.getImgTeaster()).into(binding.imgTrailer);
+                Picasso.get().load(movie.getImgPoster()).into(binding.imgPoster);
+//                binding.imgTrailer.setImageResource(movie.getImgTeaster());
+//                binding.imgPoster.setImageResource(movie.getImgPoster());
                 binding.tvName.setText(movie.getName());
                 binding.tvCategory.setText(movie.getCate());
                 binding.tvTime.setText(movie.getTime());

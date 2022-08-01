@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appcinema.R;
 import com.example.appcinema.model.Movie;
+import com.squareup.picasso.Picasso;
 
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class MovieComingAdapter extends RecyclerView.Adapter<MovieComingAdapter.
         Movie movie = list.get(position);
         if (movie == null)
             return;
-        holder.img.setImageResource(movie.getImgPoster());
+        Picasso.get().load(movie.getImgPoster()).into(holder.img);
     }
 
     @Override
