@@ -11,6 +11,7 @@ import com.example.appcinema.model.Movie;
 import com.example.appcinema.model.Promo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -62,9 +63,7 @@ public class HomeViewModel extends ViewModel {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()){
                             QuerySnapshot snapshot = task.getResult();
-                            for (QueryDocumentSnapshot doc : snapshot){
-                                List<Integer> listActor = new ArrayList<>();
-                                listActor.add(1);
+                            for (DocumentSnapshot doc : snapshot){
                                 Movie movie = new Movie();
                                 movie.setId(Integer.parseInt(doc.get("id").toString()));
                                 movie.setImgBig(doc.get("imgPager").toString());
@@ -73,24 +72,52 @@ public class HomeViewModel extends ViewModel {
                                 movie.setCate(doc.get("Category").toString());
                                 movie.setLinkMusic(doc.get("LinkSong").toString());
                                 movie.setLinkTrailer(doc.get("LinkTrailer").toString());
-                                movie.setListIdActor(listActor);
                                 movie.setReview(doc.get("Review").toString());
                                 movie.setTime(doc.get("Time").toString());
                                 movie.setName(doc.get("name").toString());
                                 movie.setRate(Float.parseFloat(doc.get("rate").toString()));
+                                List<Integer> listActor = (List<Integer>) doc.get("ListActor");
+                                movie.setListIdActor(listActor);
                                 listComing.add(movie);
                             }
-                            listMovieComing.setValue(listComing);
-                            listMovieNow.setValue(listComing);
+                            listMovieComing.postValue(listComing);
                         }
                     }
                 });
 
         // ViewPager Home
-//        listNow = new ArrayList<>();
+        listNow = new ArrayList<>();
 //        listNow.add(listComing.get(0));
 //        listNow.add(listComing.get(1));
 //        listNow.add(listComing.get(2));
+        database.collection("movies")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            QuerySnapshot snapshot = task.getResult();
+                            for (DocumentSnapshot doc : snapshot){
+                                Movie movie = new Movie();
+                                movie.setId(Integer.parseInt(doc.get("id").toString()));
+                                movie.setImgBig(doc.get("imgPager").toString());
+                                movie.setImgPoster(doc.get("imgPoster").toString());
+                                movie.setImgTeaster(doc.get("imgTrailer").toString());
+                                movie.setCate(doc.get("Category").toString());
+                                movie.setLinkMusic(doc.get("LinkSong").toString());
+                                movie.setLinkTrailer(doc.get("LinkTrailer").toString());
+                                movie.setReview(doc.get("Review").toString());
+                                movie.setTime(doc.get("Time").toString());
+                                movie.setName(doc.get("name").toString());
+                                movie.setRate(Float.parseFloat(doc.get("rate").toString()));
+                                List<Integer> listActor = (List<Integer>) doc.get("ListActor");
+                                movie.setListIdActor(listActor);
+                                listNow.add(movie);
+                            }
+                            listMovieNow.postValue(listNow);
+                        }
+                    }
+                });
 //
 //        listMovieNow.setValue(listNow);
         //

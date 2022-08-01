@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class DateAdapter extends RecyclerView.Adapter<DateAdapter.DateHolder>{
     private List<Date> list;
@@ -39,7 +40,7 @@ public class DateAdapter extends RecyclerView.Adapter<DateAdapter.DateHolder>{
     }
 
     public String getSelectedDateString() {
-        Format dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        Format dateFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         return dateFormat.format(list.get(selectedDate)).toString();
     }
 

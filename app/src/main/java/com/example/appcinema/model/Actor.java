@@ -1,6 +1,8 @@
 package com.example.appcinema.model;
 
-public class Actor {
+import java.io.Serializable;
+
+public class Actor implements Serializable {
     private int id;
     private String name;
     private String img;

@@ -13,9 +13,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class TicketViewModel extends ViewModel {
     private MutableLiveData<List<Order>> listOrderLiveDate;
@@ -63,7 +66,8 @@ public class TicketViewModel extends ViewModel {
                                 movie.setTime(doc.get("Time").toString());
                                 movie.setName(doc.get("name").toString());
                                 movie.setRate(Float.parseFloat(doc.get("rate").toString()));
-                                Order order = new Order(1, movie,new Date(),"Ha noi Cinema 3",50000,"A1",R.drawable.qr);
+                                Format dateFormat = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss", Locale.getDefault());
+                                Order order = new Order(1, movie,dateFormat.format(new Date()).toString(),"Ha noi Cinema 3",50000,"A1",R.drawable.qr);
                                 listExprie.add(order);
                             }
                             listExpireOrder.setValue(listExprie);
@@ -99,7 +103,8 @@ public class TicketViewModel extends ViewModel {
                                 movie.setTime(doc.get("Time").toString());
                                 movie.setName(doc.get("name").toString());
                                 movie.setRate(Float.parseFloat(doc.get("rate").toString()));
-                                Order order = new Order(1, movie,new Date(),"Ha noi Cinema 2",50000,"A1",R.drawable.qr);
+                                Format dateFormat = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss", Locale.getDefault());
+                                Order order = new Order(1, movie,dateFormat.format(new Date()).toString(),"Ha noi Cinema 2",50000,"A1",R.drawable.qr);
                                 listNew.add(order);
                             }
                             listNewOrder.setValue(listNew);
@@ -137,7 +142,9 @@ public class TicketViewModel extends ViewModel {
                                 movie.setTime(doc.get("Time").toString());
                                 movie.setName(doc.get("name").toString());
                                 movie.setRate(Float.parseFloat(doc.get("rate").toString()));
-                                Order order = new Order(1, movie,new Date(),"Ha noi Cinema 1",50000,"A1",R.drawable.qr);
+                                Format dateFormat = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss", Locale.getDefault());
+
+                                Order order = new Order(1, movie,dateFormat.format(new Date()).toString(),"Ha noi Cinema 1",50000,"A1",R.drawable.qr);
                                 listAll.add(order);
                             }
                             listOrderLiveDate.setValue(listAll);

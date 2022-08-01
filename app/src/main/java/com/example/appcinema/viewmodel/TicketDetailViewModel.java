@@ -7,9 +7,12 @@ import com.example.appcinema.R;
 import com.example.appcinema.model.Movie;
 import com.example.appcinema.model.Order;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class TicketDetailViewModel extends ViewModel {
     private MutableLiveData<Order> orderLiveData;
@@ -36,7 +39,9 @@ public class TicketDetailViewModel extends ViewModel {
                         "Ralph's goal was simple, wanting to win and get a medal to be considered a hero. " +
                         "But without realizing Ralph instead paved the way for criminals who can kill all the games in the game complex.",
                 "_BcYBFC6zfY","ctVBmyub02A",listIdActor);
-        order = new Order(1, movie,new Date(),"Ha noi Cinema 1",50000,"A3",R.drawable.qr);
+        Format dateFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+
+        order = new Order(1, movie,dateFormat.format(new Date()).toString(),"Ha noi Cinema 1",50000,"A3",R.drawable.qr);
         orderLiveData.setValue(order);
     }
 

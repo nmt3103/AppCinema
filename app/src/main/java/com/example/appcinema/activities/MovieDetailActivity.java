@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatRatingBar;
@@ -42,6 +43,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     MovieDetailViewModel movieDetailViewModel;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +51,18 @@ public class MovieDetailActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(MovieDetailActivity.this,R.layout.activity_movie_detail);
         binding.setLifecycleOwner(this);
         movieDetailViewModel = new ViewModelProvider(this).get(MovieDetailViewModel.class);
-        setListeners();
-        observerViewModel();
+
+        Intent intent = getIntent();
+        if (intent.getExtras() != null){
+            Movie movieChoose = (Movie) intent.getSerializableExtra("movie");
+            movieDetailViewModel.getMovie(movieChoose);
+            setListeners();
+            observerViewModel();
+        } else {
+            Toast.makeText(this, "Do not get data", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
     private void observerViewModel() {
@@ -59,8 +71,6 @@ public class MovieDetailActivity extends AppCompatActivity {
             public void onChanged(Movie movie) {
                 Picasso.get().load(movie.getImgTeaster()).into(binding.imgTrailer);
                 Picasso.get().load(movie.getImgPoster()).into(binding.imgPoster);
-//                binding.imgTrailer.setImageResource(movie.getImgTeaster());
-//                binding.imgPoster.setImageResource(movie.getImgPoster());
                 binding.tvName.setText(movie.getName());
                 binding.tvCategory.setText(movie.getCate());
                 binding.tvTime.setText(movie.getTime());

@@ -1,5 +1,8 @@
 package com.example.appcinema.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -34,6 +37,8 @@ public class Movie implements Serializable {
         this.linkMusic = linkMusic;
         this.listIdActor = listIdActor;
     }
+
+
 
     public String getTime() {
         return time;
@@ -132,4 +137,5 @@ public class Movie implements Serializable {
     public void setImgPoster(String imgPoster) {
         this.imgPoster = imgPoster;
     }
+
 }

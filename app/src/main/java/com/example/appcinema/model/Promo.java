@@ -1,6 +1,8 @@
 package com.example.appcinema.model;
 
-public class Promo {
+import java.io.Serializable;
+
+public class Promo implements Serializable {
     private int id;
     private String title;
     private String mota;

@@ -6,7 +6,7 @@ import java.util.Date;
 public class Order implements Serializable {
     private int id;
     private Movie movie;
-    private Date date;
+    private String date;
     private String location;
     private int price;
     private String slot;
@@ -15,7 +15,7 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(int id, Movie movie, Date date, String location, int price, String slot, int imgQr) {
+    public Order(int id, Movie movie, String date, String location, int price, String slot, int imgQr) {
         this.id = id;
         this.movie = movie;
         this.date = date;
@@ -41,11 +41,11 @@ public class Order implements Serializable {
         this.movie = movie;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

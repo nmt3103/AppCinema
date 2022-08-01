@@ -1,5 +1,6 @@
 package com.example.appcinema.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appcinema.R;
+import com.example.appcinema.activities.MovieDetailActivity;
 import com.example.appcinema.adapter.MovieTrendAdapter;
 import com.example.appcinema.databinding.FragmentDashboardBinding;
 import com.example.appcinema.model.Movie;
@@ -27,7 +29,7 @@ import java.util.Comparator;
 import java.util.List;
 
 
-public class DashBoardFragment extends Fragment {
+public class DashBoardFragment extends Fragment implements MovieTrendAdapter.MovieTrendListener {
     MovieTrendAdapter movieTrendAdapter;
     FragmentDashboardBinding binding;
     View view;
@@ -58,10 +60,19 @@ public class DashBoardFragment extends Fragment {
                 binding.tvTop1.setText(top1.getName());
                 Picasso.get().load(top1.getImgBig()).into(binding.imgTop1);
 //                binding.imgTop1.setImageResource(top1.getImgBig());
-                movieTrendAdapter = new MovieTrendAdapter(getContext(),movies);
+                movieTrendAdapter = new MovieTrendAdapter(movies,DashBoardFragment.this::selectedMovie);
                 binding.rcTrendMovie.setAdapter(movieTrendAdapter);
             }
         });
 
+
+    }
+
+
+    @Override
+    public void selectedMovie(Movie movie) {
+        Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+        intent.putExtra("movie",movie);
+        startActivity(intent);
     }
 }
