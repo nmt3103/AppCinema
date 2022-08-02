@@ -59,6 +59,7 @@ public class MovieDetailViewModel extends ViewModel {
     private void getActor(Movie movie) {
         List<Integer> listIdActorRead = new ArrayList<>();
         listIdActorRead = movie.getListIdActor();
+
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         database.collection("actors")
                 .get()
@@ -70,7 +71,7 @@ public class MovieDetailViewModel extends ViewModel {
                             actors = new ArrayList<>();
                             for (QueryDocumentSnapshot doc : snapshot){
                                 for (int i = 0 ; i < listIdActor.size();i++){
-                                    if (listIdActor.get(i) == Integer.parseInt(doc.get("id").toString())){
+                                    if (doc.get("id").toString().trim().equals(listIdActor.get(i).toString().trim())){
                                         Actor actor = new Actor();
                                         actor.setId(Integer.parseInt(doc.get("id").toString()));
                                         actor.setName(doc.get("name").toString());

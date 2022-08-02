@@ -1,5 +1,7 @@
 package com.example.appcinema.viewmodel;
 
+import android.graphics.Color;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -13,13 +15,29 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidmads.library.qrgenearator.QRGEncoder;
+
 public class CheckOutViewModel extends ViewModel {
     public MutableLiveData<Boolean> isSuccess;
     public CheckOutViewModel() {
         isSuccess = new MutableLiveData<>();
 
     }
+    public void genQrImg(){
+//        QRGEncoder qrgEncoder = new QRGEncoder(inputValue, null, QRGContents.Type.TEXT, smallerDimension);
+//        qrgEncoder.setColorBlack(Color.RED);
+//        qrgEncoder.setColorWhite(Color.BLUE);
+//        try {
+//            // Getting QR-Code as Bitmap
+//            bitmap = qrgEncoder.getBitmap();
+//            // Setting Bitmap to ImageView
+//            qrImage.setImageBitmap(bitmap);
+//        } catch (WriterException e) {
+//            Log.v(TAG, e.toString());
+//        }
+    }
     public void addOrder(Order order){
+
         Map<String, Object> orderAdd = new HashMap<>();
         orderAdd.put("id", order.getId());
         orderAdd.put("movieId", order.getMovie().getId());
