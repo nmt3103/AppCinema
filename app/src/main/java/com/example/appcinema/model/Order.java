@@ -6,23 +6,24 @@ import java.util.Date;
 public class Order implements Serializable {
     private int id;
     private Movie movie;
+    private Room room;
+    private String customerId;
     private String date;
     private String location;
     private int price;
     private String slot;
-    private int imgQr;
+    private String imgQr;
 
     public Order() {
     }
 
-    public Order(int id, Movie movie, String date, String location, int price, String slot, int imgQr) {
-        this.id = id;
+    public Order(Movie movie,Room room, String date, String location, int price, String slot) {
         this.movie = movie;
+        this.room = room;
         this.date = date;
         this.location = location;
         this.price = price;
         this.slot = slot;
-        this.imgQr = imgQr;
     }
 
     public int getId() {
@@ -73,11 +74,39 @@ public class Order implements Serializable {
         this.slot = slot;
     }
 
-    public int getImgQr() {
+    public String getImgQr() {
         return imgQr;
     }
 
-    public void setImgQr(int imgQr) {
+    public void setImgQr(String imgQr) {
         this.imgQr = imgQr;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "movie=" + movie.getName() +
+                ", room=" + room.getId() +
+                ", date='" + date + '\'' +
+                ", location='" + location + '\'' +
+                ", price=" + price +
+                ", slot='" + slot + '\'' +
+                '}';
     }
 }

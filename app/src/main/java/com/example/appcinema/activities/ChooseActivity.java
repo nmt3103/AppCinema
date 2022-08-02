@@ -17,6 +17,7 @@ import com.example.appcinema.R;
 import com.example.appcinema.adapter.DateAdapter;
 import com.example.appcinema.adapter.TimeAdapter;
 import com.example.appcinema.databinding.ActivityChooseBinding;
+import com.example.appcinema.model.Movie;
 import com.example.appcinema.model.Room;
 import com.example.appcinema.model.Slot;
 import com.example.appcinema.viewmodel.ChooseViewModel;
@@ -31,6 +32,7 @@ public class ChooseActivity extends AppCompatActivity {
     DateAdapter dateAdapter;
     TimeAdapter timeAdapter1,timeAdapter2,timeAdapter3;
     ChooseViewModel viewModel;
+    Movie movieChoose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,10 @@ public class ChooseActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(ChooseActivity.this,R.layout.activity_choose);
         binding.setLifecycleOwner(this);
         viewModel = new ViewModelProvider(this).get(ChooseViewModel.class);
+
+        Intent intent = getIntent();
+        movieChoose = (Movie) intent.getSerializableExtra("movieChoose");
+        binding.tvName.setText(movieChoose.getName());
 
         obeserverViewModel();
         setListener();
@@ -99,6 +105,7 @@ public class ChooseActivity extends AppCompatActivity {
                                     check = true;
                                     Intent  intent = new Intent(ChooseActivity.this,RoomActivity.class);
                                     intent.putExtra("roomChose",room);
+                                    intent.putExtra("movieChoose",movieChoose);
                                     startActivity(intent);
                                 }
                             }

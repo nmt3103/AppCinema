@@ -41,6 +41,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     ActorAdapter actorAdapter;
     ActivityMovieDetailBinding binding;
     MovieDetailViewModel movieDetailViewModel;
+    Movie movieChoose;
 
 
 
@@ -54,7 +55,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent.getExtras() != null){
-            Movie movieChoose = (Movie) intent.getSerializableExtra("movie");
+            movieChoose = (Movie) intent.getSerializableExtra("movie");
             movieDetailViewModel.getMovie(movieChoose);
             setListeners();
             observerViewModel();
@@ -114,7 +115,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         binding.btnBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MovieDetailActivity.this,ChooseActivity.class));
+                Intent intent = new Intent(MovieDetailActivity.this,ChooseActivity.class);
+                intent.putExtra("movieChoose",movieChoose);
+                startActivity(intent);
             }
         });
     }

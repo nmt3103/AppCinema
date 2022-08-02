@@ -136,16 +136,16 @@
 
                 <TextView
                     android:textColor="@color/white"
-                    android:text="ID Order"
+                    android:text="Customer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <TextView
-                    android:id="@+id/tvIdOrder"
+                    android:id="@+id/tvNameUser"
                     android:gravity="end"
                     android:layout_marginEnd="20dp"
                     android:textColor="@color/white"
-                    android:text="22081996"
+                    android:text="Nguyen Minh Tien"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>

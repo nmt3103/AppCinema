@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.appcinema.R;
 import com.example.appcinema.model.Movie;
 import com.example.appcinema.model.Order;
+import com.example.appcinema.model.Room;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -66,8 +67,9 @@ public class TicketViewModel extends ViewModel {
                                 movie.setTime(doc.get("Time").toString());
                                 movie.setName(doc.get("name").toString());
                                 movie.setRate(Float.parseFloat(doc.get("rate").toString()));
+                                Room room = new Room();
                                 Format dateFormat = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss", Locale.getDefault());
-                                Order order = new Order(1, movie,dateFormat.format(new Date()).toString(),"Ha noi Cinema 3",50000,"A1",R.drawable.qr);
+                                Order order = new Order(movie,room,dateFormat.format(new Date()).toString(),"Ha noi Cinema 3",50000,"A1");
                                 listExprie.add(order);
                             }
                             listExpireOrder.setValue(listExprie);
@@ -103,8 +105,9 @@ public class TicketViewModel extends ViewModel {
                                 movie.setTime(doc.get("Time").toString());
                                 movie.setName(doc.get("name").toString());
                                 movie.setRate(Float.parseFloat(doc.get("rate").toString()));
+                                Room room = new Room();
                                 Format dateFormat = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss", Locale.getDefault());
-                                Order order = new Order(1, movie,dateFormat.format(new Date()).toString(),"Ha noi Cinema 2",50000,"A1",R.drawable.qr);
+                                Order order = new Order(movie,room,dateFormat.format(new Date()).toString(),"Ha noi Cinema 2",50000,"A1");
                                 listNew.add(order);
                             }
                             listNewOrder.setValue(listNew);
@@ -142,9 +145,10 @@ public class TicketViewModel extends ViewModel {
                                 movie.setTime(doc.get("Time").toString());
                                 movie.setName(doc.get("name").toString());
                                 movie.setRate(Float.parseFloat(doc.get("rate").toString()));
+                                Room room = new Room();
                                 Format dateFormat = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss", Locale.getDefault());
 
-                                Order order = new Order(1, movie,dateFormat.format(new Date()).toString(),"Ha noi Cinema 1",50000,"A1",R.drawable.qr);
+                                Order order = new Order(movie,room,dateFormat.format(new Date()).toString(),"Ha noi Cinema 1",50000,"A1");
                                 listAll.add(order);
                             }
                             listOrderLiveDate.setValue(listAll);

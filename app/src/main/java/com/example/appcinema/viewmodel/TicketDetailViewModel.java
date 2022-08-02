@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel;
 import com.example.appcinema.R;
 import com.example.appcinema.model.Movie;
 import com.example.appcinema.model.Order;
+import com.example.appcinema.model.Room;
+import com.example.appcinema.model.Slot;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -40,8 +42,10 @@ public class TicketDetailViewModel extends ViewModel {
                         "But without realizing Ralph instead paved the way for criminals who can kill all the games in the game complex.",
                 "_BcYBFC6zfY","ctVBmyub02A",listIdActor);
         Format dateFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        List<Slot> listSlot = new ArrayList<>();
+        Room room = new Room(3,"05-Aug-2022",listSlot,"9 : 30");
 
-        order = new Order(1, movie,dateFormat.format(new Date()).toString(),"Ha noi Cinema 1",50000,"A3",R.drawable.qr);
+        order = new Order(movie,room,dateFormat.format(new Date()).toString(),"Ha noi Cinema 1",50000,"A3");
         orderLiveData.setValue(order);
     }
 

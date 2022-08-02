@@ -18,6 +18,7 @@ import com.example.appcinema.R;
 import com.example.appcinema.adapter.SlotAdapter;
 import com.example.appcinema.databinding.ActivityRoomBinding;
 import com.example.appcinema.inteface.SlotListener;
+import com.example.appcinema.model.Movie;
 import com.example.appcinema.model.Room;
 import com.example.appcinema.model.Slot;
 import com.example.appcinema.viewmodel.RoomViewModel;
@@ -31,6 +32,7 @@ public class RoomActivity extends AppCompatActivity implements SlotListener {
     RoomViewModel viewModel;
     Room choose;
     List<Slot> selectList;
+    Movie movieChoose;
 
 
     private final ActivityResultLauncher<Intent> confirm = registerForActivityResult(
@@ -59,6 +61,8 @@ public class RoomActivity extends AppCompatActivity implements SlotListener {
 
         Intent intent = getIntent();
         choose = (Room) intent.getSerializableExtra("roomChose");
+        movieChoose = (Movie) intent.getSerializableExtra("movieChoose");
+        binding.tvName.setText(movieChoose.getName());
         obeserverViewModel();
 
         setListener();
@@ -84,6 +88,7 @@ public class RoomActivity extends AppCompatActivity implements SlotListener {
             public void onClick(View v) {
 
                 Intent intent = new Intent(RoomActivity.this,CheckOutActivity.class);
+                intent.putExtra("movieChoose",movieChoose);
                 intent.putExtra("roomConfirm",choose);
                 intent.putExtra("seatSelected",slotAdapter.getStringSeatLocation());
                 intent.putExtra("numberSeat",slotAdapter.selectedList().size());

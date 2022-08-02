@@ -1,7 +1,10 @@
 package com.example.appcinema.activities;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 
 
@@ -13,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.appcinema.R;
 import com.example.appcinema.databinding.ActivityTicketDetailBinding;
 import com.example.appcinema.model.Order;
+import com.example.appcinema.viewmodel.CheckOutViewModel;
 import com.example.appcinema.viewmodel.TicketDetailViewModel;
 import com.squareup.picasso.Picasso;
 
@@ -49,7 +53,11 @@ public class TicketDetailActivity extends AppCompatActivity {
                 binding.tvDateTime.setText(order.getDate().toString());
                 binding.tvSeat.setText(order.getSlot());
                 binding.tvPaid.setText(Integer.toString(order.getPrice()));
-                binding.imgQr.setImageResource(order.getImgQr());
+
+                byte[] bytes = Base64.decode(order.getImgQr(),Base64.DEFAULT);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                binding.imgQr.setImageBitmap(bitmap);
+
                 binding.tvIdOrder.setText(Integer.toString(order.getId()));
             }
         });
