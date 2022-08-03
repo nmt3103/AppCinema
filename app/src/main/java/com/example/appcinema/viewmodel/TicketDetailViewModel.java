@@ -22,10 +22,10 @@ public class TicketDetailViewModel extends ViewModel {
 
     public TicketDetailViewModel() {
         orderLiveData = new MutableLiveData<>();
-        initData();
+
     }
 
-    private void initData() {
+    public void initData(Order order) {
         List<Integer> listIdActor = new ArrayList<>();
         listIdActor.add(1);
         listIdActor.add(2);

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Order implements Serializable {
-    private int id;
+    private String id;
     private Movie movie;
     private Room room;
     private String customerId;
@@ -19,18 +19,18 @@ public class Order implements Serializable {
 
     public Order(Movie movie,Room room, String date, String location, int price, String slot) {
         this.movie = movie;
-        this.room = room;
+        this.room= room;
         this.date = date;
         this.location = location;
         this.price = price;
         this.slot = slot;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

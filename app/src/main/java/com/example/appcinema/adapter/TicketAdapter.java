@@ -23,11 +23,11 @@ import java.util.List;
 public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketHolder>{
     private List<Order> list;
     private TicketListener ticketListener;
-    private Context context;
+//    private Context context;
 
-    public TicketAdapter(Context context,List<Order> list) {
+    public TicketAdapter(List<Order> list ,TicketListener ticketListener) {
         this.list = list;
-        this.context = context;
+        this.ticketListener = ticketListener;
     }
 
     public void setTicketListener(TicketListener ticketListener) {
@@ -53,13 +53,13 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketHold
         holder.tvLocation.setText(order.getLocation());
         Picasso.get().load(order.getMovie().getImgPoster()).into(holder.imgTicket);
 //        holder.imgTicket.setImageResource(order.getMovie().getImgPoster());
-        holder.cvTicket.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, TicketDetailActivity.class);
-                context.startActivity(intent);
-            }
-        });
+//        holder.cvTicket.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context, TicketDetailActivity.class);
+//                context.startActivity(intent);
+//            }
+//        });
     }
 
     @Override
@@ -70,26 +70,27 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketHold
         return 0;
     }
 
-    class TicketHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class TicketHolder extends RecyclerView.ViewHolder {
         TextView tvName,tvDate,tvLocation;
         ImageView imgTicket;
-        CardView cvTicket;
 
         public TicketHolder(@NonNull View itemView) {
             super(itemView);
-            cvTicket = itemView.findViewById(R.id.cvTicket);
             tvName = itemView.findViewById(R.id.tvName);
             tvDate = itemView.findViewById(R.id.tvDate);
             tvLocation = itemView.findViewById(R.id.tvLocation);
             imgTicket = itemView.findViewById(R.id.imgTicket);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ticketListener.onTicketClick(list.get(getAdapterPosition()));
+                }
+            });
         }
 
-        @Override
-        public void onClick(View v) {
 
-        }
     }
     public interface TicketListener{
-        public void onTicketClick(View view, int position);
+        public void onTicketClick(Order order);
     }
 }
