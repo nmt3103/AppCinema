@@ -21,13 +21,13 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.TimeHolder>{
 
     public TimeAdapter() {
         list = new ArrayList<>();
-        list.add("9 : 30");
-        list.add("12 : 20");
-        list.add("14 : 30");
-        list.add("16 : 40");
-        list.add("19 : 30");
-        list.add("21 : 30");
-        list.add("23 : 30");
+        list.add("9:30");
+        list.add("12:20");
+        list.add("14:30");
+        list.add("16:40");
+        list.add("19:30");
+        list.add("21:30");
+        list.add("23:30");
         selectedTime = 0;
     }
 

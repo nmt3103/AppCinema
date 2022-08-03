@@ -36,7 +36,7 @@ public class CheckOutViewModel extends ViewModel {
         orderAdd.put("imgQr",order.getImgQr());
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        db.collection("orders")
+        db.collection("tests")
                 .add(orderAdd)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

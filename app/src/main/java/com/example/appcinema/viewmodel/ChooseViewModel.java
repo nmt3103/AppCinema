@@ -34,7 +34,7 @@ public class ChooseViewModel extends ViewModel {
     private void readListRoomFromFirebase() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        DatabaseReference myRef = database.getReference("listRoom");
+        DatabaseReference myRef = database.getReference("listRoom/rednotice");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

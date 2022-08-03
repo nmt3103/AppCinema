@@ -49,7 +49,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketHold
             return;
 
         holder.tvName.setText(order.getMovie().getName());
-        holder.tvDate.setText(order.getDate().toString());
+        holder.tvDate.setText(order.getRoom().getDate().toString() + " " + order.getRoom().getTime().toString());
         holder.tvLocation.setText(order.getLocation());
         Picasso.get().load(order.getMovie().getImgPoster()).into(holder.imgTicket);
 //        holder.imgTicket.setImageResource(order.getMovie().getImgPoster());

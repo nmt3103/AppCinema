@@ -40,7 +40,7 @@ public class RoomViewModel extends ViewModel {
     public void changeStatus(List<Slot> list,Room room){
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("listRoom");
+        DatabaseReference myRef = database.getReference("listRoom/rednotice");
         for (int i = 0;i<list.size();i++){
             HashMap slot = new HashMap();
             slot.put("id",list.get(i).getId());
