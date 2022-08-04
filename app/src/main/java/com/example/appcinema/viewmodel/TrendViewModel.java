@@ -41,8 +41,6 @@ public class TrendViewModel extends ViewModel {
                             QuerySnapshot snapshot = task.getResult();
                             List<Movie> movieList = new ArrayList<>();
                             for (DocumentSnapshot doc : snapshot){
-//                                List<Integer> listActor = new ArrayList<>();
-//                                listActor.add(1);
                                 Movie movie = new Movie();
                                 movie.setId(Integer.parseInt(doc.get("id").toString()));
                                 movie.setImgBig(doc.get("imgPager").toString());
@@ -55,7 +53,7 @@ public class TrendViewModel extends ViewModel {
                                 movie.setTime(doc.get("Time").toString());
                                 movie.setName(doc.get("name").toString());
                                 movie.setRate(Float.parseFloat(doc.get("rate").toString()));
-                                List<Integer> listActor = (List<Integer>) doc.get("ListActor");
+                                List<Long> listActor = (List<Long>) doc.get("ListActor");
                                 movie.setListIdActor(listActor);
                                 movieList.add(movie);
                             }

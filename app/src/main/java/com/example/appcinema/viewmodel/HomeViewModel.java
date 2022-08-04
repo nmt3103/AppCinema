@@ -76,7 +76,7 @@ public class HomeViewModel extends ViewModel {
                                 movie.setTime(doc.get("Time").toString());
                                 movie.setName(doc.get("name").toString());
                                 movie.setRate(Float.parseFloat(doc.get("rate").toString()));
-                                List<Integer> listActor = (List<Integer>) doc.get("ListActor");
+                                List<Long> listActor = (List<Long>) doc.get("ListActor");
                                 movie.setListIdActor(listActor);
                                 listComing.add(movie);
                             }
@@ -110,7 +110,7 @@ public class HomeViewModel extends ViewModel {
                                 movie.setTime(doc.get("Time").toString());
                                 movie.setName(doc.get("name").toString());
                                 movie.setRate(Float.parseFloat(doc.get("rate").toString()));
-                                List<Integer> listActor = (List<Integer>) doc.get("ListActor");
+                                List<Long> listActor = (List<Long>) doc.get("ListActor");
                                 movie.setListIdActor(listActor);
                                 listNow.add(movie);
                             }

@@ -28,13 +28,13 @@ public class ChooseViewModel extends ViewModel {
         slotTest = new MutableLiveData<>();
         testFire = new MutableLiveData<>();
         listTest = new MutableLiveData<>();
-        readListRoomFromFirebase();
+
     }
 
-    private void readListRoomFromFirebase() {
+    public void readListRoomFromFirebase(String name) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        DatabaseReference myRef = database.getReference("listRoom/rednotice");
+        DatabaseReference myRef = database.getReference("listRoom/"+name);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

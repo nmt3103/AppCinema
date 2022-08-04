@@ -36,16 +36,13 @@ public class TicketViewModel extends ViewModel {
     private MutableLiveData<List<Order>> listNewOrder;
     private MutableLiveData<List<Order>> listExpireOrder;
     private MutableLiveData<List<Movie>> listMovieLiveData;
-    private MutableLiveData<List<Integer>> listMovieId;
     private MutableLiveData<List<Room>> listRoomLiveData;
-    private int idMovie;
 
     public TicketViewModel() {
         listOrderLiveDate = new MutableLiveData<>();
         listNewOrder = new MutableLiveData<>();
         listExpireOrder = new MutableLiveData<>();
         listMovieLiveData = new MutableLiveData<>();
-        listMovieId = new MutableLiveData<>();
         listRoomLiveData = new MutableLiveData<>();
     }
 
@@ -53,17 +50,13 @@ public class TicketViewModel extends ViewModel {
     public void initData(String name) {
 
 
-        List<Order> listAll = new ArrayList<>();
-        List<Order> listNew = new ArrayList<>();
-        List<Order> listExpire = new ArrayList<>();
 
-        List<Room> listRoom = new ArrayList<>();
         FirebaseDatabase dataReal = FirebaseDatabase.getInstance();
         DatabaseReference myRef = dataReal.getReference("listRoom/rednotice");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                List<Room> listRoom = new ArrayList<>();
                 for (DataSnapshot dataSnapshotRoom : snapshot.getChildren()){
                     int id = dataSnapshotRoom.child("id").getValue(Integer.class);
                     String time = dataSnapshotRoom.child("time").getValue(String.class);
@@ -114,7 +107,7 @@ public class TicketViewModel extends ViewModel {
                                     movie.setTime(doc.get("Time").toString());
                                     movie.setName(doc.get("name").toString());
                                     movie.setRate(Float.parseFloat(doc.get("rate").toString()));
-                                    List<Integer> listActor = (List<Integer>) doc.get("ListActor");
+                                    List<Long> listActor = (List<Long>) doc.get("ListActor");
                                     movie.setListIdActor(listActor);
                                     list.add(movie);
 
@@ -158,9 +151,6 @@ public class TicketViewModel extends ViewModel {
                                                         break;
                                                     }
                                                 }
-//                                                    List<Slot> listSlot = new ArrayList<>();
-//                                                Room room = new Room(Integer.parseInt(doc.get("roomId").toString()),"05-Aug-2022",listSlot,"9 : 30");
-//                                                order.setRoom(room);
                                                 order.setPrice(Integer.parseInt(doc.get("price").toString()));
                                                 order.setId(doc.getId());
                                                 order.setImgQr(doc.get("imgQr").toString());
@@ -168,11 +158,22 @@ public class TicketViewModel extends ViewModel {
                                                 order.setSlot(doc.get("Slot").toString());
                                                 order.setCustomerId(doc.get("customerId").toString());
                                                 order.setDate(doc.get("dateCrate").toString());
+                                                SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy hh:mm",Locale.getDefault());
+                                                try {
+                                                    Date dateCheck = format.parse(order.getRoom().getDate()+" "+order.getRoom().getTime());
+                                                    if (dateCheck.before(new Date())){
+                                                        listExpire.add(order);
+                                                    } else {
+                                                        listNew.add(order);
+                                                    }
+                                                } catch (ParseException e) {
+                                                    e.printStackTrace();
+                                                }
                                                 listAll.add(order);
                                             }
                                             listOrderLiveDate.setValue(listAll);
-                                            listNewOrder.setValue(listAll);
-                                            listExpireOrder.setValue(listAll);
+                                            listNewOrder.setValue(listNew);
+                                            listExpireOrder.setValue(listExpire);
                                         }
                                     }
                                 });

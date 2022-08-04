@@ -46,7 +46,7 @@ public class ChooseActivity extends AppCompatActivity {
         Intent intent = getIntent();
         movieChoose = (Movie) intent.getSerializableExtra("movieChoose");
         binding.tvName.setText(movieChoose.getName());
-
+        viewModel.readListRoomFromFirebase(movieChoose.getName().replaceAll(" ","").toLowerCase().trim());
         obeserverViewModel();
         setListener();
     }

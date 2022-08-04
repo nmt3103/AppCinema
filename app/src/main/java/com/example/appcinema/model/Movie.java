@@ -18,12 +18,12 @@ public class Movie implements Serializable {
     private String review;
     private String linkTrailer;
     private String linkMusic;
-    private List<Integer> listIdActor;
+    private List<Long> listIdActor;
         //
     public Movie() {
     }
 
-    public Movie(int id, String name, String imgTeaster, String imgBig, String imgPoster, String cate, float rate, String time, String review, String linkTrailer, String linkMusic, List<Integer> listIdActor) {
+    public Movie(int id, String name, String imgTeaster, String imgBig, String imgPoster, String cate, float rate, String time, String review, String linkTrailer, String linkMusic, List<Long> listIdActor) {
         this.id = id;
         this.name = name;
         this.imgTeaster = imgTeaster;
@@ -106,11 +106,11 @@ public class Movie implements Serializable {
         this.linkMusic = linkMusic;
     }
 
-    public List<Integer> getListIdActor() {
+    public List<Long> getListIdActor() {
         return listIdActor;
     }
 
-    public void setListIdActor(List<Integer> listIdActor) {
+    public void setListIdActor(List<Long> listIdActor) {
         this.listIdActor = listIdActor;
     }
 
