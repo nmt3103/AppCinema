@@ -118,6 +118,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                 Intent intent = new Intent(MovieDetailActivity.this,ChooseActivity.class);
                 intent.putExtra("movieChoose",movieChoose);
                 startActivity(intent);
+                finish();
             }
         });
     }

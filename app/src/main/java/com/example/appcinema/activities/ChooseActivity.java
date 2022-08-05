@@ -121,7 +121,9 @@ public class ChooseActivity extends AppCompatActivity {
         binding.btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                startActivity(new Intent(ChooseActivity.this,MovieDetailActivity.class));
+                finish();
+
             }
         });
     }

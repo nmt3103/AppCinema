@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCinema">
         <activity
+            android:name=".activities.UpdateProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.CheckOutDoneActivity"
             android:exported="false" />
         <activity

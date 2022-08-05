@@ -45,7 +45,7 @@ public class MyTicketFragment extends Fragment implements TicketAdapter.TicketLi
         view = binding.getRoot();
         ticketViewModel = new ViewModelProvider(this).get(TicketViewModel.class);
         PreferenceManager preferenceManager = new PreferenceManager(getContext());
-        ticketViewModel.initData(preferenceManager.getString(Constants.KEY_NAME));
+        ticketViewModel.initData(preferenceManager.getString(Constants.KEY_USER_ID));
         observerViewModel();
         setListeners();
         return view;

@@ -51,6 +51,7 @@ public class RegisterVM extends ViewModel {
                     preferenceManager.putString(Constants.KEY_USER_ID,documentReference.getId());
                     preferenceManager.putString(Constants.KEY_NAME, userIn.getName());
                     preferenceManager.putString(Constants.KEY_IMAGE, userIn.getImage());
+                    preferenceManager.putString(Constants.KEY_EMAIL, userIn.getEmail());
                     isValid.postValue(true);
                 })
                 .addOnFailureListener(exception -> {

@@ -87,6 +87,7 @@ public class CheckOutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+                finish();
             }
         });
         binding.btnCheckOut.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +97,7 @@ public class CheckOutActivity extends AppCompatActivity {
 //                new Locale("vi","VN")
                 Format formatter = new SimpleDateFormat("dd-M-yyyy hh:mm:ss",Locale.getDefault());
                 Order order = new Order(movieChoose,room,formatter.format(new Date()),"Ha Noi Cinema 1",totalPrice,slots);
-                order.setCustomerId(preferenceManager.getString(Constants.KEY_NAME));
+                order.setCustomerId(preferenceManager.getString(Constants.KEY_USER_ID));
                 QRGEncoder qrgEncoder = new QRGEncoder(order.toString(), null, QRGContents.Type.TEXT, 500);
                 try {
                     Bitmap bitmap = qrgEncoder.getBitmap();

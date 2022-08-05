@@ -47,7 +47,7 @@ public class TicketViewModel extends ViewModel {
     }
 
 
-    public void initData(String name) {
+    public void initData(String idCustomer) {
 
 
 
@@ -126,8 +126,8 @@ public class TicketViewModel extends ViewModel {
                     @Override
                     public void onChanged(List<Movie> movies) {
                         FirebaseFirestore database = FirebaseFirestore.getInstance();
-                        database.collection("tests")
-                                .whereEqualTo("customerId", name)
+                        database.collection("orders")
+                                .whereEqualTo("customerId", idCustomer)
                                 .get()
                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override

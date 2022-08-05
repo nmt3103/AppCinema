@@ -1,6 +1,7 @@
 package com.example.appcinema.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.appcinema.R;
+import com.example.appcinema.activities.ProfileActivity;
 import com.example.appcinema.adapter.CategoryAdapter;
 import com.example.appcinema.adapter.MovieComingAdapter;
 import com.example.appcinema.adapter.MoviePagerAdapter;
@@ -71,7 +73,17 @@ public class HomeFragment extends Fragment {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         loadUserDetails();
         observerViewModel();
+        setListener();
         return view;
+    }
+
+    private void setListener() {
+        binding.imgUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ProfileActivity.class));
+            }
+        });
     }
 
     private void observerViewModel() {
@@ -176,6 +188,8 @@ public class HomeFragment extends Fragment {
         super.onResume();
         pagerHandler.postDelayed(pagerRunable,3000);
     }
+
+
     private void loadUserDetails() {
         preferenceManager = new PreferenceManager(context);
         byte[] bytes = Base64.decode(preferenceManager.getString(Constants.KEY_IMAGE),Base64.DEFAULT);

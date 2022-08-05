@@ -46,11 +46,13 @@ public class MainActivity extends AppCompatActivity {
     }
     private void checkSharePreferrence(){
         PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
+//        preferenceManager.clear();
         if (preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)){
             Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
             startActivity(intent);
             finish();
         }
+
 
 
     }
