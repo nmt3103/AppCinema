@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
-import com.example.appcinema.R;
+
 import com.example.appcinema.model.Actor;
 import com.example.appcinema.model.Movie;
+
 import com.example.appcinema.utilities.Constants;
-import com.example.appcinema.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -42,7 +42,7 @@ public class MovieDetailViewModel extends ViewModel {
             @Override
             public void onChanged(Movie movie) {
                 FirebaseFirestore database = FirebaseFirestore.getInstance();
-                database.collection("actors")
+                database.collection(Constants.KEY_COLLECTION_ACTORS)
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
@@ -52,11 +52,11 @@ public class MovieDetailViewModel extends ViewModel {
                                     actors = new ArrayList<>();
                                     for (QueryDocumentSnapshot doc : snapshot){
                                         for (int i = 0 ; i < movie.getListIdActor().size();i++){
-                                            if (Long.parseLong(doc.get("id").toString()) == movie.getListIdActor().get(i)){
+                                            if (Long.parseLong(doc.get(Constants.KEY_ACTORS_ID).toString()) == movie.getListIdActor().get(i)){
                                                 Actor actor = new Actor();
-                                                actor.setId(Integer.parseInt(doc.get("id").toString()));
-                                                actor.setName(doc.get("name").toString());
-                                                actor.setImg(doc.get("linkImg").toString());
+                                                actor.setId(Integer.parseInt(doc.get(Constants.KEY_ACTORS_ID).toString()));
+                                                actor.setName(doc.get(Constants.KEY_ACTORS_NAME).toString());
+                                                actor.setImg(doc.get(Constants.KEY_ACTORS_LINKIMG).toString());
                                                 actors.add(actor);
                                             }
                                         }

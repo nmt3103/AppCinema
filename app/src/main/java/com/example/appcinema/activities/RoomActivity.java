@@ -44,7 +44,7 @@ public class RoomActivity extends AppCompatActivity implements SlotListener {
                         if (intent.getBooleanExtra("IsSuccess", false)){
                             Toast.makeText(this, "Update Slot", Toast.LENGTH_SHORT).show();
                             List<Slot> select = slotAdapter.selectedList();
-                             viewModel.changeStatus(select,choose,movieChoose.getName().replaceAll(" ","").toLowerCase().trim());
+                             viewModel.changeStatus(select,choose);
                             startActivity(new Intent(RoomActivity.this,CheckOutDoneActivity.class));
                         }
                     }

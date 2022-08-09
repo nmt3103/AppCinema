@@ -1,5 +1,7 @@
 package com.example.appcinema.viewmodel;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -52,21 +54,22 @@ public class TicketViewModel extends ViewModel {
 
 
         FirebaseDatabase dataReal = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = dataReal.getReference("listRoom/rednotice");
+        DatabaseReference myRef = dataReal.getReference(Constants.KEY_COLLECTION_ROOMS);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Room> listRoom = new ArrayList<>();
                 for (DataSnapshot dataSnapshotRoom : snapshot.getChildren()){
-                    int id = dataSnapshotRoom.child("id").getValue(Integer.class);
-                    String time = dataSnapshotRoom.child("time").getValue(String.class);
-                    String date = dataSnapshotRoom.child("date").getValue(String.class);
+                    int id = dataSnapshotRoom.child(Constants.KEY_ROOMS_ID).getValue(Integer.class);
+                    String time = dataSnapshotRoom.child(Constants.KEY_ROOMS_TIME).getValue(String.class);
+                    String date = dataSnapshotRoom.child(Constants.KEY_ROOMS_DATE).getValue(String.class);
+                    int movieId = dataSnapshotRoom.child(Constants.KEY_ROOMS_MOVIE_ID).getValue(Integer.class);
                     List<Slot> listSlotRead = new ArrayList<>();
-                    for (DataSnapshot dataSnapshot : dataSnapshotRoom.child("listSlot").getChildren()){
+                    for (DataSnapshot dataSnapshot : dataSnapshotRoom.child(Constants.KEY_ROOMS_LIST_SLOT).getChildren()){
                         Slot slot = dataSnapshot.getValue(Slot.class);
                         listSlotRead.add(slot);
                     }
-                    Room room = new Room(id,date,listSlotRead,time);
+                    Room room = new Room(id,date,listSlotRead,time,movieId);
                     listRoom.add(room);
                 }
                 listRoomLiveData.postValue(listRoom);
@@ -78,13 +81,8 @@ public class TicketViewModel extends ViewModel {
         });
 
 
-
-
-
-
-
         FirebaseFirestore database = FirebaseFirestore.getInstance();
-                    database.collection("movies")
+                    database.collection(Constants.KEY_COLLECTION_MOVIES)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -96,18 +94,18 @@ public class TicketViewModel extends ViewModel {
                                 List<Movie> list = new ArrayList<>();
                                 for (QueryDocumentSnapshot doc : snapshot) {
                                     Movie movie = new Movie();
-                                    movie.setId(Integer.parseInt(doc.get("id").toString()));
-                                    movie.setImgBig(doc.get("imgPager").toString());
-                                    movie.setImgPoster(doc.get("imgPoster").toString());
-                                    movie.setImgTeaster(doc.get("imgTrailer").toString());
-                                    movie.setCate(doc.get("Category").toString());
-                                    movie.setLinkMusic(doc.get("LinkSong").toString());
-                                    movie.setLinkTrailer(doc.get("LinkTrailer").toString());
-                                    movie.setReview(doc.get("Review").toString());
-                                    movie.setTime(doc.get("Time").toString());
-                                    movie.setName(doc.get("name").toString());
-                                    movie.setRate(Float.parseFloat(doc.get("rate").toString()));
-                                    List<Long> listActor = (List<Long>) doc.get("ListActor");
+                                    movie.setId(Integer.parseInt(doc.get(Constants.KEY_MOVIES_ID).toString()));
+                                    movie.setImgBig(doc.get(Constants.KEY_MOVIES_IMGPAGER).toString());
+                                    movie.setImgPoster(doc.get(Constants.KEY_MOVIES_IMGPOSTER).toString());
+                                    movie.setImgTeaster(doc.get(Constants.KEY_MOVIES_IMGTRAILER).toString());
+                                    movie.setCate(doc.get(Constants.KEY_MOVIES_CATEGORY).toString());
+                                    movie.setLinkMusic(doc.get(Constants.KEY_MOVIES_LINKSONG).toString());
+                                    movie.setLinkTrailer(doc.get(Constants.KEY_MOVIES_LINKTRAILER).toString());
+                                    movie.setReview(doc.get(Constants.KEY_MOVIES_REVIEW).toString());
+                                    movie.setTime(doc.get(Constants.KEY_MOVIES_TIME).toString());
+                                    movie.setName(doc.get(Constants.KEY_MOVIES_NAME).toString());
+                                    movie.setRate(Float.parseFloat(doc.get(Constants.KEY_MOVIES_RATE).toString()));
+                                    List<Long> listActor = (List<Long>) doc.get(Constants.KEY_MOVIES_LISTACTOR);
                                     movie.setListIdActor(listActor);
                                     list.add(movie);
 
@@ -119,15 +117,15 @@ public class TicketViewModel extends ViewModel {
                     });
 
 
-        listRoomLiveData.observeForever(new Observer<List<Room>>() {
+        listMovieLiveData.observeForever(new Observer<List<Movie>>() {
             @Override
-            public void onChanged(List<Room> list) {
-                listMovieLiveData.observeForever(new Observer<List<Movie>>() {
+            public void onChanged(List<Movie> movies) {
+                listRoomLiveData.observeForever(new Observer<List<Room>>() {
                     @Override
-                    public void onChanged(List<Movie> movies) {
+                    public void onChanged(List<Room> list) {
                         FirebaseFirestore database = FirebaseFirestore.getInstance();
-                        database.collection("orders")
-                                .whereEqualTo("customerId", idCustomer)
+                        database.collection(Constants.KEY_COLLECTION_ORDERS)
+                                .whereEqualTo(Constants.KEY_ORDERS_CUSTOMER_ID, idCustomer)
                                 .get()
                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
@@ -140,24 +138,24 @@ public class TicketViewModel extends ViewModel {
                                             for (QueryDocumentSnapshot doc : snapshot){
                                                 Order order = new Order();
                                                 for (int i = 0;i<movies.size();i++){
-                                                    if (Integer.parseInt(doc.get("movieId").toString()) == movies.get(i).getId()){
+                                                    if (Integer.parseInt(doc.get(Constants.KEY_ORDERS_MOVIE_ID).toString()) == movies.get(i).getId()){
                                                         order.setMovie(movies.get(i));
                                                         break;
                                                     }
                                                 }
                                                 for (int j = 0;j<list.size();j++){
-                                                    if (Integer.parseInt(doc.get("roomId").toString()) == list.get(j).getId()){
+                                                    if (Integer.parseInt(doc.get(Constants.KEY_ORDERS_ROOM_ID).toString()) == list.get(j).getId()){
                                                         order.setRoom(list.get(j));
                                                         break;
                                                     }
                                                 }
-                                                order.setPrice(Integer.parseInt(doc.get("price").toString()));
+                                                order.setPrice(Integer.parseInt(doc.get(Constants.KEY_ORDERS_PRICE).toString()));
                                                 order.setId(doc.getId());
-                                                order.setImgQr(doc.get("imgQr").toString());
-                                                order.setLocation(doc.get("Location").toString());
-                                                order.setSlot(doc.get("Slot").toString());
-                                                order.setCustomerId(doc.get("customerId").toString());
-                                                order.setDate(doc.get("dateCrate").toString());
+                                                order.setImgQr(doc.get(Constants.KEY_ORDERS_IMGQR).toString());
+                                                order.setLocation(doc.get(Constants.KEY_ORDERS_LOCATION).toString());
+                                                order.setSlot(doc.get(Constants.KEY_ORDERS_SLOT).toString());
+                                                order.setCustomerId(doc.get(Constants.KEY_ORDERS_CUSTOMER_ID).toString());
+                                                order.setDate(doc.get(Constants.KEY_ORDERS_DATE_CREATE).toString());
                                                 SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy hh:mm",Locale.getDefault());
                                                 try {
                                                     Date dateCheck = format.parse(order.getRoom().getDate()+" "+order.getRoom().getTime());
@@ -177,11 +175,12 @@ public class TicketViewModel extends ViewModel {
                                         }
                                     }
                                 });
+
                     }
                 });
-
             }
         });
+
 
 
 

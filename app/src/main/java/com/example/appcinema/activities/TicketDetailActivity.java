@@ -43,43 +43,21 @@ public class TicketDetailActivity extends AppCompatActivity {
     }
 
     private void observerViewModel() {
-//        ticketDetailViewModel.getOrderLiveData().observe(this, new Observer<Order>() {
-//            @Override
-//            public void onChanged(Order order) {
-//                Picasso.get().load(order.getMovie().getImgPoster()).into(binding.imgTicket);
-////                binding.imgTicket.setImageResource(order.getMovie().getImgPoster());
-//                binding.tvName.setText(order.getMovie().getName());
-//                binding.rateBarMovie.setRating(order.getMovie().getRate());
-//                binding.tvCate.setText(order.getMovie().getCate());
-//                binding.tvTime.setText(order.getMovie().getTime());
-//                binding.tvCinema.setText(order.getLocation());
-//                binding.tvDateTime.setText(order.getDate().toString());
-//                binding.tvSeat.setText(order.getSlot());
-//                binding.tvPaid.setText(Integer.toString(order.getPrice()));
-//
-//                byte[] bytes = Base64.decode(order.getImgQr(),Base64.DEFAULT);
-//                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-//                binding.imgQr.setImageBitmap(bitmap);
-//
-//                binding.tvIdOrder.setText(order.getId());
-//            }
-//        });
-                Picasso.get().load(order.getMovie().getImgPoster()).into(binding.imgTicket);
-//                binding.imgTicket.setImageResource(order.getMovie().getImgPoster());
-                binding.tvName.setText(order.getMovie().getName());
-                binding.rateBarMovie.setRating(order.getMovie().getRate());
-                binding.tvCate.setText(order.getMovie().getCate());
-                binding.tvTime.setText(order.getMovie().getTime());
-                binding.tvCinema.setText(order.getLocation());
-                binding.tvDateTime.setText(order.getDate().toString());
-                binding.tvSeat.setText(order.getSlot());
-                binding.tvPaid.setText(Integer.toString(order.getPrice()));
+        Picasso.get().load(order.getMovie().getImgPoster()).into(binding.imgTicket);
+        binding.tvName.setText(order.getMovie().getName());
+        binding.rateBarMovie.setRating(order.getMovie().getRate());
+        binding.tvCate.setText(order.getMovie().getCate());
+        binding.tvTime.setText(order.getMovie().getTime());
+        binding.tvCinema.setText(order.getLocation());
+        binding.tvDateTime.setText(order.getDate().toString());
+        binding.tvSeat.setText(order.getSlot());
+        binding.tvPaid.setText(Integer.toString(order.getPrice()));
 
-                byte[] bytes = Base64.decode(order.getImgQr(),Base64.DEFAULT);
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                binding.imgQr.setImageBitmap(bitmap);
+        byte[] bytes = Base64.decode(order.getImgQr(),Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+        binding.imgQr.setImageBitmap(bitmap);
 
-                binding.tvIdOrder.setText(order.getId());
+        binding.tvIdOrder.setText(order.getId());
 
     }
 

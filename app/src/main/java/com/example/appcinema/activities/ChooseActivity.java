@@ -46,7 +46,7 @@ public class ChooseActivity extends AppCompatActivity {
         Intent intent = getIntent();
         movieChoose = (Movie) intent.getSerializableExtra("movieChoose");
         binding.tvName.setText(movieChoose.getName());
-        viewModel.readListRoomFromFirebase(movieChoose.getName().replaceAll(" ","").toLowerCase().trim());
+        viewModel.readListRoomFromFirebase();
         obeserverViewModel();
         setListener();
     }
@@ -72,7 +72,9 @@ public class ChooseActivity extends AppCompatActivity {
         LinearLayoutManager ln1 = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
         binding.rcCinema1.setLayoutManager(ln1);
         binding.rcCinema1.setItemAnimator(new DefaultItemAnimator());
-        timeAdapter1 = new TimeAdapter();
+        timeAdapter1 = new TimeAdapter(
+//                timeAdapter2.removeallseleteceted
+        );
         binding.rcCinema1.setAdapter(timeAdapter1);
 
         binding.rcCinema2.setHasFixedSize(true);
@@ -101,6 +103,7 @@ public class ChooseActivity extends AppCompatActivity {
                             boolean check = false;
                             for (Room room: rooms){
                                 if (room.getDate().trim().contains(dateAdapter.getSelectedDateString().trim()) &&
+                                        (room.getMovieId() == movieChoose.getId()) &&
                                         room.getTime().trim().contains(timeAdapter1.getSelectedTimeString().trim())){
                                     check = true;
                                     Intent  intent = new Intent(ChooseActivity.this,RoomActivity.class);

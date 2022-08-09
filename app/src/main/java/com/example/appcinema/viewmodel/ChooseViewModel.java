@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.appcinema.model.Room;
 import com.example.appcinema.model.Slot;
+import com.example.appcinema.utilities.Constants;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,24 +32,25 @@ public class ChooseViewModel extends ViewModel {
 
     }
 
-    public void readListRoomFromFirebase(String name) {
+    public void readListRoomFromFirebase() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        DatabaseReference myRef = database.getReference("listRoom/"+name);
+        DatabaseReference myRef = database.getReference(Constants.KEY_COLLECTION_ROOMS);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Room> listRead = new ArrayList<>();
                 for (DataSnapshot dataSnapshotRoom : snapshot.getChildren()){
-                    int id = dataSnapshotRoom.child("id").getValue(Integer.class);
-                    String time = dataSnapshotRoom.child("time").getValue(String.class);
-                    String date = dataSnapshotRoom.child("date").getValue(String.class);
+                    int id = dataSnapshotRoom.child(Constants.KEY_ROOMS_ID).getValue(Integer.class);
+                    String time = dataSnapshotRoom.child(Constants.KEY_ROOMS_TIME).getValue(String.class);
+                    String date = dataSnapshotRoom.child(Constants.KEY_ROOMS_DATE).getValue(String.class);
+                    int movieId = dataSnapshotRoom.child(Constants.KEY_ROOMS_MOVIE_ID).getValue(Integer.class);
                     List<Slot> listSlotRead = new ArrayList<>();
-                    for (DataSnapshot dataSnapshot : dataSnapshotRoom.child("listSlot").getChildren()){
+                    for (DataSnapshot dataSnapshot : dataSnapshotRoom.child(Constants.KEY_ROOMS_LIST_SLOT).getChildren()){
                         Slot slot = dataSnapshot.getValue(Slot.class);
                         listSlotRead.add(slot);
                     }
-                    Room room = new Room(id,date,listSlotRead,time);
+                    Room room = new Room(id,date,listSlotRead,time,movieId);
                     listRead.add(room);
                 }
                 listRoomLiveDate.postValue(listRead);

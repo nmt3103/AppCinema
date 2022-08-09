@@ -7,16 +7,10 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.appcinema.model.Room;
 import com.example.appcinema.model.Slot;
+import com.example.appcinema.utilities.Constants;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,17 +31,17 @@ public class RoomViewModel extends ViewModel {
     }
 
 
-    public void changeStatus(List<Slot> list,Room room,String name){
+    public void changeStatus(List<Slot> list,Room room){
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("listRoom/"+name);
+        DatabaseReference myRef = database.getReference(Constants.KEY_COLLECTION_ROOMS);
         for (int i = 0;i<list.size();i++){
             HashMap slot = new HashMap();
-            slot.put("id",list.get(i).getId());
-            slot.put("name", list.get(i).getName());
-            slot.put("selected", list.get(i).getSelect());
-            slot.put("status", true);
-            myRef.child("/Room"+room.getId()+"/listSlot/Slot"+list.get(i).getId()).updateChildren(slot).addOnFailureListener(new OnFailureListener() {
+            slot.put(Constants.KEY_SLOT_ID,list.get(i).getId());
+            slot.put(Constants.KEY_SLOT_NAME, list.get(i).getName());
+            slot.put(Constants.KEY_SLOT_SELECTED, list.get(i).getSelect());
+            slot.put(Constants.KEY_SLOT_STATUS, true);
+            myRef.child("/Room"+room.getId()+"/" + Constants.KEY_ROOMS_LIST_SLOT + "/Slot"+list.get(i).getId()).updateChildren(slot).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     isSuccess.postValue(false);

@@ -8,13 +8,15 @@ public class Room implements Serializable {
     private String date;
     private List<Slot> listSlot;
     private String time;
+    private int movieId;
 
 
-    public Room(int id,String date,List<Slot> listSlot, String time) {
+    public Room(int id,String date,List<Slot> listSlot, String time,int movieId) {
         this.id = id;
         this.date = date;
         this.listSlot = listSlot;
         this.time = time;
+        this.movieId = movieId;
 
     }
 
@@ -51,5 +53,13 @@ public class Room implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 }

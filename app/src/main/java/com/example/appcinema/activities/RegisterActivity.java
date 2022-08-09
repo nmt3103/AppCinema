@@ -107,32 +107,6 @@ public class RegisterActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-//    private void signUp() {
-//        loading(true);
-//        FirebaseFirestore database = FirebaseFirestore.getInstance();
-//        HashMap<String, Object> user = new HashMap<>();
-//        user.put(Constants.KEY_NAME, binding.inputName.getText().toString());
-//        user.put(Constants.KEY_EMAIL, binding.inputEmail.getText().toString());
-//        user.put(Constants.KEY_PASSWORD, binding.inputPassword.getText().toString());
-//        user.put(Constants.KEY_IMAGE,encodedImage);
-//        database.collection(Constants.KEY_COLLECTION_USERS)
-//                .add(user)
-//                .addOnSuccessListener(documentReference -> {
-//                   loading(false);
-//                   preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN,true);
-//                   preferenceManager.putString(Constants.KEY_USER_ID,documentReference.getId());
-//                   preferenceManager.putString(Constants.KEY_NAME,binding.inputName.getText().toString());
-//                   preferenceManager.putString(Constants.KEY_IMAGE,encodedImage);
-//                   Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
-//                   intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                   startActivity(intent);
-//                })
-//                .addOnFailureListener(exception -> {
-//                   loading(false);
-//                   showToast(exception.getMessage());
-//                });
-//    }
-
     private String encodeImage(Bitmap bitmap){
         int previewWidth = 150;
         int previewHeight = bitmap.getHeight() * previewWidth / bitmap.getWidth();
@@ -163,40 +137,4 @@ public class RegisterActivity extends AppCompatActivity {
             }
     );
 
-//    private boolean isValidSignUpDetails() {
-//        if (encodedImage == null){
-//            showToast("Select profile image");
-//            return false;
-//        } else if (binding.inputName.getText().toString().trim().isEmpty()){
-//            showToast("Enter Name");
-//            return false;
-//        } else if (binding.inputEmail.getText().toString().trim().isEmpty()){
-//            showToast("Enter Email");
-//            return false;
-//        } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.getText().toString()).matches()){
-//            showToast("Enter valid Email");
-//            return false;
-//        } else if (binding.inputPassword.getText().toString().trim().isEmpty()){
-//            showToast("Enter Password");
-//            return false;
-//        } else if (binding.inputConfirmPassword.getText().toString().trim().isEmpty()){
-//            showToast("Confirm your password");
-//            return false;
-//        } else if (!binding.inputPassword.getText().toString().equals(binding.inputConfirmPassword.getText().toString())){
-//            showToast("Password & confirm password must be the same ");
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
-
-//    private void loading(Boolean isLoading){
-//        if (isLoading){
-//            binding.buttonSignUp.setVisibility(View.INVISIBLE);
-//            binding.progressBar.setVisibility(View.VISIBLE);
-//        } else {
-//            binding.buttonSignUp.setVisibility(View.VISIBLE);
-//            binding.progressBar.setVisibility(View.INVISIBLE);
-//        }
-//    }
 }

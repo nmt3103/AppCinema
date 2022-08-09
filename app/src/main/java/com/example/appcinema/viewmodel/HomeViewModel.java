@@ -9,6 +9,7 @@ import com.example.appcinema.model.Actor;
 import com.example.appcinema.model.Category;
 import com.example.appcinema.model.Movie;
 import com.example.appcinema.model.Promo;
+import com.example.appcinema.utilities.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -56,7 +57,7 @@ public class HomeViewModel extends ViewModel {
 
         listComing = new ArrayList<>();
         FirebaseFirestore database = FirebaseFirestore.getInstance();
-        database.collection("movies")
+        database.collection(Constants.KEY_COLLECTION_MOVIES)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -65,18 +66,18 @@ public class HomeViewModel extends ViewModel {
                             QuerySnapshot snapshot = task.getResult();
                             for (DocumentSnapshot doc : snapshot){
                                 Movie movie = new Movie();
-                                movie.setId(Integer.parseInt(doc.get("id").toString()));
-                                movie.setImgBig(doc.get("imgPager").toString());
-                                movie.setImgPoster(doc.get("imgPoster").toString());
-                                movie.setImgTeaster(doc.get("imgTrailer").toString());
-                                movie.setCate(doc.get("Category").toString());
-                                movie.setLinkMusic(doc.get("LinkSong").toString());
-                                movie.setLinkTrailer(doc.get("LinkTrailer").toString());
-                                movie.setReview(doc.get("Review").toString());
-                                movie.setTime(doc.get("Time").toString());
-                                movie.setName(doc.get("name").toString());
-                                movie.setRate(Float.parseFloat(doc.get("rate").toString()));
-                                List<Long> listActor = (List<Long>) doc.get("ListActor");
+                                movie.setId(Integer.parseInt(doc.get(Constants.KEY_MOVIES_ID).toString()));
+                                movie.setImgBig(doc.get(Constants.KEY_MOVIES_IMGPAGER).toString());
+                                movie.setImgPoster(doc.get(Constants.KEY_MOVIES_IMGPOSTER).toString());
+                                movie.setImgTeaster(doc.get(Constants.KEY_MOVIES_IMGTRAILER).toString());
+                                movie.setCate(doc.get(Constants.KEY_MOVIES_CATEGORY).toString());
+                                movie.setLinkMusic(doc.get(Constants.KEY_MOVIES_LINKSONG).toString());
+                                movie.setLinkTrailer(doc.get(Constants.KEY_MOVIES_LINKTRAILER).toString());
+                                movie.setReview(doc.get(Constants.KEY_MOVIES_REVIEW).toString());
+                                movie.setTime(doc.get(Constants.KEY_MOVIES_TIME).toString());
+                                movie.setName(doc.get(Constants.KEY_MOVIES_NAME).toString());
+                                movie.setRate(Float.parseFloat(doc.get(Constants.KEY_MOVIES_RATE).toString()));
+                                List<Long> listActor = (List<Long>) doc.get(Constants.KEY_MOVIES_LISTACTOR);
                                 movie.setListIdActor(listActor);
                                 listComing.add(movie);
                             }
@@ -87,10 +88,7 @@ public class HomeViewModel extends ViewModel {
 
         // ViewPager Home
         listNow = new ArrayList<>();
-//        listNow.add(listComing.get(0));
-//        listNow.add(listComing.get(1));
-//        listNow.add(listComing.get(2));
-        database.collection("movies")
+        database.collection(Constants.KEY_COLLECTION_MOVIES)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -99,18 +97,18 @@ public class HomeViewModel extends ViewModel {
                             QuerySnapshot snapshot = task.getResult();
                             for (DocumentSnapshot doc : snapshot){
                                 Movie movie = new Movie();
-                                movie.setId(Integer.parseInt(doc.get("id").toString()));
-                                movie.setImgBig(doc.get("imgPager").toString());
-                                movie.setImgPoster(doc.get("imgPoster").toString());
-                                movie.setImgTeaster(doc.get("imgTrailer").toString());
-                                movie.setCate(doc.get("Category").toString());
-                                movie.setLinkMusic(doc.get("LinkSong").toString());
-                                movie.setLinkTrailer(doc.get("LinkTrailer").toString());
-                                movie.setReview(doc.get("Review").toString());
-                                movie.setTime(doc.get("Time").toString());
-                                movie.setName(doc.get("name").toString());
-                                movie.setRate(Float.parseFloat(doc.get("rate").toString()));
-                                List<Long> listActor = (List<Long>) doc.get("ListActor");
+                                movie.setId(Integer.parseInt(doc.get(Constants.KEY_MOVIES_ID).toString()));
+                                movie.setImgBig(doc.get(Constants.KEY_MOVIES_IMGPAGER).toString());
+                                movie.setImgPoster(doc.get(Constants.KEY_MOVIES_IMGPOSTER).toString());
+                                movie.setImgTeaster(doc.get(Constants.KEY_MOVIES_IMGTRAILER).toString());
+                                movie.setCate(doc.get(Constants.KEY_MOVIES_CATEGORY).toString());
+                                movie.setLinkMusic(doc.get(Constants.KEY_MOVIES_LINKSONG).toString());
+                                movie.setLinkTrailer(doc.get(Constants.KEY_MOVIES_LINKTRAILER).toString());
+                                movie.setReview(doc.get(Constants.KEY_MOVIES_REVIEW).toString());
+                                movie.setTime(doc.get(Constants.KEY_MOVIES_TIME).toString());
+                                movie.setName(doc.get(Constants.KEY_MOVIES_NAME).toString());
+                                movie.setRate(Float.parseFloat(doc.get(Constants.KEY_MOVIES_RATE).toString()));
+                                List<Long> listActor = (List<Long>) doc.get(Constants.KEY_MOVIES_LISTACTOR);
                                 movie.setListIdActor(listActor);
                                 listNow.add(movie);
                             }
