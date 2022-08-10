@@ -18,8 +18,9 @@ import java.util.List;
 public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.TimeHolder>{
     private List<String> list;
     private int selectedTime;
+    private TimeOnClick timeOnClick;
 
-    public TimeAdapter() {
+    public TimeAdapter(TimeOnClick timeOnClick) {
         list = new ArrayList<>();
         list.add("9:30");
         list.add("12:20");
@@ -28,7 +29,8 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.TimeHolder>{
         list.add("19:30");
         list.add("21:30");
         list.add("23:30");
-        selectedTime = 0;
+        selectedTime = -1;
+        this.timeOnClick= timeOnClick;
     }
 
     public String getSelectedTimeString() {
@@ -52,20 +54,16 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.TimeHolder>{
             holder.tvTime.setBackgroundColor(Color.parseColor("#3E60F9"));
         }
         holder.tvTime.setText(time);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int previousTime = selectedTime;
-                selectedTime = holder.getPosition();
-                notifyItemChanged(previousTime);
-                notifyItemChanged(holder.getPosition());
-            }
-        });
     }
 
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void setSelectedTime(int selectedTime) {
+        this.selectedTime = selectedTime;
+        notifyDataSetChanged();
     }
 
     class TimeHolder extends RecyclerView.ViewHolder{
@@ -74,6 +72,20 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.TimeHolder>{
         public TimeHolder(@NonNull View itemView) {
             super(itemView);
             tvTime = itemView.findViewById(R.id.tvTime);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int previousTime = selectedTime;
+                    selectedTime = getAdapterPosition();
+                    notifyItemChanged(previousTime);
+                    notifyItemChanged(getAdapterPosition());
+                    timeOnClick.selectedTime(list.get(getAdapterPosition()));
+                }
+            });
         }
+    }
+
+    public interface TimeOnClick{
+        public void selectedTime(String string);
     }
 }

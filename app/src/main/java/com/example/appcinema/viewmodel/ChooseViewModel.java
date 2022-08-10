@@ -18,21 +18,16 @@ import java.util.List;
 
 public class ChooseViewModel extends ViewModel {
     private MutableLiveData<List<Room>> listRoomLiveDate;
-    private MutableLiveData<List<Slot>> listSlot;
-    private MutableLiveData<Slot> slotTest;
-    private MutableLiveData<String> testFire;
-    private MutableLiveData<List<String>> listTest;
+    private MutableLiveData<Boolean> isLoading;
 
     public ChooseViewModel() {
         listRoomLiveDate = new MutableLiveData<>();
-        listSlot = new MutableLiveData<>();
-        slotTest = new MutableLiveData<>();
-        testFire = new MutableLiveData<>();
-        listTest = new MutableLiveData<>();
+        isLoading = new MutableLiveData<>();
 
     }
 
-    public void readListRoomFromFirebase() {
+    public void readListRoomFromFirebase(String location) {
+        isLoading.postValue(true);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         DatabaseReference myRef = database.getReference(Constants.KEY_COLLECTION_ROOMS);
@@ -54,6 +49,7 @@ public class ChooseViewModel extends ViewModel {
                     listRead.add(room);
                 }
                 listRoomLiveDate.postValue(listRead);
+                isLoading.postValue(false);
             }
 
                 @Override
@@ -69,20 +65,8 @@ public class ChooseViewModel extends ViewModel {
         return listRoomLiveDate;
     }
 
-
-    public MutableLiveData<List<Slot>> getListSlot() {
-        return listSlot;
+    public MutableLiveData<Boolean> getIsLoading() {
+        return isLoading;
     }
 
-    public MutableLiveData<Slot> getSlotTest() {
-        return slotTest;
-    }
-
-    public MutableLiveData<String> getTestFire() {
-        return testFire;
-    }
-
-    public MutableLiveData<List<String>> getListTest() {
-        return listTest;
-    }
 }
