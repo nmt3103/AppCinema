@@ -49,17 +49,13 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketHold
             return;
 
         holder.tvName.setText(order.getMovie().getName());
-        holder.tvDate.setText(order.getRoom().getDate().toString() + " " + order.getRoom().getTime().toString());
+//        if (order.getRoom().getDate() == null && order.getRoom().getTime() == null){
+//            holder.tvDate.setText("ahihi");
+//        }else {
+            holder.tvDate.setText(order.getRoom().getDate()+ " " + order.getRoom().getTime());
+//        }
         holder.tvLocation.setText(order.getLocation());
         Picasso.get().load(order.getMovie().getImgPoster()).into(holder.imgTicket);
-//        holder.imgTicket.setImageResource(order.getMovie().getImgPoster());
-//        holder.cvTicket.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(context, TicketDetailActivity.class);
-//                context.startActivity(intent);
-//            }
-//        });
     }
 
     @Override

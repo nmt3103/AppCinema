@@ -150,7 +150,7 @@
 
                 <TextView
                     android:textColor="@color/white"
-                    android:text="Date and Time"
+                    android:text="Date Buy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

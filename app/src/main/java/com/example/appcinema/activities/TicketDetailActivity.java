@@ -49,9 +49,9 @@ public class TicketDetailActivity extends AppCompatActivity {
         binding.tvCate.setText(order.getMovie().getCate());
         binding.tvTime.setText(order.getMovie().getTime());
         binding.tvCinema.setText(order.getLocation());
-        binding.tvDateTime.setText(order.getDate().toString());
+        binding.tvDateTime.setText(order.getDate());
         binding.tvSeat.setText(order.getSlot());
-        binding.tvPaid.setText(Integer.toString(order.getPrice()));
+        binding.tvPaid.setText(String.valueOf(order.getPrice()));
 
         byte[] bytes = Base64.decode(order.getImgQr(),Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);

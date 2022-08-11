@@ -108,7 +108,6 @@ public class ChooseActivity extends AppCompatActivity {
                 time = string;
                 timeAdapter1.setSelectedTime(-1);
                 timeAdapter2.setSelectedTime(-1);
-
             }
         });
         binding.rcCinema3.setAdapter(timeAdapter3);
@@ -145,6 +144,7 @@ public class ChooseActivity extends AppCompatActivity {
                                     Intent  intent = new Intent(ChooseActivity.this,RoomActivity.class);
                                     intent.putExtra("roomChose",room);
                                     intent.putExtra("movieChoose",movieChoose);
+                                    intent.putExtra("location",location);
                                     startActivity(intent);
                                 }
                             }

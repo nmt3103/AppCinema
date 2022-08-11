@@ -31,6 +31,7 @@ public class RoomActivity extends AppCompatActivity implements SlotListener {
     SlotAdapter slotAdapter;
     RoomViewModel viewModel;
     Room choose;
+    String location;
     List<Slot> selectList;
     Movie movieChoose;
 
@@ -44,7 +45,7 @@ public class RoomActivity extends AppCompatActivity implements SlotListener {
                         if (intent.getBooleanExtra("IsSuccess", false)){
                             Toast.makeText(this, "Update Slot", Toast.LENGTH_SHORT).show();
                             List<Slot> select = slotAdapter.selectedList();
-                             viewModel.changeStatus(select,choose);
+                             viewModel.changeStatus(select,choose,location);
                             startActivity(new Intent(RoomActivity.this,CheckOutDoneActivity.class));
                         }
                     }
@@ -62,6 +63,7 @@ public class RoomActivity extends AppCompatActivity implements SlotListener {
         Intent intent = getIntent();
         choose = (Room) intent.getSerializableExtra("roomChose");
         movieChoose = (Movie) intent.getSerializableExtra("movieChoose");
+        location = intent.getStringExtra("location");
         binding.tvName.setText(movieChoose.getName());
         obeserverViewModel();
 
@@ -92,6 +94,7 @@ public class RoomActivity extends AppCompatActivity implements SlotListener {
                 intent.putExtra("roomConfirm",choose);
                 intent.putExtra("seatSelected",slotAdapter.getStringSeatLocation());
                 intent.putExtra("numberSeat",slotAdapter.selectedList().size());
+                intent.putExtra("location",location);
                 confirm.launch(intent);
 
             }

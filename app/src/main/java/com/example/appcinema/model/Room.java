@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Room implements Serializable {
-    private int id;
+    private Long id;
     private String date;
     private List<Slot> listSlot;
     private String time;
-    private int movieId;
+    private Long movieId;
 
 
-    public Room(int id,String date,List<Slot> listSlot, String time,int movieId) {
+    public Room(Long id,String date,List<Slot> listSlot, String time,Long movieId) {
         this.id = id;
         this.date = date;
         this.listSlot = listSlot;
@@ -47,19 +47,19 @@ public class Room implements Serializable {
         this.date = date;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getMovieId() {
+    public Long getMovieId() {
         return movieId;
     }
 
-    public void setMovieId(int movieId) {
+    public void setMovieId(Long movieId) {
         this.movieId = movieId;
     }
 }

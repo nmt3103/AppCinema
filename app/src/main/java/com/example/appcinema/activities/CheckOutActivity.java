@@ -36,7 +36,7 @@ public class CheckOutActivity extends AppCompatActivity {
     CheckOutViewModel viewModel;
     Room room;
     int num;
-    String slots;
+    String slots,location;
     Movie movieChoose;
     PreferenceManager preferenceManager;
 
@@ -53,6 +53,7 @@ public class CheckOutActivity extends AppCompatActivity {
             room = (Room) intent.getSerializableExtra("roomConfirm");
             slots = intent.getStringExtra("seatSelected");
             num = intent.getIntExtra("numberSeat",0);
+            location = intent.getStringExtra("location");
             initData();
             setListener();
         } else {
@@ -71,7 +72,7 @@ public class CheckOutActivity extends AppCompatActivity {
 
         preferenceManager = new PreferenceManager(getApplicationContext());
         binding.tvNameUser.setText(preferenceManager.getString(Constants.KEY_NAME));
-        binding.tvCinema.setText("Central Park CGV");
+        binding.tvCinema.setText(location);
         binding.tvDateTime.setText(room.getDate()+", " + room.getTime());
         binding.tvSeat.setText(slots);
         binding.tvPrice.setText("50.000 x " + String.valueOf(num));
@@ -95,7 +96,7 @@ public class CheckOutActivity extends AppCompatActivity {
                 int totalPrice = 50000 * num;
 //                new Locale("vi","VN")
                 Format formatter = new SimpleDateFormat("dd-M-yyyy hh:mm:ss",Locale.getDefault());
-                Order order = new Order(movieChoose,room,formatter.format(new Date()),"Ha Noi Cinema 1",totalPrice,slots);
+                Order order = new Order(movieChoose,room,formatter.format(new Date()),location,totalPrice,slots);
                 order.setCustomerId(preferenceManager.getString(Constants.KEY_USER_ID));
                 QRGEncoder qrgEncoder = new QRGEncoder(order.toString(), null, QRGContents.Type.TEXT, 500);
                 try {
