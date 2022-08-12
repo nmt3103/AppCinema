@@ -1,6 +1,7 @@
 package com.example.appcinema.viewmodel;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,81 +38,110 @@ import java.util.Locale;
 
 public class TicketViewModel extends ViewModel {
     private MutableLiveData<List<Order>> listOrderLiveData;
-    private MutableLiveData<List<Order>> listNewOrder;
-    private MutableLiveData<List<Order>> listExpireOrder;
 
 
-
-    private MutableLiveData<Movie> movieMutableLiveData;
-    private MutableLiveData<Room> roomMutableLiveData;
-
+    private MutableLiveData<List<Movie>> listMovieLive;
+    private MutableLiveData<List<Room>> listRoomLive;
 
     private MutableLiveData<List<Order>> listOrderLiveDateMain;
+
+    public int size = 0;
 
 
 
     public TicketViewModel() {
+        listOrderLiveDateMain = new MutableLiveData<>();
 
         listOrderLiveData = new MutableLiveData<>();
-        listNewOrder = new MutableLiveData<>();
-        listExpireOrder = new MutableLiveData<>();
 
-        movieMutableLiveData = new MutableLiveData<>();
-        roomMutableLiveData = new MutableLiveData<>();
+        listRoomLive = new MutableLiveData<>();
+        listMovieLive = new MutableLiveData<>();
+
     }
 
     public void initData(String idCustomer) {
+
+
         FirebaseFirestore database = FirebaseFirestore.getInstance();
-        database.collection(Constants.KEY_COLLECTION_ORDERS)
-                .whereEqualTo(Constants.KEY_ORDERS_CUSTOMER_ID, idCustomer)
+        database.collection(Constants.KEY_COLLECTION_MOVIES)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()){
+                            List<Movie> movies = new ArrayList<>();
                             QuerySnapshot snapshot = task.getResult();
-                            List<Order> listAll = new ArrayList<>();
-                            List<Order> listNew = new ArrayList<>();
-                            List<Order> listExpire = new ArrayList<>();
-                            for (QueryDocumentSnapshot doc : snapshot){
-                                Order order = new Order();
+                            for (DocumentSnapshot doc : snapshot){
                                 Movie movie = new Movie();
-                                movie.setId(Integer.parseInt(doc.get(Constants.KEY_ORDERS_MOVIE_ID).toString()));
-                                order.setMovie(movie);
-                                Room room = new Room();
-                                room.setId(Long.parseLong(doc.get(Constants.KEY_ORDERS_ROOM_ID).toString()));
-                                order.setRoom(room);
-                                order.setPrice(Integer.parseInt(doc.get(Constants.KEY_ORDERS_PRICE).toString()));
-                                order.setId(doc.getId());
-                                order.setImgQr(doc.get(Constants.KEY_ORDERS_IMGQR).toString());
-                                order.setLocation(doc.get(Constants.KEY_ORDERS_LOCATION).toString());
-                                order.setSlot(doc.get(Constants.KEY_ORDERS_SLOT).toString());
-                                order.setCustomerId(doc.get(Constants.KEY_ORDERS_CUSTOMER_ID).toString());
-                                order.setDate(doc.get(Constants.KEY_ORDERS_DATE_CREATE).toString());
-                                SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy hh:mm",Locale.getDefault());
-                                try {
-                                    Date dateCheck = format.parse(order.getRoom().getDate()+" "+order.getRoom().getTime());
-                                    if (dateCheck.before(new Date())){
-                                        listExpire.add(order);
-                                    } else {
-                                        listNew.add(order);
-                                    }
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-                                listAll.add(order);
+                                movie.setId(Integer.parseInt(doc.get(Constants.KEY_MOVIES_ID).toString()));
+                                movie.setImgBig(doc.get(Constants.KEY_MOVIES_IMGPAGER).toString());
+                                movie.setImgPoster(doc.get(Constants.KEY_MOVIES_IMGPOSTER).toString());
+                                movie.setImgTeaster(doc.get(Constants.KEY_MOVIES_IMGTRAILER).toString());
+                                movie.setCate(doc.get(Constants.KEY_MOVIES_CATEGORY).toString());
+                                movie.setLinkMusic(doc.get(Constants.KEY_MOVIES_LINKSONG).toString());
+                                movie.setLinkTrailer(doc.get(Constants.KEY_MOVIES_LINKTRAILER).toString());
+                                movie.setReview(doc.get(Constants.KEY_MOVIES_REVIEW).toString());
+                                movie.setTime(doc.get(Constants.KEY_MOVIES_TIME).toString());
+                                movie.setName(doc.get(Constants.KEY_MOVIES_NAME).toString());
+                                movie.setRate(Float.parseFloat(doc.get(Constants.KEY_MOVIES_RATE).toString()));
+                                List<Long> listActor = (List<Long>) doc.get(Constants.KEY_MOVIES_LISTACTOR);
+                                movie.setListIdActor(listActor);
+                                movies.add(movie);
                             }
-                            listOrderLiveData.postValue(listAll);
-                            listNewOrder.postValue(listNew);
-                            listExpireOrder.postValue(listExpire);
+                            listMovieLive.postValue(movies);
                         }
                     }
                 });
 
+        listMovieLive.observeForever(new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(List<Movie> movies) {
+                database.collection(Constants.KEY_COLLECTION_ORDERS)
+                        .whereEqualTo(Constants.KEY_ORDERS_CUSTOMER_ID, idCustomer)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()){
+                                    QuerySnapshot snapshot = task.getResult();
+                                    List<Order> listAll = new ArrayList<>();
+
+                                    for (QueryDocumentSnapshot doc : snapshot){
+                                        Order order = new Order();
+                                        for (Movie movie : movies){
+                                            if (Integer.parseInt(doc.get(Constants.KEY_ORDERS_MOVIE_ID).toString()) == movie.getId()){
+                                                order.setMovie(movie);
+                                                break;
+                                            }
+                                        }
+                                        Room room = new Room();
+                                        room.setId(Long.parseLong(doc.get(Constants.KEY_ORDERS_ROOM_ID).toString()));
+                                        order.setRoom(room);
+                                        order.setPrice(Integer.parseInt(doc.get(Constants.KEY_ORDERS_PRICE).toString()));
+                                        order.setId(doc.getId());
+                                        order.setImgQr(doc.get(Constants.KEY_ORDERS_IMGQR).toString());
+                                        order.setLocation(doc.get(Constants.KEY_ORDERS_LOCATION).toString());
+                                        order.setSlot(doc.get(Constants.KEY_ORDERS_SLOT).toString());
+                                        order.setCustomerId(doc.get(Constants.KEY_ORDERS_CUSTOMER_ID).toString());
+                                        order.setDate(doc.get(Constants.KEY_ORDERS_DATE_CREATE).toString());
+                                        listAll.add(order);
+                                    }
+                                    size = listAll.size();
+                                    listOrderLiveData.postValue(listAll);
+                                }
+                            }
+                        });
+            }
+        });
+
+
+
         listOrderLiveData.observeForever(new Observer<List<Order>>() {
             @Override
             public void onChanged(List<Order> orders) {
+                List<Order> orders1 = new ArrayList<>();
                 for (Order order : orders){
+
                     FirebaseDatabase dataReal = FirebaseDatabase.getInstance();
                     DatabaseReference myRef = dataReal.getReference(order.getLocation().trim() + "/" + Constants.KEY_COLLECTION_ROOMS);
                     myRef.orderByChild(Constants.KEY_ROOMS_ID).equalTo(order.getRoom().getId()).addChildEventListener(new ChildEventListener() {
@@ -129,6 +159,12 @@ public class TicketViewModel extends ViewModel {
                             }
                             room.setListSlot(listSlotRead);
                             order.setRoom(room);
+                            orders1.add(order);
+                            Log.d("onChildAdded: ","1");
+                            if(orders1.size() == size){
+                                Log.d("onChildAdded", "2");
+                                listOrderLiveDateMain.postValue(orders1);
+                            }
                         }
 
                         @Override
@@ -152,44 +188,48 @@ public class TicketViewModel extends ViewModel {
                         }
                     });//search success
                 }
+
+
+                //
+
             }
         });
 
 
-        listOrderLiveData.observeForever(new Observer<List<Order>>() {
-            @Override
-            public void onChanged(List<Order> orders) {
-                for (Order order : orders){
-                    database.collection(Constants.KEY_COLLECTION_MOVIES)
-                        .whereEqualTo(Constants.KEY_MOVIES_ID,order.getMovie().getId())
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> taskMovie) {
-                                if (taskMovie.isSuccessful() && taskMovie.getResult() != null
-                                        && taskMovie.getResult().getDocuments().size() > 0){
-                                    DocumentSnapshot documentSnapshot = taskMovie.getResult().getDocuments().get(0);
-                                    Movie movie = new Movie();
-
-                                    movie.setImgBig(documentSnapshot.getString(Constants.KEY_MOVIES_IMGPAGER));
-                                    movie.setImgPoster(documentSnapshot.getString(Constants.KEY_MOVIES_IMGPOSTER));
-                                    movie.setImgTeaster(documentSnapshot.getString(Constants.KEY_MOVIES_IMGTRAILER));
-                                    movie.setCate(documentSnapshot.getString(Constants.KEY_MOVIES_CATEGORY));
-                                    movie.setLinkMusic(documentSnapshot.getString(Constants.KEY_MOVIES_LINKSONG));
-                                    movie.setLinkTrailer(documentSnapshot.getString(Constants.KEY_MOVIES_LINKTRAILER));
-                                    movie.setReview(documentSnapshot.getString(Constants.KEY_MOVIES_REVIEW));
-                                    movie.setTime(documentSnapshot.getString(Constants.KEY_MOVIES_TIME));
-                                    movie.setName(documentSnapshot.getString(Constants.KEY_MOVIES_NAME));
-                                    movie.setRate(Float.parseFloat(documentSnapshot.get(Constants.KEY_MOVIES_RATE).toString()));
-                                    List<Long> listActor = (List<Long>) documentSnapshot.get(Constants.KEY_MOVIES_LISTACTOR);
-                                    movie.setListIdActor(listActor);
-                                    order.setMovie(movie);
-                                }
-                            }
-                        }); /// sea
-                }
-            }
-        });
+//        listOrderLiveData.observeForever(new Observer<List<Order>>() {
+//            @Override
+//            public void onChanged(List<Order> orders) {
+//                for (Order order : orders){
+//                    database.collection(Constants.KEY_COLLECTION_MOVIES)
+//                        .whereEqualTo(Constants.KEY_MOVIES_ID,order.getMovie().getId())
+//                        .get()
+//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<QuerySnapshot> taskMovie) {
+//                                if (taskMovie.isSuccessful() && taskMovie.getResult() != null
+//                                        && taskMovie.getResult().getDocuments().size() > 0){
+//                                    DocumentSnapshot documentSnapshot = taskMovie.getResult().getDocuments().get(0);
+//                                    Movie movie = new Movie();
+//
+//                                    movie.setImgBig(documentSnapshot.getString(Constants.KEY_MOVIES_IMGPAGER));
+//                                    movie.setImgPoster(documentSnapshot.getString(Constants.KEY_MOVIES_IMGPOSTER));
+//                                    movie.setImgTeaster(documentSnapshot.getString(Constants.KEY_MOVIES_IMGTRAILER));
+//                                    movie.setCate(documentSnapshot.getString(Constants.KEY_MOVIES_CATEGORY));
+//                                    movie.setLinkMusic(documentSnapshot.getString(Constants.KEY_MOVIES_LINKSONG));
+//                                    movie.setLinkTrailer(documentSnapshot.getString(Constants.KEY_MOVIES_LINKTRAILER));
+//                                    movie.setReview(documentSnapshot.getString(Constants.KEY_MOVIES_REVIEW));
+//                                    movie.setTime(documentSnapshot.getString(Constants.KEY_MOVIES_TIME));
+//                                    movie.setName(documentSnapshot.getString(Constants.KEY_MOVIES_NAME));
+//                                    movie.setRate(Float.parseFloat(documentSnapshot.get(Constants.KEY_MOVIES_RATE).toString()));
+//                                    List<Long> listActor = (List<Long>) documentSnapshot.get(Constants.KEY_MOVIES_LISTACTOR);
+//                                    movie.setListIdActor(listActor);
+//                                    order.setMovie(movie);
+//                                }
+//                            }
+//                        }); /// sea
+//                }
+//            }
+//        });
 
 
 
@@ -419,22 +459,6 @@ public class TicketViewModel extends ViewModel {
         return listOrderLiveData;
     }
 
-    public MutableLiveData<List<Order>> getListNewOrder() {
-        return listNewOrder;
-    }
 
-    public MutableLiveData<List<Order>> getListExpireOrder() {
-        return listExpireOrder;
-    }
-
-
-
-    public MutableLiveData<Movie> getMovieMutableLiveData() {
-        return movieMutableLiveData;
-    }
-
-    public MutableLiveData<Room> getRoomMutableLiveData() {
-        return roomMutableLiveData;
-    }
 }
 

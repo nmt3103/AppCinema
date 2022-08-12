@@ -41,9 +41,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class MyTicketFragment extends Fragment implements TicketAdapter.TicketListener {
@@ -52,6 +55,7 @@ public class MyTicketFragment extends Fragment implements TicketAdapter.TicketLi
     FragmentMyticketBinding binding;
     TicketViewModel ticketViewModel;
     View view;
+    List<Order> listNew,listExpire;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,6 +66,8 @@ public class MyTicketFragment extends Fragment implements TicketAdapter.TicketLi
         ticketViewModel = new ViewModelProvider(this).get(TicketViewModel.class);
         PreferenceManager preferenceManager = new PreferenceManager(getContext());
         ticketViewModel.initData(preferenceManager.getString(Constants.KEY_USER_ID));
+        listExpire = new ArrayList<>();
+        listNew = new ArrayList<>();
         observerViewModel();
         setListeners();
         return view;
@@ -71,40 +77,33 @@ public class MyTicketFragment extends Fragment implements TicketAdapter.TicketLi
         binding.btnAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ticketViewModel.getListOrderLiveDate().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
-//                    @Override
-//                    public void onChanged(List<Order> orders) {
-//                        ticketAdapter = new TicketAdapter(orders,MyTicketFragment.this::onTicketClick);
-//                        binding.rvMyTicket.setAdapter(ticketAdapter);
-//                    }
-//                });
+                ticketViewModel.getListOrderLiveData().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
+                    @Override
+                    public void onChanged(List<Order> orders) {
+                        ticketAdapter = new TicketAdapter(orders,MyTicketFragment.this::onTicketClick);
+                        binding.rvMyTicket.setAdapter(ticketAdapter);
+                    }
+                });
 
             }
         });
         binding.btnNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ticketViewModel.getListNewOrder().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
-//                    @Override
-//                    public void onChanged(List<Order> orders) {
-//
-//                        ticketAdapter = new TicketAdapter(orders,MyTicketFragment.this::onTicketClick);
-//                        binding.rvMyTicket.setAdapter(ticketAdapter);
-//                    }
-//                });
+
+
+                ticketAdapter = new TicketAdapter(listNew,MyTicketFragment.this::onTicketClick);
+                binding.rvMyTicket.setAdapter(ticketAdapter);
 
             }
         });
         binding.btnExpire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//               ticketViewModel.getListExpireOrder().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
-//                   @Override
-//                   public void onChanged(List<Order> orders) {
-//                       ticketAdapter = new TicketAdapter(orders,MyTicketFragment.this::onTicketClick);
-//                       binding.rvMyTicket.setAdapter(ticketAdapter);
-//                   }
-//               });
+
+               ticketAdapter = new TicketAdapter(listExpire,MyTicketFragment.this::onTicketClick);
+               binding.rvMyTicket.setAdapter(ticketAdapter);
+
             }
         });
     }
@@ -114,25 +113,27 @@ public class MyTicketFragment extends Fragment implements TicketAdapter.TicketLi
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
         binding.rvMyTicket.setLayoutManager( linearLayoutManager);
         binding.rvMyTicket.setItemAnimator(new DefaultItemAnimator());
-        ticketViewModel.getListOrderLiveData().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
+        ticketViewModel.getListOrderLiveDateMain().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
             @Override
-            public void onChanged(List<Order> orders) {
-                ticketAdapter = new TicketAdapter(orders,MyTicketFragment.this::onTicketClick);
+            public void onChanged(List<Order> ordersMain) {
+                ticketAdapter = new TicketAdapter(ordersMain,MyTicketFragment.this::onTicketClick);
                 binding.rvMyTicket.setAdapter(ticketAdapter);
+                for (Order order : ordersMain){
+                    try {
+                        SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy hh:mm", Locale.getDefault());
+                        Date dateCheck = format.parse(order.getRoom().getDate()+" "+order.getRoom().getTime());
+                        if (dateCheck.before(new Date())){
+                            listExpire.add(order);
+                        } else {
+                            listNew.add(order);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
-//        ticketViewModel.getMovieMutableLiveData().observe(getViewLifecycleOwner(), new Observer<Movie>() {
-//            @Override
-//            public void onChanged(Movie movie) {
-//
-//            }
-//        });
-//        ticketViewModel.getRoomMutableLiveData().observe(getViewLifecycleOwner(), new Observer<Room>() {
-//            @Override
-//            public void onChanged(Room room) {
-//
-//            }
-//        });
+
 
 
 
