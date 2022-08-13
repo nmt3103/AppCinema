@@ -65,7 +65,7 @@ public class TicketDetailActivity extends AppCompatActivity {
         binding.btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                finish();
             }
         });
 

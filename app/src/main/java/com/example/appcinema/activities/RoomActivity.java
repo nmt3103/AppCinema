@@ -32,7 +32,6 @@ public class RoomActivity extends AppCompatActivity implements SlotListener {
     RoomViewModel viewModel;
     Room choose;
     String location;
-    List<Slot> selectList;
     Movie movieChoose;
 
 
@@ -61,13 +60,15 @@ public class RoomActivity extends AppCompatActivity implements SlotListener {
         viewModel = new ViewModelProvider(this).get(RoomViewModel.class);
 
         Intent intent = getIntent();
-        choose = (Room) intent.getSerializableExtra("roomChose");
-        movieChoose = (Movie) intent.getSerializableExtra("movieChoose");
-        location = intent.getStringExtra("location");
-        binding.tvName.setText(movieChoose.getName());
-        obeserverViewModel();
+        if(!intent.getExtras().isEmpty()){
+            choose = (Room) intent.getSerializableExtra("roomChose");
+            movieChoose = (Movie) intent.getSerializableExtra("movieChoose");
+            location = intent.getStringExtra("location");
+            binding.tvName.setText(movieChoose.getName());
+            obeserverViewModel();
+            setListener();
+        }
 
-        setListener();
     }
 
     private void obeserverViewModel() {
@@ -88,7 +89,6 @@ public class RoomActivity extends AppCompatActivity implements SlotListener {
         binding.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(RoomActivity.this,CheckOutActivity.class);
                 intent.putExtra("movieChoose",movieChoose);
                 intent.putExtra("roomConfirm",choose);
@@ -102,7 +102,6 @@ public class RoomActivity extends AppCompatActivity implements SlotListener {
         binding.btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
                 finish();
             }
         });

@@ -124,27 +124,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="Wreck-It Ralph wants to be loved by many people like his kind friend, Fix-It Felix. But no one likes evil characters like Ralph."
                 android:textSize="13dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvSysnopis"/>
 
-
-            <TextView
-                android:id="@+id/tvReadmore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text=" Read more"
-                android:textColor="#4AD0EE"
-                android:textSize="13dp"
-
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvDetailSynopsis1"
-                />
+<!--            <com.skyhope.showmoretextview.ShowMoreTextView-->
+<!--                android:layout_margin="10dp"-->
+<!--                android:id="@+id/tvDetailSynopsis1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="13dp"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/tvSysnopis"/>-->
 
             <TextView
                 android:paddingLeft="5dp"
@@ -153,7 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Cast And Crew"
-                app:layout_constraintTop_toBottomOf="@id/tvReadmore"
+                app:layout_constraintTop_toBottomOf="@id/tvDetailSynopsis1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
 

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,20 +24,24 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.appcinema.R;
+import com.example.appcinema.activities.MovieDetailActivity;
 import com.example.appcinema.activities.ProfileActivity;
 import com.example.appcinema.adapter.CategoryAdapter;
 import com.example.appcinema.adapter.MovieComingAdapter;
 import com.example.appcinema.adapter.MoviePagerAdapter;
 import com.example.appcinema.adapter.PromoAdapter;
+import com.example.appcinema.adapter.ReviewAdapter;
 import com.example.appcinema.databinding.FragmentHomeBinding;
 import com.example.appcinema.model.Category;
 import com.example.appcinema.model.Movie;
 import com.example.appcinema.model.Promo;
+import com.example.appcinema.model.Review;
 import com.example.appcinema.utilities.Constants;
 import com.example.appcinema.utilities.PreferenceManager;
 import com.example.appcinema.viewmodel.HomeViewModel;
@@ -45,18 +50,22 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class HomeFragment extends Fragment {
-    CategoryAdapter categoryAdapter;
-    MovieComingAdapter movieAdapter;
-    PromoAdapter promoAdapter;
-    MoviePagerAdapter moviePagerAdapter;
-    FragmentHomeBinding binding;
+    private MovieComingAdapter movieAdapter;
+    private PromoAdapter promoAdapter;
+    private MoviePagerAdapter moviePagerAdapter;
+    private FragmentHomeBinding binding;
     Handler pagerHandler = new Handler();
     private PreferenceManager preferenceManager;
-    HomeViewModel homeViewModel;
-    View view;
+    private HomeViewModel homeViewModel;
+    private View view;
+    private ReviewAdapter reviewAdapter;
+    private Timer timer;
+
 
     Context context;
 
@@ -87,20 +96,42 @@ public class HomeFragment extends Fragment {
     }
 
     private void observerViewModel() {
-        //category
-        binding.rcCategory.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL, false);
-        binding.rcCategory.setLayoutManager(linearLayoutManager);
-        binding.rcCategory.setItemAnimator(new DefaultItemAnimator());
-
-
-        homeViewModel.getListCate().observe(getViewLifecycleOwner(), new Observer<List<Category>>() {
+        homeViewModel.getListReviewLiveData().observe(getViewLifecycleOwner(), new Observer<List<Review>>() {
             @Override
-            public void onChanged(List<Category> categories) {
-                categoryAdapter = new CategoryAdapter(categories);
-                binding.rcCategory.setAdapter(categoryAdapter);
+            public void onChanged(List<Review> reviews) {
+                reviewAdapter = new ReviewAdapter(context,reviews);
+                binding.viewPagerReview.setAdapter(reviewAdapter);
+                binding.circleIndicator.setViewPager(binding.viewPagerReview);
+                reviewAdapter.registerDataSetObserver(binding.circleIndicator.getDataSetObserver());
+
+                if (timer == null){
+                    timer = new Timer();
+                }
+
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                int currentItem = binding.viewPagerReview.getCurrentItem();
+                                int totalItem = reviews.size() -1;
+                                if (currentItem < totalItem){
+                                    currentItem ++;
+                                    binding.viewPagerReview.setCurrentItem(currentItem);
+                                }else {
+                                    binding.viewPagerReview.setCurrentItem(0);
+                                }
+                            }
+                        });
+                    }
+                },500,3000);
             }
         });
+
+
+
+
 
 
 
@@ -114,7 +145,14 @@ public class HomeFragment extends Fragment {
         homeViewModel.getListMovieComing().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
             @Override
             public void onChanged(List<Movie> movies) {
-                movieAdapter = new MovieComingAdapter(movies);
+                movieAdapter = new MovieComingAdapter(movies, new MovieComingAdapter.MovieComingListener() {
+                    @Override
+                    public void onClickMovie(Movie movie) {
+                        Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                        intent.putExtra("movie",movie);
+                        startActivity(intent);
+                    }
+                });
                 binding.rcMovie.setAdapter(movieAdapter);
             }
         });
@@ -124,11 +162,18 @@ public class HomeFragment extends Fragment {
         homeViewModel.getListMovieNow().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
             @Override
             public void onChanged(List<Movie> movies) {
-                moviePagerAdapter = new MoviePagerAdapter(movies,binding.vpMain);
+                moviePagerAdapter = new MoviePagerAdapter(movies, binding.vpMain, new MoviePagerAdapter.MoviePagerListener() {
+                    @Override
+                    public void onClickMovie(Movie movie) {
+                        Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                        intent.putExtra("movie",movie);
+                        startActivity(intent);
+                    }
+                });
                 binding.vpMain.setAdapter(moviePagerAdapter);
+
             }
         });
-
 
         binding.vpMain.setClipToPadding(false);
         binding.vpMain.setClipChildren(false);
@@ -149,10 +194,11 @@ public class HomeFragment extends Fragment {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 pagerHandler.removeCallbacks(pagerRunable);
-                pagerHandler.postDelayed(pagerRunable,3000);
+                pagerHandler.postDelayed(pagerRunable,10000);
 
             }
         });
+
         //promo
         binding.rcPromo.setHasFixedSize(true);
         LinearLayoutManager linearLayoutPromo = new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
@@ -187,6 +233,8 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         pagerHandler.postDelayed(pagerRunable,3000);
+
+
     }
 
 
@@ -195,5 +243,14 @@ public class HomeFragment extends Fragment {
         byte[] bytes = Base64.decode(preferenceManager.getString(Constants.KEY_IMAGE),Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
         binding.imgUser.setImageBitmap(bitmap);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (timer != null){
+            timer.cancel();
+            timer = null;
+        }
     }
 }

@@ -9,6 +9,7 @@ import com.example.appcinema.model.Actor;
 import com.example.appcinema.model.Category;
 import com.example.appcinema.model.Movie;
 import com.example.appcinema.model.Promo;
+import com.example.appcinema.model.Review;
 import com.example.appcinema.utilities.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,34 +24,32 @@ import java.util.List;
 public class HomeViewModel extends ViewModel {
     private MutableLiveData<List<Movie>> listMovieComing;
     private MutableLiveData<List<Movie>> listMovieNow;
-    private MutableLiveData<List<Category>> listCate;
     private MutableLiveData<List<Promo>> listPromo;
+    private MutableLiveData<List<Review>> listReviewLiveData;
     private List<Movie> listComing;
     private List<Movie> listNow;
-    private List<Category> listC;
     private List<Promo> listP;
+    private List<Review> listReview;
 
     public HomeViewModel() {
+        listReviewLiveData = new MutableLiveData<>();
         listMovieComing = new MutableLiveData<>();
         listMovieNow = new MutableLiveData<>();
-        listCate = new MutableLiveData<>();
         listPromo = new MutableLiveData<>();
         initData();
     }
 
     private void initData() {
-        listC = new ArrayList<>();
-        //change in to read from firebase
-        listC.add(new Category(1,"All","Mota1"));
-        listC.add(new Category(2,"Kinh Di","Mota2"));
-        listC.add(new Category(3,"Phuu Luu","Mota3"));
-        listC.add(new Category(4,"Hanh Dong","Mota4"));
-        listC.add(new Category(5,"Tinh Cam","Mota5"));
-        listC.add(new Category(6,"Trinh Tham","Mota6"));
 
+        //Review
+        listReview = new ArrayList<>();
+        listReview.add(new Review(R.drawable.pic1));
+        listReview.add(new Review(R.drawable.pic2));
+        listReview.add(new Review(R.drawable.pic3));
+        listReview.add(new Review(R.drawable.pic4));
 
-        listCate.setValue(listC);
-        //
+        listReviewLiveData.postValue(listReview);
+
 
 
         // ComingSoon
@@ -141,8 +140,8 @@ public class HomeViewModel extends ViewModel {
         return listMovieNow;
     }
 
-    public MutableLiveData<List<Category>> getListCate() {
-        return listCate;
+    public MutableLiveData<List<Review>> getListReviewLiveData() {
+        return listReviewLiveData;
     }
 
     public MutableLiveData<List<Promo>> getListPromo() {

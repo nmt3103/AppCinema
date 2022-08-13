@@ -17,10 +17,11 @@ import java.util.List;
 
 public class MovieComingAdapter extends RecyclerView.Adapter<MovieComingAdapter.MovieComingHolder> {
     private List<Movie> list;
+    private MovieComingListener movieComingListener;
 
-
-    public MovieComingAdapter(List<Movie> list) {
+    public MovieComingAdapter(List<Movie> list,MovieComingListener movieComingListener) {
         this.list = list;
+        this.movieComingListener = movieComingListener;
     }
 
 
@@ -53,7 +54,16 @@ public class MovieComingAdapter extends RecyclerView.Adapter<MovieComingAdapter.
         public MovieComingHolder(@NonNull View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.imgPoster);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    movieComingListener.onClickMovie(list.get(getAdapterPosition()));
+                }
+            });
         }
+    }
+    public interface MovieComingListener{
+        public void onClickMovie(Movie movie);
     }
 
 }

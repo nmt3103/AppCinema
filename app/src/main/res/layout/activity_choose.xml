@@ -41,15 +41,9 @@
 
         </LinearLayout>
 
-        <Spinner
-
-            android:background="@drawable/background_spinner"
-            android:layout_margin="30dp"
-            android:id="@+id/spPlace"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
         <TextView
+            android:layout_marginTop="20dp"
             android:textSize="18dp"
             android:layout_marginLeft="20dp"
             android:textStyle="bold"

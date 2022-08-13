@@ -32,7 +32,9 @@ public class CheckOutDoneActivity extends AppCompatActivity {
         binding.btnMyTicket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CheckOutDoneActivity.this,FirstActivity.class));
+                Intent intent = new Intent(CheckOutDoneActivity.this,FirstActivity.class);
+                intent.putExtra("fragment",3);
+                startActivity(intent);
             }
         });
     }

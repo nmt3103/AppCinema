@@ -59,7 +59,14 @@ public class DashBoardFragment extends Fragment implements MovieTrendAdapter.Mov
                 movies.remove(0);
                 binding.tvTop1.setText(top1.getName());
                 Picasso.get().load(top1.getImgBig()).into(binding.imgTop1);
-//                binding.imgTop1.setImageResource(top1.getImgBig());
+                binding.imgTop1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                        intent.putExtra("movie",top1);
+                        startActivity(intent);
+                    }
+                });
                 movieTrendAdapter = new MovieTrendAdapter(movies,DashBoardFragment.this::selectedMovie);
                 binding.rcTrendMovie.setAdapter(movieTrendAdapter);
             }

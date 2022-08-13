@@ -1,6 +1,7 @@
 package com.example.appcinema.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -76,6 +77,11 @@ public class MovieDetailActivity extends AppCompatActivity {
                 binding.tvTime.setText(movie.getTime());
                 binding.rateBarDetail.setRating(movie.getRate());
                 binding.tvDetailSynopsis1.setText(movie.getReview());
+//                binding.tvDetailSynopsis1.setShowingLine(4);
+//                binding.tvDetailSynopsis1.addShowMoreText("Read more");
+//                binding.tvDetailSynopsis1.addShowLessText("Less");
+//                binding.tvDetailSynopsis1.setShowMoreColor(Color.BLUE);
+//                binding.tvDetailSynopsis1.setShowLessTextColor(Color.BLUE);
             }
         });
 
@@ -117,7 +123,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                 Intent intent = new Intent(MovieDetailActivity.this,ChooseActivity.class);
                 intent.putExtra("movieChoose",movieChoose);
                 startActivity(intent);
-                finish();
+//                finish();
             }
         });
     }

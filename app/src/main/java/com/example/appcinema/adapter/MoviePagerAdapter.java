@@ -20,10 +20,12 @@ import java.util.List;
 public class MoviePagerAdapter extends RecyclerView.Adapter<MoviePagerAdapter.MoviePagerHolder> {
     List<Movie> list;
     ViewPager2 viewPager2;
+    MoviePagerListener moviePagerListener;
 
-    public MoviePagerAdapter(List<Movie> list, ViewPager2 viewPager2) {
+    public MoviePagerAdapter(List<Movie> list, ViewPager2 viewPager2,MoviePagerListener moviePagerListener) {
         this.list = list;
         this.viewPager2 = viewPager2;
+        this.moviePagerListener = moviePagerListener;
     }
 
     @NonNull
@@ -60,6 +62,12 @@ public class MoviePagerAdapter extends RecyclerView.Adapter<MoviePagerAdapter.Mo
             img = itemView.findViewById(R.id.imgPager);
             ratingBar = itemView.findViewById(R.id.rateBarPager);
             textView = itemView.findViewById(R.id.tvName_pager);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    moviePagerListener.onClickMovie(list.get(getAdapterPosition()));
+                }
+            });
         }
 
 
@@ -83,5 +91,9 @@ public class MoviePagerAdapter extends RecyclerView.Adapter<MoviePagerAdapter.Mo
             notifyDataSetChanged();
         }
     };
+
+    public interface MoviePagerListener{
+        public void onClickMovie(Movie movie);
+    }
 
 }

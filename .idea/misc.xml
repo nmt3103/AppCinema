@@ -49,18 +49,19 @@
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/activity_update_profile.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/fragment_blank.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/fragment_myticket.xml" value="0.1" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_actor.xml" value="0.6" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_category.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_date.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_movie_coming.xml" value="0.25" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_movie_trend.xml" value="0.25" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_movie_trend.xml" value="0.6971830985915493" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_pager_video.xml" value="0.1" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_review.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_slot.xml" value="0.6" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_ticket.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/item_time.xml" value="0.25" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/movie_pager_item.xml" value="0.1" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/movie_pager_item.xml" value="0.4852941176470588" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/layout/promo_item.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/AppCinema/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
       </map>

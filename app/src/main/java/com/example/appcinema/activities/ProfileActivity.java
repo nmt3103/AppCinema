@@ -52,13 +52,12 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 preferenceManager.clear();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
+
             }
         });
         binding.btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProfileActivity.this, FirstActivity.class));
                 finish();
             }
         });
