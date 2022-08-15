@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,15 +13,12 @@ import android.view.View;
 
 import com.example.appcinema.MainActivity;
 import com.example.appcinema.R;
+
 import com.example.appcinema.databinding.ActivityProfileBinding;
 import com.example.appcinema.utilities.Constants;
 import com.example.appcinema.utilities.PreferenceManager;
 import com.example.appcinema.viewmodel.ProfileViewModel;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
 
 public class ProfileActivity extends AppCompatActivity {
     ActivityProfileBinding binding;

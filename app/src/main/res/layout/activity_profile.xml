@@ -112,104 +112,104 @@
                 android:layout_height="2dp"
                 android:background="@drawable/dotteduser" />
 
-            <LinearLayout
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:orientation="horizontal">
+<!--            <LinearLayout-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="45dp"-->
+<!--                android:orientation="horizontal">-->
 
-                <ImageView
-                    android:src="@drawable/icon_language"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    />
+<!--                <ImageView-->
+<!--                    android:src="@drawable/icon_language"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    />-->
 
-                <TextView
-                    android:id="@+id/tvChangeLanguage"
-                    android:gravity="start|center_vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Change Language"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"/>
-
-
-            </LinearLayout>
-
-            <View
-
-                android:layout_margin="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@drawable/dotteduser" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvChangeLanguage"-->
+<!--                    android:gravity="start|center_vertical"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:text="Change Language"-->
+<!--                    android:paddingStart="16dp"-->
+<!--                    android:paddingEnd="16dp"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="15dp"/>-->
 
 
-            <LinearLayout
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:orientation="horizontal">
+<!--            </LinearLayout>-->
 
-                <ImageView
-                    android:src="@drawable/icon_help"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    />
+<!--            <View-->
 
-                <TextView
-                    android:id="@+id/tvHelp"
-                    android:gravity="start|center_vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Help Central"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"/>
+<!--                android:layout_margin="5dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="2dp"-->
+<!--                android:background="@drawable/dotteduser" />-->
 
 
-            </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="45dp"-->
+<!--                android:orientation="horizontal">-->
 
-            <View
+<!--                <ImageView-->
+<!--                    android:src="@drawable/icon_help"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    />-->
 
-                android:layout_margin="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@drawable/dotteduser" />
-
-            <LinearLayout
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:src="@drawable/icon_rate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    />
-
-                <TextView
-                    android:id="@+id/tvRateApp"
-                    android:gravity="start|center_vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Rate Tien App"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"/>
+<!--                <TextView-->
+<!--                    android:id="@+id/tvHelp"-->
+<!--                    android:gravity="start|center_vertical"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:text="Help Central"-->
+<!--                    android:paddingStart="16dp"-->
+<!--                    android:paddingEnd="16dp"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="15dp"/>-->
 
 
-            </LinearLayout>
-            <View
+<!--            </LinearLayout>-->
 
-                android:layout_margin="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@drawable/dotteduser" />
+<!--            <View-->
+
+<!--                android:layout_margin="5dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="2dp"-->
+<!--                android:background="@drawable/dotteduser" />-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="45dp"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <ImageView-->
+<!--                    android:src="@drawable/icon_rate"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tvRateApp"-->
+<!--                    android:gravity="start|center_vertical"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:text="Rate Tien App"-->
+<!--                    android:paddingStart="16dp"-->
+<!--                    android:paddingEnd="16dp"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="15dp"/>-->
+
+
+<!--            </LinearLayout>-->
+<!--            <View-->
+
+<!--                android:layout_margin="5dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="2dp"-->
+<!--                android:background="@drawable/dotteduser" />-->
 
             <LinearLayout
                 android:layout_marginTop="15dp"
