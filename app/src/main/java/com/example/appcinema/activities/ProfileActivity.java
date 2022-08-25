@@ -11,10 +11,10 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 
-import com.example.appcinema.MainActivity;
+import com.example.appcinema.databinding.ActivityProfileBinding;
+import com.example.appcinema.loginPage.LoginActivity;
 import com.example.appcinema.R;
 
-import com.example.appcinema.databinding.ActivityProfileBinding;
 import com.example.appcinema.utilities.Constants;
 import com.example.appcinema.utilities.PreferenceManager;
 import com.example.appcinema.viewmodel.ProfileViewModel;
@@ -47,7 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 preferenceManager.clear();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 
             }
         });

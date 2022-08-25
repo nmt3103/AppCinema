@@ -2,4 +2,8 @@
     <string name="app_name">AppCinema</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="facebook_app_id">1554822248267774</string>
+    <string name="fb_login_protocol_scheme">fb1554822248267774</string>
+    <string name="facebook_client_token">99fa43e06888e7accb9f1db53cb4bb13</string>
 </resources>

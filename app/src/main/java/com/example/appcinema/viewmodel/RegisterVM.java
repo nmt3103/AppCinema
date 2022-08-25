@@ -5,12 +5,14 @@ import android.content.Context;
 import android.util.Patterns;
 
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 
 import com.example.appcinema.model.User;
 import com.example.appcinema.utilities.Constants;
 import com.example.appcinema.utilities.PreferenceManager;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -23,6 +25,7 @@ public class RegisterVM extends ViewModel {
     public MutableLiveData<Boolean> isLoading;
     public MutableLiveData<String> showErrorMessage;
     public MutableLiveData<Boolean> isValid;
+    public MutableLiveData<Boolean> isExist;
 
     public RegisterVM() {
         nameIn = new MutableLiveData<>();
@@ -32,6 +35,7 @@ public class RegisterVM extends ViewModel {
         isLoading = new MutableLiveData<>();
         showErrorMessage = new MutableLiveData<>();
         isValid = new MutableLiveData<>();
+        isExist = new MutableLiveData<>();
     }
 
     private void signUp(User userIn,Context context){
@@ -60,6 +64,25 @@ public class RegisterVM extends ViewModel {
                 });
     }
 
+    public void checkFireBase(String emailFire){
+        isLoading.postValue(true);
+        isExist.postValue(false);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection(Constants.KEY_COLLECTION_USERS)
+                .whereEqualTo(Constants.KEY_EMAIL,emailFire)
+                .get()
+                .addOnCompleteListener(task -> {
+
+                    if (task.isSuccessful() && task.getResult() != null
+                            && task.getResult().getDocuments().size() > 0){
+                        isExist.postValue(true);
+                    } else {
+                        isLoading.postValue(false);
+                    }
+                });
+    }
+
     public void checkIsValid(String imgIn, String nameIn, String emailIn, String passIn, String passConfirm, Context context){
         if (imgIn == null){
             showErrorMessage.postValue("Select profile image");
@@ -83,8 +106,19 @@ public class RegisterVM extends ViewModel {
             showErrorMessage.postValue("Password & confirm password must be the same ");
             isValid.postValue(false);
         } else {
-            User user = new User(nameIn,imgIn,emailIn,passIn);
-            signUp(user,context);
+            checkFireBase(emailIn);
+            isExist.observeForever(new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean aBoolean) {
+                    if (aBoolean){
+                        showErrorMessage.postValue("Email arready been use");
+                    }else {
+                        User user = new User(nameIn,imgIn,emailIn,passIn);
+                        signUp(user,context);
+                    }
+                }
+            });
+
         }
     }
 

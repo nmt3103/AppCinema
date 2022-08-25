@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.example.appcinema.R;
 import com.example.appcinema.databinding.ActivityCheckOutDoneBinding;
+import com.example.appcinema.homePage.HomeActivity;
 
 public class CheckOutDoneActivity extends AppCompatActivity {
     ActivityCheckOutDoneBinding binding;
@@ -26,13 +27,13 @@ public class CheckOutDoneActivity extends AppCompatActivity {
         binding.tv4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CheckOutDoneActivity.this,FirstActivity.class));
+                startActivity(new Intent(CheckOutDoneActivity.this, HomeActivity.class));
             }
         });
         binding.btnMyTicket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CheckOutDoneActivity.this,FirstActivity.class);
+                Intent intent = new Intent(CheckOutDoneActivity.this, HomeActivity.class);
                 intent.putExtra("fragment",3);
                 startActivity(intent);
             }

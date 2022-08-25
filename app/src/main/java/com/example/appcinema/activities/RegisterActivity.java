@@ -14,27 +14,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Patterns;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.appcinema.R;
 import com.example.appcinema.databinding.ActivityRegisterBinding;
-import com.example.appcinema.utilities.Constants;
-import com.example.appcinema.utilities.PreferenceManager;
+import com.example.appcinema.homePage.HomeActivity;
 import com.example.appcinema.viewmodel.RegisterVM;
-import com.google.android.material.button.MaterialButton;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -51,7 +41,6 @@ public class RegisterActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(RegisterActivity.this,R.layout.activity_register);
         binding.setLifecycleOwner(this);
         registerVM = new ViewModelProvider(this).get(RegisterVM.class);
-
 
         setListeners();
         observerViewModel();
@@ -89,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void onChanged(Boolean isValid) {
                     if (isValid){
-                        Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }

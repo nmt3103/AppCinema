@@ -1,4 +1,4 @@
-package com.example.appcinema.activities;
+package com.example.appcinema.homePage;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -19,13 +19,13 @@ import com.example.appcinema.fragment.MyTicketFragment;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
-public class FirstActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
     private MeowBottomNavigation bnv_Main;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_first);
+        setContentView(R.layout.activity_home);
 
         Intent intent = getIntent();
         int i = intent.getIntExtra("fragment",1);
