@@ -21,7 +21,6 @@ public class AppCinemaApplication extends Application {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "PushNotification", NotificationManager.IMPORTANCE_DEFAULT);
             NotificationManager manager =getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
-
         };
     }
 }

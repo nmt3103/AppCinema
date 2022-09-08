@@ -66,20 +66,20 @@ public class RegisterVM extends ViewModel {
 
     public void checkFireBase(String emailFire){
         isLoading.postValue(true);
-        isExist.postValue(false);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
         db.collection(Constants.KEY_COLLECTION_USERS)
                 .whereEqualTo(Constants.KEY_EMAIL,emailFire)
                 .get()
                 .addOnCompleteListener(task -> {
-
                     if (task.isSuccessful() && task.getResult() != null
                             && task.getResult().getDocuments().size() > 0){
+                        showErrorMessage.postValue("Email arready been use");
+                        isValid.postValue(false);
                         isExist.postValue(true);
                     } else {
-                        isLoading.postValue(false);
+                        isExist.postValue(false);
                     }
+                    isLoading.postValue(false);
                 });
     }
 
@@ -110,9 +110,7 @@ public class RegisterVM extends ViewModel {
             isExist.observeForever(new Observer<Boolean>() {
                 @Override
                 public void onChanged(Boolean aBoolean) {
-                    if (aBoolean){
-                        showErrorMessage.postValue("Email arready been use");
-                    }else {
+                    if (!aBoolean){
                         User user = new User(nameIn,imgIn,emailIn,passIn);
                         signUp(user,context);
                     }

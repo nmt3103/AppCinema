@@ -52,6 +52,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 
 import org.json.JSONException;
@@ -67,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
     private CallbackManager mCallbackManager;
+    private static final String TAG = LoginActivity.class.getName();
 
     @Override
     protected void onStart() {
